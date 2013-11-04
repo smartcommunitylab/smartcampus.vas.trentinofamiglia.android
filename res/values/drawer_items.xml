@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drawer_items_labels">
+        <item>"Primo elemento"</item>
+        <item>"Secondo"</item>
+    </string-array>
+    <string-array name="drawer_items_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </string-array>
+</resources>
