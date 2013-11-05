@@ -1,5 +1,9 @@
 package eu.trentorise.smartcampus.trentinofamiglia;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
@@ -61,9 +65,20 @@ public class MainActivity extends ActionBarActivity implements
 				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ListView) findViewById(R.id.drawer_list);
-		mListView.setAdapter(new NavDrawerAdapter(this, getResources()
-				.getStringArray(R.array.drawer_items_labels)));
+		NavDrawerAdapter nda = buildAdapter();	
+		mListView.setAdapter(nda);
 		mListView.setOnItemClickListener(this);
+	}
+
+	private NavDrawerAdapter buildAdapter() {
+		String[] events = getResources()
+				.getStringArray(R.array.drawer_items_events_labels);
+		String[] places = getResources()
+				.getStringArray(R.array.drawer_items_places_labels);
+		List<String> items = new ArrayList<String>();
+		Collections.addAll(items, events);
+		Collections.addAll(items, places);
+		return new NavDrawerAdapter(this, items, new Integer[]{0,events.length});
 	}
 
 	@Override

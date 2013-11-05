@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drawer_items_places_labels">
+        <item>"Places"</item>
+        <item>"Baby little Homes"</item>
+        <item>"Breastfeeding"</item>
+         <item>"Beach holidays"</item>
+    </string-array>
+    <string-array name="drawer_items_places_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </string-array>
+</resources>
