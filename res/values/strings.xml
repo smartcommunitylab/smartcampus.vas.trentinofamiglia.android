@@ -2,9 +2,10 @@
 <resources>
 
     <string name="app_name">TrentinoFamiglia</string>
-    <string name="action_settings">Settings</string>
+   
     
     <!-- MainActivity -->
     <string name="nav_drawer_map">Map</string>
+     <string name="action_poi">POIs</string>
 
 </resources>

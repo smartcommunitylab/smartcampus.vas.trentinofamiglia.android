@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity implements
 		//MAP item
 		out.add(getString(R.string.nav_drawer_map));
 		
-		//HERE YOU CAN ADD OTHER ELEMENTS
+		//XXX HERE YOU CAN ADD OTHER ELEMENTS
 		
 		return out;
 	}
@@ -120,12 +120,7 @@ public class MainActivity extends ActionBarActivity implements
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

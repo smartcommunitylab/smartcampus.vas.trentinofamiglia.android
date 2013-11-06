@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="select_poi_blue">#0099CC</color>
+    <color name="select_poi_grey">#AAAAAA</color>
+    <color name="select_poi_green">#99CC00</color>
+</resources>

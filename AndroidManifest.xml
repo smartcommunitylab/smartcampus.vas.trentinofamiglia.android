@@ -13,12 +13,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     permission
         android:name="eu.trentorise.smartcampus.trentinofamiglia.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="eu.trentorise.smartcampus.trentinofamiglia.MAPS_RECEIVE" />
 
     <uses-feature
@@ -30,14 +28,41 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAYMob8Ipl_ykdVq9hkQTvFVSQMNSXn3aA" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.CLIENT_ID"
+            android:value="bbde6aea-bc7a-4ea0-afc9-91c15e4d6da1" />
+
+        <!-- TODO is it right? or i should use the mobility? -->
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET"
+            android:value="01bd5f6a-ccad-4d83-a717-29cc67e1cd54" />
+
+        <!-- TODO are they needed? -->
+
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.AUTH_URL"
+            android:value="https://vas-dev.smartcampuslab.it/aac" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.ACCOUNT_TYPE"
+            android:value="eu.trentorise.smartcampus.account" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.ACCOUNT_NAME"
+            android:value="TrentinoFamiglia" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.ACCOUNT_LABEL"
+            android:value="TrentinoFamiglia" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.ACCOUNT_BASED_ACCESS"
+            android:value="true" />
 
         <activity
             android:name="eu.trentorise.smartcampus.trentinofamiglia.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

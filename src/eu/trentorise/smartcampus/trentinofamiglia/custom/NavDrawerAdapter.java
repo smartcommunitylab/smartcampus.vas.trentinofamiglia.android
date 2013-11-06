@@ -29,8 +29,6 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 	 *            all the elements that goes into the drawer
 	 * @param headerPositions
 	 *            of the element to render as an header
-	 * @param otherElementsPositions
-	 *            of the elements without header
 	 */
 	public NavDrawerAdapter(Context context, List<String> labels,
 			Integer[] headerPositions) {
@@ -111,6 +109,7 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				out = inflater.inflate(R.layout.drawer_header_row, parent,
 						false);
+				out.setEnabled(false);
 				out.setClickable(false);
 				out.setTag(HEADER_TAG);
 			}
