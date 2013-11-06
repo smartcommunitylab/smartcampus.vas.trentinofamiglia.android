@@ -6,8 +6,8 @@
         <!-- this is an header -->
         <item>"Eventi"</item>
         
-        <item>"Summer youth &amp; family"</item>
-        <item>"Eventi e interventi"</item>
+        <item>"Estate giovani e famiglia"</item>
+        <item>"Eventi ed interventi"</item>
     </string-array>
     <string-array name="drawer_items_events_icons">
         <item>@drawable/ic_launcher</item>

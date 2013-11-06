@@ -21,7 +21,8 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 
 	private static final String HEADER_TAG = "isanheader";
 
-	private ArrayList<Integer> positions;
+	private ArrayList<Integer> mHeaderPositions;
+	private ArrayList<Integer> mOtherPositions;
 
 	/**
 	 * 
@@ -29,14 +30,18 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 	 *            the activity
 	 * @param labels
 	 *            all the elements that goes into the drawer
-	 * @param positions
+	 * @param headerPositions
 	 *            of the element to render as an header
+	 * @param otherElementsPositions
+	 *            of the elements without header
 	 */
 	public NavDrawerAdapter(Context context, List<String> labels,
-			Integer[] positions) {
+			Integer[] headerPositions, Integer[] otherElementsPositions) {
 		super(context, R.layout.drawer_element_row, labels);
-		this.positions = new ArrayList<Integer>();
-		Collections.addAll(this.positions, positions);
+		this.mHeaderPositions = new ArrayList<Integer>();
+		this.mOtherPositions = new ArrayList<Integer>();
+		Collections.addAll(this.mHeaderPositions, headerPositions);
+		Collections.addAll(this.mOtherPositions, otherElementsPositions);
 	}
 
 	@Override
@@ -47,12 +52,14 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 
 		Resources res = getContext().getResources();
 		int imagid = -1;
-		if (out.getTag()==null || !out.getTag().equals(HEADER_TAG)) {
-			imagid = getIconId(position, res);
+		// if it isn't an header
+		if (out.getTag() == null || !out.getTag().equals(HEADER_TAG)) {
+			if(!mOtherPositions.contains(position))
+				imagid = getIconId(position, res);
 		}
 
 		setText(position, out, res, imagid);
-		
+
 		return out;
 	}
 
@@ -68,36 +75,42 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 	}
 
 	private int getIconId(int position, Resources res) {
-		// take the first position of the second category
-		// a.k.a the end of the first one
-		int firstCategoryLenght = positions.get(1);
-		
-		TypedArray icons;
+		// take the first position of categories
+		int firstCategoryStart = mHeaderPositions.get(0);
+		int secondCategoryStart = mHeaderPositions.get(1);
+
+		TypedArray icons = null;
 		int imagId = -1;
-		if (position < firstCategoryLenght) {
+		if (position < secondCategoryStart) {
+			// first category
 			icons = res.obtainTypedArray(R.array.drawer_items_events_icons);
-			imagId=icons.getResourceId(position-1, -1);
+			imagId = icons.getResourceId(position - firstCategoryStart, -1);
 		} else {
+			// second category
 			icons = res.obtainTypedArray(R.array.drawer_items_places_icons);
-			imagId=icons.getResourceId(position-(firstCategoryLenght+1), -1);
+			imagId = icons.getResourceId(position - (secondCategoryStart + 1),
+					-1);
 		}
-		icons.recycle();
+		if (icons != null)
+			icons.recycle();
 		return imagId;
 	}
 
 	private View createView(View out, int position, ViewGroup parent) {
 		if (out == null) {
 			// check type of the item
-			if (!positions.contains(position)) {
+			if (!mHeaderPositions.contains(position)) {
 				// it's a normal element
 				LayoutInflater inflater = (LayoutInflater) getContext()
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				out = inflater.inflate(R.layout.drawer_element_row, parent, false);
+				out = inflater.inflate(R.layout.drawer_element_row, parent,
+						false);
 			} else {
 				// it's an header
 				LayoutInflater inflater = (LayoutInflater) getContext()
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				out = inflater.inflate(R.layout.drawer_header_row, parent, false);
+				out = inflater.inflate(R.layout.drawer_header_row, parent,
+						false);
 				out.setTag(HEADER_TAG);
 			}
 		}

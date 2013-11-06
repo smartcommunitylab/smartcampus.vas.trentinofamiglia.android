@@ -24,10 +24,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-/* implements the drawer listener because
- * there is a bug for the navigation drawer
- * with the map, see the OnDrawerSlideMethod
- */
+
 public class MainActivity extends ActionBarActivity implements
 		OnItemClickListener {
 
@@ -61,8 +58,12 @@ public class MainActivity extends ActionBarActivity implements
 
 		mFragmentManager = getSupportFragmentManager();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
+		//this is a class created to avoid an Android bug
+		//see the class for further infos.
 		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
+		
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ListView) findViewById(R.id.drawer_list);
 		NavDrawerAdapter nda = buildAdapter();	
@@ -76,9 +77,10 @@ public class MainActivity extends ActionBarActivity implements
 		String[] places = getResources()
 				.getStringArray(R.array.drawer_items_places_labels);
 		List<String> items = new ArrayList<String>();
+		items.add(getString(R.string.nav_drawer_map));
 		Collections.addAll(items, events);
 		Collections.addAll(items, places);
-		return new NavDrawerAdapter(this, items, new Integer[]{0,events.length});
+		return new NavDrawerAdapter(this, items, new Integer[]{1,events.length}, new Integer[]{0});
 	}
 
 	@Override

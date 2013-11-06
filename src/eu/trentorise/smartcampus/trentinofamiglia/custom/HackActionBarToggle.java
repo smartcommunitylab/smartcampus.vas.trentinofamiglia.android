@@ -7,6 +7,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
+/*
+ * there is a bug for the navigation drawer
+ * with the map, see the OnDrawerSlideMethod
+ */
 public class HackActionBarToggle extends ActionBarDrawerToggle {
 	
 	private ActionBarActivity activity;
@@ -23,7 +27,6 @@ public class HackActionBarToggle extends ActionBarDrawerToggle {
 	}
 
 	public void onDrawerClosed(View view) {
-		
 		activity.supportInvalidateOptionsMenu();
 	}
 
@@ -32,7 +35,9 @@ public class HackActionBarToggle extends ActionBarDrawerToggle {
 	}
 
 	/*
-	 * real workaround to see the navigation drawer in front of the map
+	 * this contains the real workaround 
+	 * the navigation drawer goes behind the map without 
+	 * this hack.
 	 */
 	public void onDrawerSlide(View drawerView, float slideOffset) {
 		if (mDrawerLayout != null)
