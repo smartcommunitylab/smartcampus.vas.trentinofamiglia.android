@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
     
-    <TextView android:drawableLeft="@drawable/ic_launcher"
+    <TextView 
         android:id="@+id/drawer_list_textview"
         android:text="@string/app_name"
         android:layout_width="match_parent"

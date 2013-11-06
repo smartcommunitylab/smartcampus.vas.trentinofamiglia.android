@@ -72,15 +72,40 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private NavDrawerAdapter buildAdapter() {
+		
+		//see the method to add an item without header
+		List<String> items = getSingleItems();
+		int nAddedSingleItems = items.size();
+		
+		//getting items from the xml
+		//N.B the first element of the array that contains label
+		//should be the header
 		String[] events = getResources()
 				.getStringArray(R.array.drawer_items_events_labels);
 		String[] places = getResources()
 				.getStringArray(R.array.drawer_items_places_labels);
-		List<String> items = new ArrayList<String>();
-		items.add(getString(R.string.nav_drawer_map));
 		Collections.addAll(items, events);
 		Collections.addAll(items, places);
-		return new NavDrawerAdapter(this, items, new Integer[]{1,events.length}, new Integer[]{0});
+		
+		//add to the following array the position of the header
+		//i.e here it's events.length+nAddedSingleItems because
+		//place's header position comes right after the end of all events 
+		return new NavDrawerAdapter(this, items, new Integer[]{nAddedSingleItems,events.length+nAddedSingleItems});
+	}
+	
+	/**
+	 * Here you should add elements without header
+	 * @return the list
+	 */
+	private List<String> getSingleItems(){
+		ArrayList<String> out = new ArrayList<String>();
+		
+		//MAP item
+		out.add(getString(R.string.nav_drawer_map));
+		
+		//HERE YOU CAN ADD OTHER ELEMENTS
+		
+		return out;
 	}
 
 	@Override

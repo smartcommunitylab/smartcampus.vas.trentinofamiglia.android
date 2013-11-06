@@ -22,10 +22,7 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 	private static final String HEADER_TAG = "isanheader";
 
 	private ArrayList<Integer> mHeaderPositions;
-	private ArrayList<Integer> mOtherPositions;
-
 	/**
-	 * 
 	 * @param context
 	 *            the activity
 	 * @param labels
@@ -36,12 +33,10 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 	 *            of the elements without header
 	 */
 	public NavDrawerAdapter(Context context, List<String> labels,
-			Integer[] headerPositions, Integer[] otherElementsPositions) {
+			Integer[] headerPositions) {
 		super(context, R.layout.drawer_element_row, labels);
 		this.mHeaderPositions = new ArrayList<Integer>();
-		this.mOtherPositions = new ArrayList<Integer>();
 		Collections.addAll(this.mHeaderPositions, headerPositions);
-		Collections.addAll(this.mOtherPositions, otherElementsPositions);
 	}
 
 	@Override
@@ -52,9 +47,11 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 
 		Resources res = getContext().getResources();
 		int imagid = -1;
-		// if it isn't an header
+		
+		//if it isn't an element without header
 		if (out.getTag() == null || !out.getTag().equals(HEADER_TAG)) {
-			if(!mOtherPositions.contains(position))
+			//if it isn't an element without header
+			if(position>mHeaderPositions.get(0))
 				imagid = getIconId(position, res);
 		}
 
@@ -81,13 +78,16 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 
 		TypedArray icons = null;
 		int imagId = -1;
-		if (position < secondCategoryStart) {
+		if (position <= secondCategoryStart) {
 			// first category
 			icons = res.obtainTypedArray(R.array.drawer_items_events_icons);
-			imagId = icons.getResourceId(position - firstCategoryStart, -1);
+			// add the +1 because elements in the array have the header
+			imagId = icons.getResourceId(position - (firstCategoryStart + 1),
+					-1);
 		} else {
 			// second category
 			icons = res.obtainTypedArray(R.array.drawer_items_places_icons);
+			// add the +1 because elements in the array have the header
 			imagId = icons.getResourceId(position - (secondCategoryStart + 1),
 					-1);
 		}
@@ -111,6 +111,7 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				out = inflater.inflate(R.layout.drawer_header_row, parent,
 						false);
+				out.setClickable(false);
 				out.setTag(HEADER_TAG);
 			}
 		}
