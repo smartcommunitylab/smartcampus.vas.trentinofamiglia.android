@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.crypto.spec.PSource;
+
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import android.content.Context;
 import android.content.res.Resources;
@@ -66,15 +68,21 @@ public class NavDrawerAdapter extends ArrayAdapter<String> {
 	}
 
 	private int getIconId(int position, Resources res) {
+		// take the first position of the second category
+		// a.k.a the end of the first one
+		int firstCategoryLenght = positions.get(1);
+		
 		TypedArray icons;
-		if (position <= positions.get(0)) {
+		int imagId = -1;
+		if (position < firstCategoryLenght) {
 			icons = res.obtainTypedArray(R.array.drawer_items_events_icons);
+			imagId=icons.getResourceId(position-1, -1);
 		} else {
 			icons = res.obtainTypedArray(R.array.drawer_items_places_icons);
+			imagId=icons.getResourceId(position-(firstCategoryLenght+1), -1);
 		}
-		int imagid = icons.getResourceId(position, -1);
 		icons.recycle();
-		return imagid;
+		return imagId;
 	}
 
 	private View createView(View out, int position, ViewGroup parent) {

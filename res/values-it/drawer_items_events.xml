@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="drawer_items_events_labels">
-         
-       <!-- this is an header -->
-        <item>"Events"</item>
+        
+        <!-- this is an header -->
+        <item>"Eventi"</item>
         
         <item>"Summer youth &amp; family"</item>
-        <item>"Events and Inititives"</item>
+        <item>"Eventi e interventi"</item>
     </string-array>
     <string-array name="drawer_items_events_icons">
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
     </string-array>
+
 </resources>
