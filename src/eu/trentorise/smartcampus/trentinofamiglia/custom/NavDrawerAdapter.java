@@ -1,119 +1,50 @@
 package eu.trentorise.smartcampus.trentinofamiglia.custom;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import javax.crypto.spec.PSource;
-
-import eu.trentorise.smartcampus.trentinofamiglia.R;
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import eu.trentorise.smartcampus.trentinofamiglia.R;
+import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 
-public class NavDrawerAdapter extends ArrayAdapter<String> {
+public class NavDrawerAdapter extends ArrayAdapter<DrawerItem> {
 
-	private static final String HEADER_TAG = "isanheader";
-
-	private ArrayList<Integer> mHeaderPositions;
-	/**
-	 * @param context
-	 *            the activity
-	 * @param labels
-	 *            all the elements that goes into the drawer
-	 * @param headerPositions
-	 *            of the element to render as an header
-	 */
-	public NavDrawerAdapter(Context context, List<String> labels,
-			Integer[] headerPositions) {
-		super(context, R.layout.drawer_element_row, labels);
-		this.mHeaderPositions = new ArrayList<Integer>();
-		Collections.addAll(this.mHeaderPositions, headerPositions);
+	public NavDrawerAdapter(Context context, List<DrawerItem> objects) {
+		super(context, R.layout.drawer_element_row, objects);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View out = convertView;
-
-		out = createView(out, position, parent);
-
-		Resources res = getContext().getResources();
-		int imagid = -1;
-		
-		//if it isn't an element without header
-		if (out.getTag() == null || !out.getTag().equals(HEADER_TAG)) {
-			//if it isn't an element without header
-			if(position>mHeaderPositions.get(0))
-				imagid = getIconId(position, res);
-		}
-
-		setText(position, out, res, imagid);
-
-		return out;
-	}
-
-	private void setText(int position, View out, Resources res, int imagid) {
+		DrawerItem item = getItem(position);
+		View out=createView(getContext(), convertView, parent,item);
 		TextView tv = (TextView) out.findViewById(R.id.drawer_list_textview);
-		if (tv != null) {
-			if (imagid != -1) {
-				tv.setCompoundDrawablesWithIntrinsicBounds(
-						res.getDrawable(imagid), null, null, null);
-			}
-			tv.setText(getItem(position));
-		}
+		if(item.icon!=null)
+			tv.setCompoundDrawablesWithIntrinsicBounds(item.icon, null, null, null);
+		tv.setText(item.text);
+		return out;
 	}
 
-	private int getIconId(int position, Resources res) {
-		// take the first position of categories
-		int firstCategoryStart = mHeaderPositions.get(0);
-		int secondCategoryStart = mHeaderPositions.get(1);
-
-		TypedArray icons = null;
-		int imagId = -1;
-		if (position <= secondCategoryStart) {
-			// first category
-			icons = res.obtainTypedArray(R.array.drawer_items_events_icons);
-			// add the +1 because elements in the array have the header
-			imagId = icons.getResourceId(position - (firstCategoryStart + 1),
-					-1);
+	private View createView(Context ctx, View out, ViewGroup parent,
+			DrawerItem item) {
+		// check type of the item
+		if (!item.header) {
+			// it's a normal element
+			LayoutInflater inflater = (LayoutInflater) ctx
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			out = inflater.inflate(R.layout.drawer_element_row, parent, false);
 		} else {
-			// second category
-			icons = res.obtainTypedArray(R.array.drawer_items_places_icons);
-			// add the +1 because elements in the array have the header
-			imagId = icons.getResourceId(position - (secondCategoryStart + 1),
-					-1);
-		}
-		if (icons != null)
-			icons.recycle();
-		return imagId;
-	}
-
-	private View createView(View out, int position, ViewGroup parent) {
-		if (out == null) {
-			// check type of the item
-			if (!mHeaderPositions.contains(position)) {
-				// it's a normal element
-				LayoutInflater inflater = (LayoutInflater) getContext()
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				out = inflater.inflate(R.layout.drawer_element_row, parent,
-						false);
-			} else {
-				// it's an header
-				LayoutInflater inflater = (LayoutInflater) getContext()
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				out = inflater.inflate(R.layout.drawer_header_row, parent,
-						false);
-				out.setEnabled(false);
-				out.setClickable(false);
-				out.setTag(HEADER_TAG);
-			}
+			// it's an header
+			LayoutInflater inflater = (LayoutInflater) ctx
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			out = inflater.inflate(R.layout.drawer_header_row, parent, false);
+			out.setEnabled(false);
+			out.setClickable(false);
 		}
 		return out;
 	}
+
 }

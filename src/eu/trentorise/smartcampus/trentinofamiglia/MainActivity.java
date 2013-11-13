@@ -7,7 +7,10 @@ import java.util.List;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -23,7 +26,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
 
 public class MainActivity extends ActionBarActivity implements
 		OnItemClickListener {
@@ -58,54 +60,73 @@ public class MainActivity extends ActionBarActivity implements
 
 		mFragmentManager = getSupportFragmentManager();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		
-		//this is a class created to avoid an Android bug
-		//see the class for further infos.
+
+		// this is a class created to avoid an Android bug
+		// see the class for further infos.
 		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
-		
+
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ListView) findViewById(R.id.drawer_list);
-		NavDrawerAdapter nda = buildAdapter();	
+		NavDrawerAdapter nda = buildAdapter();
 		mListView.setAdapter(nda);
 		mListView.setOnItemClickListener(this);
 	}
 
 	private NavDrawerAdapter buildAdapter() {
-		
-		//see the method to add an item without header
-		List<String> items = getSingleItems();
-		int nAddedSingleItems = items.size();
-		
-		//getting items from the xml
-		//N.B the first element of the array that contains label
-		//should be the header
-		String[] events = getResources()
-				.getStringArray(R.array.drawer_items_events_labels);
-		String[] places = getResources()
-				.getStringArray(R.array.drawer_items_places_labels);
-		Collections.addAll(items, events);
-		Collections.addAll(items, places);
-		
-		//add to the following array the position of the header
-		//i.e here it's events.length+nAddedSingleItems because
-		//place's header position comes right after the end of all events 
-		return new NavDrawerAdapter(this, items, new Integer[]{nAddedSingleItems,events.length+nAddedSingleItems});
+
+		// see the method to add an item without header
+		List<DrawerItem> items = new ArrayList<DrawerItem>();
+		addSingleItems(items);
+
+		// getting items from the xml
+		// see the method for further infos
+		populateFromXml(items, R.array.drawer_items_events_labels,
+				R.array.drawer_items_events_icons,
+				R.array.drawer_items_places_labels,
+				R.array.drawer_items_places_icons,
+				R.array.drawer_items_organizations_labels,
+				R.array.drawer_items_organizations_icons);
+		return new NavDrawerAdapter(this, items);
 	}
-	
+
 	/**
 	 * Here you should add elements without header
+	 * 
 	 * @return the list
 	 */
-	private List<String> getSingleItems(){
-		ArrayList<String> out = new ArrayList<String>();
-		
-		//MAP item
-		out.add(getString(R.string.nav_drawer_map));
-		
-		//XXX HERE YOU CAN ADD OTHER ELEMENTS
-		
-		return out;
+	private void addSingleItems(List<DrawerItem> out) {
+
+		// MAP item
+		out.add(new DrawerItem(false, getString(R.string.nav_drawer_map), null));
+
+		// XXX HERE YOU CAN ADD OTHER ELEMENTS
+
+	}
+
+	/**
+	 * ASSUMPTIONS: ids passed should be the
+	 * array_of_labels_1,array_of_icons_1,the
+	 * array_of_labels_2,array_of_icons_2, and so on.. the first element of each
+	 * array that contains labels should be the header
+	 * 
+	 * @param items
+	 *            where to put elements
+	 * @param ids
+	 *            array of arrays made in xml
+	 */
+	private void populateFromXml(List<DrawerItem> items, int... ids) {
+		for (int i = 0; i < ids.length; i += 2) {
+			String[] labels = getResources().getStringArray(ids[i]);
+			TypedArray drawIds = getResources().obtainTypedArray((ids[i + 1]));
+			items.add(new DrawerItem(true, labels[0], null));
+			for (int j = 1; j < labels.length; j++) {
+				int imgd = drawIds.getResourceId(j - 1, -1);
+				items.add(new DrawerItem(false, labels[j],
+						((imgd != -1) ? getResources().getDrawable(imgd) : null)));
+			}
+			drawIds.recycle();
+		}
 	}
 
 	@Override
@@ -120,7 +141,6 @@ public class MainActivity extends ActionBarActivity implements
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
-	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,7 +150,6 @@ public class MainActivity extends ActionBarActivity implements
 
 		return false;
 	}
-
 
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
