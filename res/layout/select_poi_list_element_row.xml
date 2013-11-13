@@ -5,11 +5,12 @@
     android:orientation="horizontal" >
     
     <CheckedTextView
+        android:id="@+id/select_poi_checkTv"
         android:text="@string/app_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:checked="true"
+        android:checked="false"
         android:checkMark="?android:attr/textCheckMark"
         android:padding="@dimen/activity_horizontal_margin"/>
 </LinearLayout>

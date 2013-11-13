@@ -75,8 +75,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	private NavDrawerAdapter buildAdapter() {
 
-		// see the method to add an item without header
+		
 		List<DrawerItem> items = new ArrayList<DrawerItem>();
+		// see the method to add an item without header
 		addSingleItems(items);
 
 		// getting items from the xml

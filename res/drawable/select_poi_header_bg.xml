@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_activated="true" android:state_active="true"
+          android:state_focused="true" android:state_pressed="true">
+          <shape>
+            <solid android:color="@color/select_poi_green" />
+        </shape></item>
+    <item><shape>
+            <solid android:color="@color/select_poi_grey" />
+        </shape>
+        
+        </item>
+
+</selector>
