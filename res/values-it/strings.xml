@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TrentinoFamiglia</string>
+
+    <!-- MainActivity -->
+    <string name="nav_drawer_map">Map</string>
+    <string name="action_poi">POIs</string>
+    <string name="categories_event_concert">Concerti</string>
+    <string name="categories_event_happyhour">Happy hour</string>
+    <string name="categories_event_movie">Film</string>
+    <string name="categories_event_party">Feste</string>
+    <string name="categories_event_seminar">Seminari</string>
+    <string name="categories_event_theater">Spettacolo</string>
+    <string name="categories_event_exhibition">Mostre</string>
+    <string name="categories_event_family">Famiglia</string>
+    <string name="categories_event_generic">Altri eventi</string>
+    <string name="categories_poi_museum">Musei</string>
+    <string name="categories_poi_mobility">Mobilità</string>
+    <string name="categories_poi_parking">Parcheggi</string>
+    <string name="categories_poi_office">Servizi</string>
+    <string name="categories_poi_theater">Teatri</string>
+    <string name="categories_poi_university">Università</string>
+    <string name="categories_poi_accommodation">Alloggi</string>
+    <string name="categories_poi_library">Biblioteche</string>
+    <string name="categories_poi_food">Ristoranti</string>
+    <string name="categories_poi_drink">Bar</string>
+    <string name="categories_poi_cinema">Cinema</string>
+    <string name="categories_poi_family">Famiglia</string>
+    <string name="categories_poi_generic">Altri luoghi</string>
+    <string name="categories_story_leisure">Intrattenimento</string>
+    <string name="categories_story_offices_and_services">Enti e servizi</string>
+    <string name="categories_story_university">Università</string>
+    <string name="categories_story_culture">Cultura</string>
+    <string name="categories_story_generic">Altre storie</string>
+    <string name="categories_event_today">Eventi di oggi</string>
+    <string name="categories_event_my">I miei eventi</string>
+    <string name="categories_story_my">Le mie storie</string>
+    <string name="search_txt">Cerca</string>
+    <string name="comments">Commenti:</string>
+    <string name="source_smartcampus">SmartCampus</string>
+    <string name="submenu_related_events">Eventi in programma</string>
+    <string name="search_in_category">nella categoria</string>
+    <string name="search_today_events">Eventi di oggi</string>
+    <string name="eventlist_at_place">Eventi a</string>
+    <string name="toast_poi_not_found">Luogo non trovato</string>
+    <string name="warning_for_direction">Attenzione! Le indicazioni stradali ti porteranno nella sede dell\'organizzatore e non nella sede dell\'evento.</string>
+    <string name="list_event_today">Oggi</string>
+    <string name="list_event_tomorrow">Domani</string>
+    <string name="content_empty">Nessun risultato.</string>
+    <string name="app_failure_security">Recupero delle informazioni di autenticazione non riuscito!</string>
+    <string name="app_failure_operation">OOPS! C\'è stato un errore. Controlla la connessione e riprova a breve.</string>
+
+    <!-- String for the searching fragment -->
+    <string name="search_what">Cosa: </string>
+    <string name="search_when">Quando: </string>
+    <string name="search_where">Dove: </string>
+    <string name="search_anytime">Qualsiasi momento</string>
+    <string name="search_today">Oggi</string>
+    <string name="search_tomorrow">Domani</string>
+    <string name="search_thisweek">Questa settimana</string>
+    <string name="search_intwoweeks">Nelle prossime due settimane</string>
+    <string name="search_inonemonth">Il prossimo mese</string>
+    <string name="search_anywhere">Qualsiasi luogo</string>
+    <string name="search_within100m">Entro 100m</string>
+    <string name="search_within200m">Entro 200m</string>
+    <string name="search_within500m">Entro 500m</string>
+    <string name="search_wthin1km">Entro 1km</string>
+    <string name="search_within50km">Entro 50km</string>
+    <string name="dialog_connection_search">La modalità offline supporta solo la ricerca testuale. Per utilizzare le funzionalità avanzate connettiti ad una rete.</string>
+    <string name="search_for">Cerca</string>
+
+    <!-- Menu -->
+
+    <string name="map_view">Mostra sulla mappa</string>
+    <!-- Rating -->
+    <string name="ratingtext_average">Giudizio medio: %s</string>
+    <string name="ratingtext_user">Il tuo giudizio:</string>
+    <string name="ratingtext_raters">Giudizi totali: %s</string>
+    <string name="rating_place_dialog_title">Valuta questo luogo:</string>
+    <string name="rating_event_dialog_title">Valuta questo evento:</string>
+    <string name="rating_success">La tua valutazione è stata salvata</string>
+
+</resources>

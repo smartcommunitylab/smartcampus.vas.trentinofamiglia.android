@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2012-2013 Trento RISE
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either   express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--     <item name="overflow_menu" type="id"/> -->
+<!--     <item name="menu_item_addpoi" type="id"/> -->
+<!--     <item name="menu_item_addstory" type="id"/> -->
+<!--     <item name="menu_item_addevent" type="id"/> -->
+<!--     <item name="menu_item_myevents" type="id"/> -->
+<!--     <item name="menu_item_mystory" type="id"/> -->
+<!--     <item name="menu_item_allevents" type="id"/> -->
+<!--     <item name="menu_item_allpois" type="id"/> -->
+<!--     <item name="menu_item_showlayers" type="id"/> -->
+<!--     <item name="menu_item_notifications" type="id"/> -->
+
+    <item name="submenu_show_related_poi" type="id"/>
+<!--     <item name="related_step_btn" type="id"/> -->
+<!--     <item name="direction_step_btn" type="id"/> -->
+    <item name="submenu_show_related_events" type="id"/>
+<!--     <item name="submenu_get_dir" type="id"/> -->
+<!--     <item name="submenu_join_event" type="id"/> -->
+<!--     <item name="submenu_see_on_map" type="id"/> -->
+    <item name="submenu_search" type="id"/>
+<!--     <item name="submenu_attend" type="id"/> -->
+<!--     <item name="submenu_follow" type="id"/> -->
+<!--     <item name="submenu_unfollow" type="id"/> -->
+<!--     <item name="submenu_rate" type="id"/> -->
+    <item name="submenu_tag" type="id"/>
+<!--     <item name="submenu_edit" type="id"/> -->
+<!--     <item name="submenu_delete" type="id"/> -->
+    <item name="map_view" type="id"/>
+<!--     <item name="list_view" type="id"/> -->
+<!--     <item name="menu_item_import" type="id"/> -->
+    <item name="content_empty" type="id"/>
+<!--     <item name="menu_item_todayevent" type="id"/> -->
+<!--     <item name="menu_item_notifications" type="id"/> -->
+<!--     <item name="menu_item_show_places_layers" type="id"/> -->
+<!--     <item name="menu_item_show_events_layers" type="id"/> -->
+
+</resources>

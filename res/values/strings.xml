@@ -2,10 +2,86 @@
 <resources>
 
     <string name="app_name">TrentinoFamiglia</string>
-   
-    
+    <string name="app_failure_init">Failed to initialize ViviTrento application</string>
+
     <!-- MainActivity -->
     <string name="nav_drawer_map">Map</string>
-     <string name="action_poi">POIs</string>
+    <string name="action_poi">POIs</string>
+    <string name="empty" />
+    <string name="categories_event_concert">Concerts</string>
+    <string name="categories_event_happyhour">Happy hours</string>
+    <string name="categories_event_movie">Movies</string>
+    <string name="categories_event_party">Parties</string>
+    <string name="categories_event_seminar">Seminars</string>
+    <string name="categories_event_theater">Performances</string>
+    <string name="categories_event_exhibition">Exhibitions</string>
+    <string name="categories_event_family">Family</string>
+    <string name="categories_event_generic">Other</string>
+    <string name="categories_poi_museum">Museums</string>
+    <string name="categories_poi_mobility">Mobility</string>
+    <string name="categories_poi_parking">Parking</string>
+    <string name="categories_poi_office">Offices</string>
+    <string name="categories_poi_theater">Theaters</string>
+    <string name="categories_poi_university">University</string>
+    <string name="categories_poi_accommodation">Lodging</string>
+    <string name="categories_poi_library">Libraries</string>
+    <string name="categories_poi_food">Restaurants</string>
+    <string name="categories_poi_drink">Bars</string>
+    <string name="categories_poi_cinema">Cinemas</string>
+    <string name="categories_poi_family">Family</string>
+    <string name="categories_poi_generic">Other places</string>
+    <string name="categories_story_leisure">Amusement</string>
+    <string name="categories_story_offices_and_services">Organisations</string>
+    <string name="categories_story_university">University</string>
+    <string name="categories_story_culture">Art &amp; Tourism</string>
+    <string name="categories_story_generic">Other</string>
+    <string name="categories_event_today">Today\'s Events</string>
+    <string name="categories_event_my">My Events</string>
+    <string name="categories_story_my">My Stories</string>
+    <string name="search_txt">Search</string>
+    <string name="comments">Comments:</string>
+    <string name="source_smartcampus">SmartCampus</string>
+    <string name="submenu_related_events">Related events</string>
+    <string name="search_in_category">in category</string>
+    <string name="search_today_events">Search today\'s events</string>
+    <string name="eventlist_at_place">Events at</string>
+    <string name="toast_poi_not_found">Place not found</string>
+    <string name="warning_for_direction">Warning! The directions will lead you to the seat of the organization and not to the venue.</string>
+    <string name="list_event_today">Today</string>
+    <string name="list_event_tomorrow">Tomorrow</string>
+    <string name="content_empty">No results.</string>
+    <string name="app_failure_security">Failed to retrieve authentication data</string>
+    <string name="app_failure_operation">OOPS! An error occurred. Please check your connection or try again later</string>
+    
+    <!-- String for the searching fragment -->
+    <string name="search_what">What: </string>
+    <string name="search_when">When: </string>
+    <string name="search_where">Where: </string>
+    <string name="search_anytime">Anytime</string>
+    <string name="search_today">Today</string>
+    <string name="search_tomorrow">Tomorrow</string>
+    <string name="search_thisweek">This week</string>
+    <string name="search_intwoweeks">In two weeks</string>
+    <string name="search_inonemonth">In one month</string>
+    <string name="search_anywhere">Anywhere</string>
+    <string name="search_within100m">Within 100m</string>
+    <string name="search_within200m">Within 200m</string>
+    <string name="search_within500m">Within 500m</string>
+    <string name="search_wthin1km">Within 1km</string>
+    <string name="search_within50km">Within 50km</string>
+    <string name="dialog_connection_search">Offline mode supports only basic search. To exploit advanced search please connect to a network.</string>
+    <string name="search_for">Search for</string>
+
+    <!-- Menu -->
+
+    <string name="map_view">View on map</string>
+    <!-- Rating -->
+
+    <string name="ratingtext_average">Average rating: %s</string>
+    <string name="ratingtext_user">Your rating:</string>
+    <string name="ratingtext_raters">Total rates: %s</string>
+    <string name="rating_place_dialog_title">Rate this place:</string>
+    <string name="rating_event_dialog_title">Rate this event:</string>
+    <string name="rating_success">Your rating has been saved</string>
 
 </resources>

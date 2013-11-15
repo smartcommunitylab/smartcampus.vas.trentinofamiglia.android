@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 public class MapFragment extends Fragment {
 
 	private static final String TAG_FRAGMENT_POI_SELECT = "poi_select";
+	public static final String ARG_POI_CATEGORY = "poi category";
+	public static final String ARG_EVENT_CATEGORY = "event category";
+	public static final String ARG_OBJECTS = "objects";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

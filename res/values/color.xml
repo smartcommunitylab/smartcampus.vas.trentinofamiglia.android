@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black_background">#333</color>
     <color name="silver">#ccc</color>
-    
+    <color name="dtappcolor_light">#BB8C81C1</color>
+    <color name="dtappcolor">#8C81C1</color>
+
 </resources>
