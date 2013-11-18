@@ -52,7 +52,11 @@
     <string name="content_empty">No results.</string>
     <string name="app_failure_security">Failed to retrieve authentication data</string>
     <string name="app_failure_operation">OOPS! An error occurred. Please check your connection or try again later</string>
+    <string name="initial_data_load">Loading initial data&#8230; (it may take a while this time)</string>
     
+    
+    <!--     <string name="smartcampus_auth_url"> https://vas-dev.smartcampuslab.it/accesstoken-provider/ac</string> -->
+    <string name="smartcampus_app_url">https://vas.smartcampuslab.it</string>
     <!-- String for the searching fragment -->
     <string name="search_what">What: </string>
     <string name="search_when">When: </string>
@@ -71,7 +75,8 @@
     <string name="search_within50km">Within 50km</string>
     <string name="dialog_connection_search">Offline mode supports only basic search. To exploit advanced search please connect to a network.</string>
     <string name="search_for">Search for</string>
-
+    <string name="auth_failed">Application initialization failed.</string>
+    
     <!-- Menu -->
 
     <string name="map_view">View on map</string>

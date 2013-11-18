@@ -173,10 +173,11 @@ public class DTHelper {
 	private static String getAppUrl() {
 		String returnAppUrl = "";
 		try {
-			returnAppUrl = GlobalConfig.getAppUrl(mContext);
+//			returnAppUrl = GlobalConfig.getAppUrl(mContext);
+			returnAppUrl = "https://vas.smartcampuslab.it";
 			if (!returnAppUrl.endsWith("/"))
 				returnAppUrl = returnAppUrl.concat("/");
-		} catch (ProtocolException e) {
+		} catch (Exception e) { //protocolexception
 			e.printStackTrace();
 		}
 		return returnAppUrl;

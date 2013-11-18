@@ -50,7 +50,8 @@
     <string name="content_empty">Nessun risultato.</string>
     <string name="app_failure_security">Recupero delle informazioni di autenticazione non riuscito!</string>
     <string name="app_failure_operation">OOPS! C\'è stato un errore. Controlla la connessione e riprova a breve.</string>
-
+    <string name="initial_data_load">Loading initial data&#8230; (it may take a while this time)</string>
+    
     <!-- String for the searching fragment -->
     <string name="search_what">Cosa: </string>
     <string name="search_when">Quando: </string>
