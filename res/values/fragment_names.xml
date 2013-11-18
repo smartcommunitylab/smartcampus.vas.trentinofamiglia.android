@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="fragments_label_array">
+        <item>Stories</item>
+        <item>Artworks</item>
+        <item>Map</item>
+        <item>Places</item>
+        <item>Travel</item>
+        <item>Bus Timetable</item>
+        <item>Parkings</item>
+        <item>Diary</item>
+    </string-array>
+
+</resources>
