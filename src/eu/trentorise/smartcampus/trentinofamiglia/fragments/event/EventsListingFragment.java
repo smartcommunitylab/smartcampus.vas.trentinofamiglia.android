@@ -91,7 +91,6 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 	private String category;
 	private EventAdapter eventsAdapter;
 	private boolean mFollowByIntent;
-//	private long biggerFromTime;
 	private String idEvent = "";
 	private Integer indexAdapter;
 	private Boolean reload = false;

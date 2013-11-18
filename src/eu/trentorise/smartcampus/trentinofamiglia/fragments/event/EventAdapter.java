@@ -43,29 +43,12 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 	private Context context;
 	private int layoutResourceId;
 	private int elementSelected = -1;
-	// private EventObject[] data;
 
 	public EventAdapter(Context context, int layoutResourceId) {
 		super(context, layoutResourceId);
 		this.context = context;
 		this.layoutResourceId = layoutResourceId;
-		// this.data = data;
 	}
-
-	// @Override
-	// public void remove(EventObject object) {
-	// EventObject[] newData = new EventObject[data.length - 1];
-	// int i = 0;
-	// for (EventObject o : data) {
-	// if (i == newData.length)
-	// return;
-	// if (!o.getId().equals(object.getId())) {
-	// newData[i] = o;
-	// }
-	// i++;
-	// }
-	// data = newData;
-	// }
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -76,12 +59,9 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			row = inflater.inflate(layoutResourceId, parent, false);
 			e = new EventPlaceholder();
 			e.title = (TextView) row.findViewById(R.id.event_placeholder_title);
-			// e.description = (TextView)
-			// row.findViewById(R.id.event_placeholder_descr);
 			e.location = (TextView) row.findViewById(R.id.event_placeholder_loc);
 			e.hour = (TextView) row.findViewById(R.id.event_placeholder_hour);
 			e.icon = (ImageView) row.findViewById(R.id.event_placeholder_icon);
-//			e.vs = (ViewSwitcher) row.findViewById(R.id.event_viewswitecher);
 			e.dateSeparator = (TextView) row.findViewById(R.id.date_separator);
 			row.setTag(e);
 		} else
@@ -89,9 +69,8 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			e = (EventPlaceholder) row.getTag();
 		}
 		
-		e.event = getItem(position);// data[position];
+		e.event = getItem(position);
 		e.title.setText(e.event.getTitle());
-		// e.description.setText(data[position].getDescription());
 		if (e.event.assignedPoi() != null) {
 			e.location.setText(DTHelper.poiGetShortAddress(e.event.assignedPoi()));
 		} else {

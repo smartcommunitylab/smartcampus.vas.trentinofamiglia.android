@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/select_poi_list_bg"
     android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/select_poi_Tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/select_poi_header_bg"
-        android:gravity="center"
+        android:gravity="left"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/app_name"
         android:textColor="@android:color/white" />

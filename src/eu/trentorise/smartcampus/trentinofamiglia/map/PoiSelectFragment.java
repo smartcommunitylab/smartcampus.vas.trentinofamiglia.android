@@ -14,23 +14,26 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ListView;
 
-public class PoiSelectFragment extends DialogFragment {
+public class PoiSelectFragment extends DialogFragment implements
+		OnChildClickListener, OnGroupClickListener {
 
 	private List<String> mHeaders;
 	private Map<String, List<String>> mItems;
-	
-	
+	private View mLastGroupView;
+	private CheckedTextView mLastChildView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mHeaders=new ArrayList<String>();
-		mItems=new HashMap<String, List<String>>();
+		mHeaders = new ArrayList<String>();
+		mItems = new HashMap<String, List<String>>();
 	}
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +46,8 @@ public class PoiSelectFragment extends DialogFragment {
 		buildItems();
 		elv.setAdapter(new ExpandibleSelectPoiAdapter(getActivity(), mHeaders,
 				mItems));
+		elv.setOnChildClickListener(this);
+		elv.setOnGroupClickListener(this);
 		return v;
 	}
 
@@ -57,7 +62,31 @@ public class PoiSelectFragment extends DialogFragment {
 			for (int j = 1; j < labels.length; j++) {
 				tmpElems.add(labels[j]);
 			}
-			mItems.put(labels[0],tmpElems);
+			mItems.put(labels[0], tmpElems);
 		}
+	}
+
+	@Override
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+
+		CheckedTextView ctv = (CheckedTextView) v
+				.findViewById(R.id.select_poi_checkTv);
+		ctv.setChecked(!ctv.isChecked());
+		v.setTag(ctv.isChecked());
+		return true;
+	}
+
+	@Override
+	public boolean onGroupClick(ExpandableListView parent, View v,
+			int groupPosition, long id) {
+		if (mLastGroupView != null) {
+			mLastGroupView.setBackgroundColor(getResources().getColor(
+					R.color.select_poi_grey));
+		}
+		v.setBackgroundColor(getResources().getColor(R.color.select_poi_green));
+		mLastGroupView = v;
+		return false;
+
 	}
 }
