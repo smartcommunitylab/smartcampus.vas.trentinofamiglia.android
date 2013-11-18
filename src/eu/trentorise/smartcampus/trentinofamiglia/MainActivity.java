@@ -1,41 +1,41 @@
 package eu.trentorise.smartcampus.trentinofamiglia;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
-import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
-import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Gravity;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 
-public class MainActivity extends ActionBarActivity implements
-		OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements OnItemClickListener {
 
 	private static final String TAG_FRAGMENT_MAP = "fragmap";
+	private static final String TAG_FRAGMENT_POI_LIST = "fragmap";
+	private static final String TAG_FRAGMENT_EVENT_LIST = "fragmap";
 
 	private FragmentManager mFragmentManager;
 	private DrawerLayout mDrawerLayout;
 	private ListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
+	private String[] navMenuTitles;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,7 @@ public class MainActivity extends ActionBarActivity implements
 		setupProperties();
 
 		// to start with the map.
-		mFragmentManager
-				.beginTransaction()
-				.replace(R.id.frame_content, new MapFragment(),
-						TAG_FRAGMENT_MAP).commit();
+		mFragmentManager.beginTransaction().replace(R.id.frame_content, new MapFragment(), TAG_FRAGMENT_MAP).commit();
 
 	}
 
@@ -63,11 +60,12 @@ public class MainActivity extends ActionBarActivity implements
 
 		// this is a class created to avoid an Android bug
 		// see the class for further infos.
-		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
+		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name,
+				R.string.app_name);
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ListView) findViewById(R.id.drawer_list);
+		navMenuTitles = getResources().getStringArray(R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
 		mListView.setAdapter(nda);
 		mListView.setOnItemClickListener(this);
@@ -75,19 +73,15 @@ public class MainActivity extends ActionBarActivity implements
 
 	private NavDrawerAdapter buildAdapter() {
 
-		
 		List<DrawerItem> items = new ArrayList<DrawerItem>();
 		// see the method to add an item without header
 		addSingleItems(items);
 
 		// getting items from the xml
 		// see the method for further infos
-		populateFromXml(items, R.array.drawer_items_events_labels,
-				R.array.drawer_items_events_icons,
-				R.array.drawer_items_places_labels,
-				R.array.drawer_items_places_icons,
-				R.array.drawer_items_organizations_labels,
-				R.array.drawer_items_organizations_icons);
+		populateFromXml(items, R.array.drawer_items_events_labels, R.array.drawer_items_events_icons,
+				R.array.drawer_items_places_labels, R.array.drawer_items_places_icons,
+				R.array.drawer_items_organizations_labels, R.array.drawer_items_organizations_icons);
 		return new NavDrawerAdapter(this, items);
 	}
 
@@ -123,8 +117,7 @@ public class MainActivity extends ActionBarActivity implements
 			items.add(new DrawerItem(true, labels[0], null));
 			for (int j = 1; j < labels.length; j++) {
 				int imgd = drawIds.getResourceId(j - 1, -1);
-				items.add(new DrawerItem(false, labels[j],
-						((imgd != -1) ? getResources().getDrawable(imgd) : null)));
+				items.add(new DrawerItem(false, labels[j], ((imgd != -1) ? getResources().getDrawable(imgd) : null)));
 			}
 			drawIds.recycle();
 		}
@@ -158,12 +151,10 @@ public class MainActivity extends ActionBarActivity implements
 		Object[] objects = getFragmentAndTag(pos);
 
 		// can't replace the current fragment with the same type
-		if (!(mFragmentManager.findFragmentByTag(TAG_FRAGMENT_MAP).getClass()
-				.equals(objects[0].getClass()))) {
+		if (!(mFragmentManager.findFragmentByTag(TAG_FRAGMENT_MAP).getClass().equals(objects[0].getClass()))) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
-			ft.replace(R.id.frame_content, (Fragment) objects[0],
-					objects[1].toString());
+			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
 			ft.commit();
 		}
 		mDrawerLayout.closeDrawers();
@@ -172,6 +163,29 @@ public class MainActivity extends ActionBarActivity implements
 	private Object[] getFragmentAndTag(int pos) {
 		Object[] out = new Object[2];
 		switch (pos) {
+		case 0:
+			out[0] = new MapFragment();
+			break;
+		case 1:
+			out[0] = new EventsListingFragment();
+			out[1] = TAG_FRAGMENT_EVENT_LIST;
+			break;
+		case 2:
+			out[0] = new EventsListingFragment();
+			out[1] = TAG_FRAGMENT_EVENT_LIST;
+			break;
+		case 3:
+			out[0] = new PoisListingFragment();
+			out[1] = TAG_FRAGMENT_POI_LIST;
+			break;
+		case 4:
+			out[0] = new PoisListingFragment();
+			out[1] = TAG_FRAGMENT_POI_LIST;
+			break;
+		case 5:
+			out[0] = new PoisListingFragment();
+			out[1] = TAG_FRAGMENT_POI_LIST;
+			break;
 		default:
 			out[0] = new MapFragment();
 			out[1] = TAG_FRAGMENT_MAP;
@@ -180,4 +194,56 @@ public class MainActivity extends ActionBarActivity implements
 		return out;
 	}
 
+	/* The click listner for ListView in the navigation drawer */
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			selectItem(position);
+		}
+	}
+
+	private void selectItem(int position) {
+		// String[] fragmentlist =
+		// getResources().getStringArray(R.array.fragments_array);
+		// // update the main content by replacing fragments
+//		android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+		Fragment fragment = null;
+		switch (position) {
+		case 0:
+			fragment = new MapFragment();
+			break;
+		case 1:
+			fragment = new EventsListingFragment();
+			break;
+		case 2:
+			fragment = new EventsListingFragment();
+			break;
+		case 3:
+			fragment = new PoisListingFragment();
+			break;
+		case 4:
+			fragment = new PoisListingFragment();
+			break;
+		case 5:
+			fragment = new PoisListingFragment();
+			break;
+
+		default:
+			break;
+		}
+		if (fragment != null) {
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.frame_content, fragment).commit();
+
+			// update selected item and title, then close the drawer
+			mListView.setItemChecked(position, true);
+			mListView.setSelection(position);
+			setTitle(navMenuTitles[position]);
+			mDrawerLayout.closeDrawer(mListView);
+		} else {
+			// error in creating fragment
+			Log.e("MainActivity", "Error in creating fragment");
+		}
+
+	}
 }
