@@ -47,18 +47,18 @@ public class ExpandibleSelectPoiAdapter extends BaseExpandableListAdapter {
 		LayoutInflater inflater = context.getLayoutInflater();
 
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.select_poi_list_element_row, null);
+			convertView = inflater.inflate(
+					R.layout.select_poi_list_element_row, null);
 		}
-		TextView tv = (TextView) convertView.findViewById(R.id.select_poi_checkTv);
-		tv.setText(childText);
-		tv.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				CheckedTextView ctv = (CheckedTextView)v;
-				ctv.setChecked(!ctv.isChecked());
-			}
-		});
+		CheckedTextView ctv = (CheckedTextView) convertView
+				.findViewById(R.id.select_poi_checkTv);
+		
+		if(ctv.getTag()!=null){
+			ctv.setChecked((Boolean)ctv.getTag());
+		}else{
+			ctv.setChecked(false);
+		}
+		ctv.setText(childText);
 		return convertView;
 	}
 
@@ -84,7 +84,8 @@ public class ExpandibleSelectPoiAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.select_poi_list_element_header,null);
+			convertView = inflater.inflate(
+					R.layout.select_poi_list_element_header, null);
 		}
 		TextView tv = (TextView) convertView.findViewById(R.id.select_poi_Tv);
 		tv.setText(headerString);

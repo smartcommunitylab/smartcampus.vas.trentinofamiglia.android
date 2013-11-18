@@ -46,8 +46,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 public class MainActivity extends ActionBarActivity implements OnItemClickListener {
 
 	private static final String TAG_FRAGMENT_MAP = "fragmap";
-	private static final String TAG_FRAGMENT_POI_LIST = "fragmap";
-	private static final String TAG_FRAGMENT_EVENT_LIST = "fragmap";
+	private static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
+	private static final String TAG_FRAGMENT_EVENT_LIST = "fragewent";
 
 	private FragmentManager mFragmentManager;
 	private DrawerLayout mDrawerLayout;
@@ -203,10 +203,11 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	}
 
 	/**
-	 * ASSUMPTIONS: ids passed should be the
+	 * ASSUMPTIONS: ids passed should be in this way:
 	 * array_of_labels_1,array_of_icons_1,the
-	 * array_of_labels_2,array_of_icons_2, and so on.. the first element of each
-	 * array that contains labels should be the header
+	 * array_of_labels_2,array_of_icons_2, and so on..
+	 * the first element of each array that contains labels
+	 * must be the header
 	 * 
 	 * @param items
 	 *            where to put elements
@@ -252,9 +253,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
 
 		Object[] objects = getFragmentAndTag(pos);
-
-		// can't replace the current fragment with the same type
-		if (!(mFragmentManager.findFragmentByTag(TAG_FRAGMENT_MAP).getClass().equals(objects[0].getClass()))) {
+		// can't replace the current fragment with one of the same type
+		if (!(mFragmentManager.findFragmentByTag(TAG_FRAGMENT_MAP).getClass()
+				.equals(objects[0].getClass()))) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
 			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
@@ -268,6 +269,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		switch (pos) {
 		case 0:
 			out[0] = new MapFragment();
+			out[1] = TAG_FRAGMENT_MAP;
 			break;
 		case 1:
 			out[0] = new EventsListingFragment();
@@ -297,58 +299,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		return out;
 	}
 
-	/* The click listner for ListView in the navigation drawer */
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			selectItem(position);
-		}
-	}
 
-	private void selectItem(int position) {
-		// String[] fragmentlist =
-		// getResources().getStringArray(R.array.fragments_array);
-		// // update the main content by replacing fragments
-//		android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-		Fragment fragment = null;
-		switch (position) {
-		case 0:
-			fragment = new MapFragment();
-			break;
-		case 1:
-			fragment = new EventsListingFragment();
-			break;
-		case 2:
-			fragment = new EventsListingFragment();
-			break;
-		case 3:
-			fragment = new PoisListingFragment();
-			break;
-		case 4:
-			fragment = new PoisListingFragment();
-			break;
-		case 5:
-			fragment = new PoisListingFragment();
-			break;
-
-		default:
-			break;
-		}
-		if (fragment != null) {
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.frame_content, fragment).commit();
-
-			// update selected item and title, then close the drawer
-			mListView.setItemChecked(position, true);
-			mListView.setSelection(position);
-			setTitle(navMenuTitles[position]);
-			mDrawerLayout.closeDrawer(mListView);
-		} else {
-			// error in creating fragment
-			Log.e("MainActivity", "Error in creating fragment");
-		}
-
-	}
 	private class LoadDataProcessor extends AbstractAsyncTaskProcessor<Void, BaseDTObject> {
 
 		private int syncRequired = 0;
@@ -452,4 +403,5 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 		
 	}
+
 }
