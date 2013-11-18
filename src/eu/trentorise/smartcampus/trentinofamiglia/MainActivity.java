@@ -32,6 +32,7 @@ import eu.trentorise.smartcampus.ac.AACException;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
+
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
@@ -40,6 +41,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 
@@ -59,7 +61,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		initDataManagement(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
@@ -77,58 +79,70 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	private void initDataManagement(Bundle savedInstanceState) {
 		try {
 			initGlobalConstants();
-			DTHelper.init(getApplicationContext());
-			String token = DTHelper.getAuthToken();
-			if (token != null) {
-				initData(token);
-			}
-			else {
-				try {
-					if (!SCAccessProvider.getInstance(this).login(this, null)) {
-						new TokenTask().execute();
-					}
-				
-				} catch (Exception e) {
-					e.printStackTrace();
-					Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
-					finish();
+//			String token = DTHelper.getAuthToken();
+			try {
+				initGlobalConstants();
+				if (!SCAccessProvider.getInstance(this).login(this, null)) {
+					new TokenTask().execute();
 				}
+				else
+					DTHelper.init(getApplicationContext());
+
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
+				finish();
 			}
+//			if (token != null) {
+//				initData(token);
+//			} else {
+//				try {
+//					if (!SCAccessProvider.getInstance(this).login(this, null)) {
+//						new TokenTask().execute();
+//					}
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
+//					finish();
+//				}
+//			}
 		} catch (Exception e) {
 			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
 			return;
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		if (DTHelper.getLocationHelper() != null)
 			DTHelper.getLocationHelper().start();
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onPause() {
 		if (DTHelper.getLocationHelper() != null)
 			DTHelper.getLocationHelper().stop();
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		DTHelper.destroy();
 		super.onDestroy();
 	}
+
 	private void initGlobalConstants() throws NameNotFoundException, NotFoundException {
 		GlobalConfig.setAppUrl(this, getResources().getString(R.string.smartcampus_app_url));
 	}
-	
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-	
- if (requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
+
+		if (requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				String token = data.getExtras().getString(AccountManager.KEY_AUTHTOKEN);
 				if (token == null) {
@@ -143,9 +157,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 	}
 
-
-	
-	
 	private boolean initData(String token) {
 		try {
 			new SCAsyncTask<Void, Void, BaseDTObject>(this, new LoadDataProcessor(this)).execute();
@@ -155,8 +166,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 		return true;
 	}
-	
-	
+
 	private void setupProperties() {
 
 		mFragmentManager = getSupportFragmentManager();
@@ -205,9 +215,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	/**
 	 * ASSUMPTIONS: ids passed should be in this way:
 	 * array_of_labels_1,array_of_icons_1,the
-	 * array_of_labels_2,array_of_icons_2, and so on..
-	 * the first element of each array that contains labels
-	 * must be the header
+	 * array_of_labels_2,array_of_icons_2, and so on.. the first element of each
+	 * array that contains labels must be the header
 	 * 
 	 * @param items
 	 *            where to put elements
@@ -253,16 +262,17 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
 
 		Object[] objects = getFragmentAndTag(pos);
-		// can't replace the current fragment with nothing or with one of the same type
-		if (objects!=null && !(mFragmentManager.findFragmentById(R.id.frame_content).getClass()
-				.equals(objects[0].getClass()))) {
+		// can't replace the current fragment with nothing or with one of the
+		// same type
+		if (objects != null
+				&& !(mFragmentManager.findFragmentById(R.id.frame_content).getClass().equals(objects[0].getClass()))) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
 			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
 			ft.commit();
-			mDrawerLayout.closeDrawers();
 		}
-		
+		mDrawerLayout.closeDrawers();
+
 	}
 
 	private Object[] getFragmentAndTag(int pos) {
@@ -283,20 +293,34 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			break;
 		case 5:
 		case 6:
-		case 7:
-			out[0] = new PoisListingFragment();
+			
+//			String cat = "Museums";
+			Bundle args = new Bundle();
+			PoisListingFragment plf = new PoisListingFragment();
+//			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			plf.setArguments(args);
+			out[0] = plf;
 			out[1] = TAG_FRAGMENT_POI_LIST;
-		//this are headers and should do nothing.
+			break;
+		case 7:
+//			 cat = "Museums";
+			 args = new Bundle();
+			 plf = new PoisListingFragment();
+//			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			plf.setArguments(args);
+			out[0] = plf;
+			out[1] = TAG_FRAGMENT_POI_LIST;
+			// this are headers and should do nothing.
+			break;
 		case 1:
 		case 4:
-		case 8:		
+		case 8:
 		default:
-			out=null;
+			out = null;
 			break;
 		}
 		return out;
 	}
-
 
 	private class LoadDataProcessor extends AbstractAsyncTaskProcessor<Void, BaseDTObject> {
 
@@ -317,7 +341,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			} catch (Exception e) {
 				res = e;
 			}
-
 
 			if (res != null) {
 				throw res;
@@ -361,10 +384,10 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 				DTHelper.activateAutoSync();
 			}
 
-
 		}
 
 	}
+
 	private class TokenTask extends AsyncTask<Void, Void, String> {
 
 		@Override
@@ -373,7 +396,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			try {
 				return provider.readToken(MainActivity.this);
 			} catch (AACException e) {
-				Log.e(MainActivity.class.getName(), ""+e.getMessage());
+				Log.e(MainActivity.class.getName(), "" + e.getMessage());
 				switch (e.getStatus()) {
 				case HttpStatus.SC_UNAUTHORIZED:
 					try {
@@ -394,12 +417,14 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 				SCAccessProvider provider = SCAccessProvider.getInstance(MainActivity.this);
 				try {
 					provider.login(MainActivity.this, null);
+					DTHelper.init(getApplicationContext());
+
 				} catch (AACException e) {
-					Log.e(MainActivity.class.getName(), ""+e.getMessage());
+					Log.e(MainActivity.class.getName(), "" + e.getMessage());
 				}
 			}
 		}
-		
+
 	}
 
 }

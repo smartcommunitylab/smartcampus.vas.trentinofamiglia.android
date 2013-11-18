@@ -21,7 +21,6 @@
     <uses-permission
         android:name="eu.trentorise.smartcampus.trentinofamiglia.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-    
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -35,14 +34,13 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAYMob8Ipl_ykdVq9hkQTvFVSQMNSXn3aA" />
+
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_ID"
-            android:value="bbde6aea-bc7a-4ea0-afc9-91c15e4d6da1" />
-
-        <!-- TODO is it right? or i should use the mobility? -->
+            android:value="eb4010e8-5634-4a53-8c34-5af916d6ee5d" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET"
-            android:value="01bd5f6a-ccad-4d83-a717-29cc67e1cd54" />
+            android:value="f07595d3-be13-44f9-a408-85a422d8bb62" />
 
         <!-- TODO are they needed? -->
 
@@ -51,7 +49,7 @@
             android:value="https://vas-dev.smartcampuslab.it/aac" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.ACCOUNT_TYPE"
-            android:value="eu.trentorise.smartcampus.account" />
+            android:value="eu.trentorise.smartcampus.account.trentinofamiglia" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.ACCOUNT_NAME"
             android:value="TrentinoFamiglia" />
@@ -72,6 +70,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="eu.trentorise.smartcampus.ac.account.AuthenticatorActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>
