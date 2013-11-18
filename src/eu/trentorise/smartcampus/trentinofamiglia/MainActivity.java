@@ -253,15 +253,16 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
 
 		Object[] objects = getFragmentAndTag(pos);
-		// can't replace the current fragment with one of the same type
-		if (!(mFragmentManager.findFragmentByTag(TAG_FRAGMENT_MAP).getClass()
+		// can't replace the current fragment with nothing or with one of the same type
+		if (objects!=null && !(mFragmentManager.findFragmentById(R.id.frame_content).getClass()
 				.equals(objects[0].getClass()))) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
 			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
 			ft.commit();
+			mDrawerLayout.closeDrawers();
 		}
-		mDrawerLayout.closeDrawers();
+		
 	}
 
 	private Object[] getFragmentAndTag(int pos) {
@@ -271,29 +272,26 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			out[0] = new MapFragment();
 			out[1] = TAG_FRAGMENT_MAP;
 			break;
-		case 1:
-			out[0] = new EventsListingFragment();
-			out[1] = TAG_FRAGMENT_EVENT_LIST;
-			break;
+
 		case 2:
-			out[0] = new EventsListingFragment();
-			out[1] = TAG_FRAGMENT_EVENT_LIST;
-			break;
 		case 3:
-			out[0] = new PoisListingFragment();
-			out[1] = TAG_FRAGMENT_POI_LIST;
-			break;
-		case 4:
-			out[0] = new PoisListingFragment();
-			out[1] = TAG_FRAGMENT_POI_LIST;
+			Bundle b = new Bundle();
+			EventsListingFragment elf = new EventsListingFragment();
+			elf.setArguments(b);
+			out[0] = elf;
+			out[1] = TAG_FRAGMENT_EVENT_LIST;
 			break;
 		case 5:
+		case 6:
+		case 7:
 			out[0] = new PoisListingFragment();
 			out[1] = TAG_FRAGMENT_POI_LIST;
-			break;
+		//this are headers and should do nothing.
+		case 1:
+		case 4:
+		case 8:		
 		default:
-			out[0] = new MapFragment();
-			out[1] = TAG_FRAGMENT_MAP;
+			out=null;
 			break;
 		}
 		return out;
