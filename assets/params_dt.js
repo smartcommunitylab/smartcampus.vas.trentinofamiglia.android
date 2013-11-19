@@ -101,12 +101,8 @@
 	],
 	"events_default" : [0],
 
-	"exclude" : {
-		"source" : [
-	        "smartplanner-transitstops",
-	        "TrentinoFamiglia"
-	    ],
-	    "type" : ["Comune", "Family", "Family - Organizations"]
+	"include" : {
+	    "type" : ["Comune", "Family", "Family - Organizations", "Museums", "museo","Concerts"]
 	},
    "center_map":[
                      46.0696727540531,

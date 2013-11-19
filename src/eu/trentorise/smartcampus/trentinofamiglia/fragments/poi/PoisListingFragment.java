@@ -536,7 +536,7 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			// fragmentTransaction.detach(this);
-			fragmentTransaction.replace(android.R.id.content, fragment, "pois");
+			fragmentTransaction.replace(R.id.frame_content, fragment, "pois");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
 		}

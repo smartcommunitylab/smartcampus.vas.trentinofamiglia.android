@@ -24,7 +24,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
@@ -42,7 +41,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 
@@ -322,7 +320,7 @@ public class MapManager {
 		fragment.setArguments(args);
 		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		// fragmentTransaction.detach(src);
-		fragmentTransaction.replace(android.R.id.content, fragment, src.getTag());
+		fragmentTransaction.replace(R.id.frame_content, fragment, src.getTag());
 		fragmentTransaction.addToBackStack(fragment.getTag());
 		fragmentTransaction.commit();
 
@@ -336,7 +334,7 @@ public class MapManager {
 		fragment.setArguments(args);
 		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		// fragmentTransaction.detach(src);
-		fragmentTransaction.replace(android.R.id.content, fragment, src.getTag());
+		fragmentTransaction.replace(R.id.frame_content, fragment, src.getTag());
 		fragmentTransaction.addToBackStack(fragment.getTag());
 		fragmentTransaction.commit();
 

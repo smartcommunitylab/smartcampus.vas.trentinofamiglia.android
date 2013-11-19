@@ -86,18 +86,6 @@ public class PoiAdapter extends ArrayAdapter<POIObject> {
 	public void setElementSelected(int elementSelected) {
 		this.elementSelected = elementSelected;
 	}
-	// @Override
-	// public void remove(POIObject object) {
-	// POIObject[] newData = new POIObject[data.length-1];
-	// int i = 0;
-	// for (POIObject o : data) {
-	// if (i == newData.length) return;
-	// if (!o.getId().equals(object.getId())) {
-	// newData[i] = o;
-	// }
-	// i++;
-	// }
-	// data = newData;
-	// }
+
 
 }

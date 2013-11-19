@@ -32,7 +32,6 @@ import eu.trentorise.smartcampus.ac.AACException;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
@@ -79,14 +78,14 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	private void initDataManagement(Bundle savedInstanceState) {
 		try {
 			initGlobalConstants();
+
 //			String token = DTHelper.getAuthToken();
 			try {
-				initGlobalConstants();
+//				initGlobalConstants();
 				if (!SCAccessProvider.getInstance(this).login(this, null)) {
-					new TokenTask().execute();
-				}
-				else
 					DTHelper.init(getApplicationContext());
+					initData(); 
+				}
 
 			
 			} catch (Exception e) {
@@ -110,6 +109,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 //			}
 		} catch (Exception e) {
 			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
+			e.printStackTrace();
 			return;
 		}
 	}
@@ -149,7 +149,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 					Toast.makeText(this, R.string.app_failure_security, Toast.LENGTH_LONG).show();
 					finish();
 				} else {
-					initData(token);
+					DTHelper.init(getApplicationContext());
+					initData();
 				}
 			} else if (resultCode == RESULT_CANCELED && requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
 				DTHelper.endAppFailure(this, R.string.app_failure_security);
@@ -157,7 +158,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 	}
 
-	private boolean initData(String token) {
+	private boolean initData() {
 		try {
 			new SCAsyncTask<Void, Void, BaseDTObject>(this, new LoadDataProcessor(this)).execute();
 		} catch (Exception e1) {
@@ -269,6 +270,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
 			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
+			ft.addToBackStack(objects[1].toString());
+
 			ft.commit();
 		}
 		mDrawerLayout.closeDrawers();
@@ -279,34 +282,48 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		Object[] out = new Object[2];
 		switch (pos) {
 		case 0:
-			out[0] = new MapFragment();
-			out[1] = TAG_FRAGMENT_MAP;
+			String cat = "Concerts";
+			Bundle args = new Bundle();
+			EventsListingFragment elf = new EventsListingFragment();
+			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			elf.setArguments(args);
+			out[0] = elf;
+			out[1] = TAG_FRAGMENT_POI_LIST;
 			break;
 
 		case 2:
-		case 3:
-			Bundle b = new Bundle();
-			EventsListingFragment elf = new EventsListingFragment();
-			elf.setArguments(b);
+			 cat = "Concerts";
+			 args = new Bundle();
+			 elf = new EventsListingFragment();
+			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			elf.setArguments(args);
 			out[0] = elf;
-			out[1] = TAG_FRAGMENT_EVENT_LIST;
+			out[1] = TAG_FRAGMENT_POI_LIST;
+			break;
+		case 3:
+			 cat = "Concerts";
+			 args = new Bundle();
+			 elf = new EventsListingFragment();
+			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			elf.setArguments(args);
+			out[0] = elf;
+			out[1] = TAG_FRAGMENT_POI_LIST;
 			break;
 		case 5:
 		case 6:
-			
-//			String cat = "Museums";
-			Bundle args = new Bundle();
+			 cat = "Museums";
+			 args = new Bundle();
 			PoisListingFragment plf = new PoisListingFragment();
-//			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			plf.setArguments(args);
 			out[0] = plf;
 			out[1] = TAG_FRAGMENT_POI_LIST;
 			break;
 		case 7:
-//			 cat = "Museums";
+			 cat = "Museums";
 			 args = new Bundle();
 			 plf = new PoisListingFragment();
-//			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			plf.setArguments(args);
 			out[0] = plf;
 			out[1] = TAG_FRAGMENT_POI_LIST;
@@ -388,43 +405,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
 	}
 
-	private class TokenTask extends AsyncTask<Void, Void, String> {
-
-		@Override
-		protected String doInBackground(Void... params) {
-			SCAccessProvider provider = SCAccessProvider.getInstance(MainActivity.this);
-			try {
-				return provider.readToken(MainActivity.this);
-			} catch (AACException e) {
-				Log.e(MainActivity.class.getName(), "" + e.getMessage());
-				switch (e.getStatus()) {
-				case HttpStatus.SC_UNAUTHORIZED:
-					try {
-						provider.logout(MainActivity.this);
-					} catch (AACException e1) {
-						e1.printStackTrace();
-					}
-				default:
-					break;
-				}
-				return null;
-			}
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			if (result == null) {
-				SCAccessProvider provider = SCAccessProvider.getInstance(MainActivity.this);
-				try {
-					provider.login(MainActivity.this, null);
-					DTHelper.init(getApplicationContext());
-
-				} catch (AACException e) {
-					Log.e(MainActivity.class.getName(), "" + e.getMessage());
-				}
-			}
-		}
-
-	}
+	
 
 }

@@ -1,64 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.trentorise.smartcampus.trentinofamiglia"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:installLocation="internalOnly"
+    android:versionCode="11"
+    android:versionName="1.2.4" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission
-        android:name="eu.trentorise.smartcampus.trentinofamiglia.permission.MAPS_RECEIVE"
+
+    <permission
+        android:name="eu.trentorise.smartcampus.ac.AUTHENTICATE"
         android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <permission
+        android:name="eu.trentorise.smartcampus.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="eu.trentorise.smartcampus.permission.MAPS_RECEIVE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
     <application
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleTask"
+        android:logo="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.SHARED_PACKAGE"
+            android:value="eu.trentorise.smartcampus.trentinofamiglia" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.ACCOUNT_TYPE"
+            android:value="eu.trentorise.smartcampus.trentinofamiglia" />
+        <meta-data
+            android:name="eu.trentorise.smartcampus.account.ACCOUNT_NAME"
+            android:value="Trentino Famiglia" />
+
+        <!-- if true, it check version at the start -->
+        <meta-data
+            android:name="check-version"
+            android:value="true" />
+
+        <!-- Uses feedback metadata -->
+        <meta-data
+            android:name="use-feedback"
+            android:value="true" />
+        <meta-data
+            android:name="hidden-notification"
+            android:value="false" />
+        <meta-data
+            android:name="follow-by-intent"
+            android:value="false" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAYMob8Ipl_ykdVq9hkQTvFVSQMNSXn3aA" />
-
+        <!-- <meta-data -->
+        <!-- android:name="eu.trentorise.smartcampus.account.CLIENT_ID" -->
+        <!-- android:value="eb4010e8-5634-4a53-8c34-5af916d6ee5d" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET" -->
+        <!-- android:value="f07595d3-be13-44f9-a408-85a422d8bb62" /> -->
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_ID"
-            android:value="eb4010e8-5634-4a53-8c34-5af916d6ee5d" />
+            android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET"
-            android:value="f07595d3-be13-44f9-a408-85a422d8bb62" />
-
-        <!-- TODO are they needed? -->
-
+            android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.AUTH_URL"
             android:value="https://vas-dev.smartcampuslab.it/aac" />
         <meta-data
-            android:name="eu.trentorise.smartcampus.account.ACCOUNT_TYPE"
-            android:value="eu.trentorise.smartcampus.account.trentinofamiglia" />
-        <meta-data
-            android:name="eu.trentorise.smartcampus.account.ACCOUNT_NAME"
-            android:value="TrentinoFamiglia" />
-        <meta-data
-            android:name="eu.trentorise.smartcampus.account.ACCOUNT_LABEL"
-            android:value="TrentinoFamiglia" />
-        <meta-data
             android:name="eu.trentorise.smartcampus.account.ACCOUNT_BASED_ACCESS"
             android:value="true" />
+        <meta-data
+            android:name="SHARED_PACKAGE"
+            android:value="eu.trentorise.smartcampus.trentinofamiglia" />
 
         <activity
             android:name="eu.trentorise.smartcampus.trentinofamiglia.MainActivity"
@@ -71,8 +109,29 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="eu.trentorise.smartcampus.ac.embedded.EmbeddedAuthActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme" />
+        
+        <service
+            android:name="eu.trentorise.smartcampus.ac.account.AuthenticationService"
+            android:exported="true"
+            android:permission="eu.trentorise.smartcampus.ac.AUTHENTICATE" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <activity
             android:name="eu.trentorise.smartcampus.ac.account.AuthenticatorActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme" />
+
+        <uses-library android:name="com.google.android.maps" />
     </application>
 
 </manifest>
