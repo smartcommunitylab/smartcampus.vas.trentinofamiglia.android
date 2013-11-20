@@ -76,18 +76,12 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAYMob8Ipl_ykdVq9hkQTvFVSQMNSXn3aA" />
-        <!-- <meta-data -->
-        <!-- android:name="eu.trentorise.smartcampus.account.CLIENT_ID" -->
-        <!-- android:value="eb4010e8-5634-4a53-8c34-5af916d6ee5d" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET" -->
-        <!-- android:value="f07595d3-be13-44f9-a408-85a422d8bb62" /> -->
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_ID"
-            android:value="" />
+            android:value="4fda1c9f-c15d-41df-a80c-8e986e4d3c6f" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET"
-            android:value="" />
+            android:value="659b168c-1d59-4814-ad48-b73ebe089ad9" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.AUTH_URL"
             android:value="https://vas-dev.smartcampuslab.it/aac" />

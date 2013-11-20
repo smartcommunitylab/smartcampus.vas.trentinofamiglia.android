@@ -1,9 +1,9 @@
 package eu.trentorise.smartcampus.trentinofamiglia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import org.apache.http.HttpStatus;
+import java.util.Map;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -12,7 +12,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -21,21 +20,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
-import eu.trentorise.smartcampus.ac.AACException;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.DrawerItem;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
@@ -43,7 +40,6 @@ import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingF
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
-import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 
 public class MainActivity extends ActionBarActivity implements
 		OnItemClickListener {
@@ -54,7 +50,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	private FragmentManager mFragmentManager;
 	private DrawerLayout mDrawerLayout;
-	private ListView mListView;
+	private ExpandableListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private String[] navMenuTitles;
 	private boolean isLoading;
@@ -176,7 +172,7 @@ public class MainActivity extends ActionBarActivity implements
 				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		mListView = (ListView) findViewById(R.id.drawer_list);
+		mListView = (ExpandableListView) findViewById(R.id.drawer_list);
 		navMenuTitles = getResources().getStringArray(
 				R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
@@ -186,19 +182,20 @@ public class MainActivity extends ActionBarActivity implements
 
 	private NavDrawerAdapter buildAdapter() {
 
-		List<DrawerItem> items = new ArrayList<DrawerItem>();
+		Map<String, List<DrawerItem>> items = new HashMap<String, List<DrawerItem>>();
+		ArrayList<String> headers = new ArrayList<String>();
 		// see the method to add an item without header
-		addSingleItems(items);
+		// addSingleItems(items);
 
 		// getting items from the xml
 		// see the method for further infos
-		populateFromXml(items, R.array.drawer_items_events_labels,
+		populateFromXml(items, headers, R.array.drawer_items_events_labels,
 				R.array.drawer_items_events_icons,
 				R.array.drawer_items_places_labels,
 				R.array.drawer_items_places_icons,
 				R.array.drawer_items_organizations_labels,
 				R.array.drawer_items_organizations_icons);
-		return new NavDrawerAdapter(this, items);
+		return new NavDrawerAdapter(this, headers, items);
 	}
 
 	/**
@@ -206,14 +203,14 @@ public class MainActivity extends ActionBarActivity implements
 	 * 
 	 * @return the list
 	 */
-	private void addSingleItems(List<DrawerItem> out) {
-
-		// MAP item
-		out.add(new DrawerItem(false, getString(R.string.nav_drawer_map), null));
-
-		// XXX HERE YOU CAN ADD OTHER ELEMENTS
-
-	}
+	// private void addSingleItems(List<String> out) {
+	//
+	// // MAP item
+	// out.add(new DrawerItem(false, getString(R.string.nav_drawer_map), null));
+	//
+	// // XXX HERE YOU CAN ADD OTHER ELEMENTS
+	//
+	// }
 
 	/**
 	 * ASSUMPTIONS: ids passed should be in this way:
@@ -226,18 +223,20 @@ public class MainActivity extends ActionBarActivity implements
 	 * @param ids
 	 *            array of arrays made in xml
 	 */
-	private void populateFromXml(List<DrawerItem> items, int... ids) {
+	private void populateFromXml(Map<String, List<DrawerItem>> items,
+			List<String> headers, int... ids) {
 		for (int i = 0; i < ids.length; i += 2) {
 			String[] labels = getResources().getStringArray(ids[i]);
 			TypedArray drawIds = getResources().obtainTypedArray((ids[i + 1]));
-			items.add(new DrawerItem(true, labels[0], null));
+			headers.add(labels[0]);
+			ArrayList<DrawerItem> tmp = new ArrayList<DrawerItem>();
 			for (int j = 1; j < labels.length; j++) {
 				int imgd = drawIds.getResourceId(j - 1, -1);
-				items.add(new DrawerItem(
-						false,
+				tmp.add(new DrawerItem(
 						labels[j],
 						((imgd != -1) ? getResources().getDrawable(imgd) : null)));
 			}
+			items.put(labels[0], tmp);
 			drawIds.recycle();
 		}
 	}

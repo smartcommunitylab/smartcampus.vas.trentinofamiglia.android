@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eu.trentorise.smartcampus.trentinofamiglia.R;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.ExpandibleSelectPoiAdapter;
-import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -18,7 +14,8 @@ import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ListView;
+import eu.trentorise.smartcampus.trentinofamiglia.R;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.ExpandibleSelectPoiAdapter;
 
 public class PoiSelectFragment extends DialogFragment implements
 		OnChildClickListener, OnGroupClickListener {
