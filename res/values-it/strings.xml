@@ -73,7 +73,7 @@
 
     <!-- Menu -->
 
-    <string name="map_view">Mostra sulla mappa</string>
+    <string name="map_view">Vai alla mappa</string>
     <!-- Rating -->
     <string name="ratingtext_average">Giudizio medio: %s</string>
     <string name="ratingtext_user">Il tuo giudizio:</string>

@@ -18,28 +18,29 @@ public class MapFragment extends Fragment {
 	public static final String ARG_EVENT_CATEGORY = "event category";
 	public static final String ARG_OBJECTS = "objects";
 
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//		View out = inflater.inflate(R.layout.fragment_map, container, false);
-//		setHasOptionsMenu(true);
-//		return out;
-//	}
+	// @Override
+	// public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	// Bundle savedInstanceState) {
+	// View out = inflater.inflate(R.layout.fragment_map, container, false);
+	// setHasOptionsMenu(true);
+	// return out;
+	// }
 	private static View view;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    if (view != null) {
-	        ViewGroup parent = (ViewGroup) view.getParent();
-	        if (parent != null)
-	            parent.removeView(view);
-	    }
-	    try {
-	        view = inflater.inflate(R.layout.fragment_map, container, false);
-	    } catch (InflateException e) {
-	        /* map is already there, just return view as it is */
-	    }
-	    return view;
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		if (view != null) {
+			ViewGroup parent = (ViewGroup) view.getParent();
+			if (parent != null)
+				parent.removeView(view);
+		}
+		try {
+			view = inflater.inflate(R.layout.fragment_map, container, false);
+		} catch (InflateException e) {
+			/* map is already there, just return view as it is */
+		}
+		return view;
 	}
 
 	@Override
@@ -56,8 +57,17 @@ public class MapFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.action_poi) {
-			PoiSelectFragment psf = new PoiSelectFragment();
+		if (item.getItemId() == R.id.action_poi_places) {
+			PoiSelectFragment psf = PoiSelectFragment.istantiate(
+					R.array.drawer_items_places_labels,
+					R.array.drawer_items_places_icons);
+			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_poi_organizations) {
+			PoiSelectFragment psf = PoiSelectFragment.istantiate(
+					R.array.drawer_items_organizations_labels,
+					R.array.drawer_items_organizations_icons);
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
 		}
