@@ -3,6 +3,9 @@
     <item android:state_pressed="true">
         <shape ><solid android:color="@color/select_poi_green"/></shape>
     </item>
+    <item android:state_activated="true">
+        <shape ><solid android:color="@color/select_poi_green"/></shape>
+    </item>
     <item>
         <shape ><solid android:color="@color/select_poi_grey"/></shape>
     </item>

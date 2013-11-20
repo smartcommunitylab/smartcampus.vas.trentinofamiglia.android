@@ -20,11 +20,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
@@ -42,7 +44,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragmen
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
 
 public class MainActivity extends ActionBarActivity implements
-		OnItemClickListener {
+		OnChildClickListener {
 
 	private static final String TAG_FRAGMENT_MAP = "fragmap";
 	private static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
@@ -74,6 +76,15 @@ public class MainActivity extends ActionBarActivity implements
 				.replace(R.id.frame_content, new MapFragment(),
 						TAG_FRAGMENT_MAP).commit();
 
+	}
+
+	public void navDrawerOutItemClick(View v) {
+		if (v.getId() == R.id.nav_drawer_map_tv) {
+			if (! (mFragmentManager.findFragmentById(R.id.frame_content) instanceof MapFragment))
+				onChildClick(null, null, -1, -1, -1);
+			else
+				mDrawerLayout.closeDrawers();
+		}
 	}
 
 	private void initDataManagement(Bundle savedInstanceState) {
@@ -177,15 +188,13 @@ public class MainActivity extends ActionBarActivity implements
 				R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
 		mListView.setAdapter(nda);
-		mListView.setOnItemClickListener(this);
+		mListView.setOnChildClickListener(this);
 	}
 
 	private NavDrawerAdapter buildAdapter() {
 
 		Map<String, List<DrawerItem>> items = new HashMap<String, List<DrawerItem>>();
 		ArrayList<String> headers = new ArrayList<String>();
-		// see the method to add an item without header
-		// addSingleItems(items);
 
 		// getting items from the xml
 		// see the method for further infos
@@ -197,20 +206,6 @@ public class MainActivity extends ActionBarActivity implements
 				R.array.drawer_items_organizations_icons);
 		return new NavDrawerAdapter(this, headers, items);
 	}
-
-	/**
-	 * Here you should add elements without header
-	 * 
-	 * @return the list
-	 */
-	// private void addSingleItems(List<String> out) {
-	//
-	// // MAP item
-	// out.add(new DrawerItem(false, getString(R.string.nav_drawer_map), null));
-	//
-	// // XXX HERE YOU CAN ADD OTHER ELEMENTS
-	//
-	// }
 
 	/**
 	 * ASSUMPTIONS: ids passed should be in this way:
@@ -264,14 +259,13 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
 
-		Object[] objects = getFragmentAndTag(pos);
+		Object[] objects = getFragmentAndTag(groupPosition, childPosition);
 		// can't replace the current fragment with nothing or with one of the
 		// same type
-		if (objects != null
-				&& !(mFragmentManager.findFragmentById(R.id.frame_content)
-						.getClass().equals(objects[0].getClass()))) {
+		if (objects != null) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
 			ft.replace(R.id.frame_content, (Fragment) objects[0],
@@ -281,66 +275,100 @@ public class MainActivity extends ActionBarActivity implements
 			ft.commit();
 		}
 		mDrawerLayout.closeDrawers();
+		return true;
 
 	}
 
-	private Object[] getFragmentAndTag(int pos) {
+	private Object[] getFragmentAndTag(int groupPos, int childPos) {
 		Object[] out = new Object[2];
-		switch (pos) {
-		case 0:
-			String cat = "Concerts";
-			Bundle args = new Bundle();
-			EventsListingFragment elf = new EventsListingFragment();
-			args.putString(SearchFragment.ARG_CATEGORY, cat);
-			elf.setArguments(args);
-			out[0] = elf;
-			out[1] = TAG_FRAGMENT_POI_LIST;
-			break;
+		String cat = "Concerts";
+		Bundle args = new Bundle();
+		if (groupPos == -1) {
+			if (childPos == -1) { // map
+				MapFragment mf = new MapFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				mf.setArguments(args);
+				out[0] = mf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+			}
+		} else if (groupPos == 0) { // events
+			EventsListingFragment elf = null;
+			switch (childPos) {
+			case 0:
+				cat = "Concerts";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 1:
+				cat = "Concerts";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			default:
+				out = null;
+				break;
+			}
+		} else if (groupPos == 1) {// places
+			EventsListingFragment elf = null;
+			switch (childPos) {
+			case 0:
+				cat = "Museums";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 1:
+				cat = "Concerts";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			default:
+				out = null;
+				break;
+			}
+		} else if (groupPos == 2) {// places
+			EventsListingFragment elf = null;
+			switch (childPos) {
+			case 0:
+				cat = "Museums";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 1:
+				cat = "Museums";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			default:
+				out = null;
+				break;
 
-		case 2:
-			cat = "Concerts";
-			args = new Bundle();
-			elf = new EventsListingFragment();
-			args.putString(SearchFragment.ARG_CATEGORY, cat);
-			elf.setArguments(args);
-			out[0] = elf;
-			out[1] = TAG_FRAGMENT_POI_LIST;
-			break;
-		case 3:
-			cat = "Concerts";
-			args = new Bundle();
-			elf = new EventsListingFragment();
-			args.putString(SearchFragment.ARG_CATEGORY, cat);
-			elf.setArguments(args);
-			out[0] = elf;
-			out[1] = TAG_FRAGMENT_POI_LIST;
-			break;
-		case 5:
-		case 6:
-			cat = "Museums";
-			args = new Bundle();
-			PoisListingFragment plf = new PoisListingFragment();
-			args.putString(SearchFragment.ARG_CATEGORY, cat);
-			plf.setArguments(args);
-			out[0] = plf;
-			out[1] = TAG_FRAGMENT_POI_LIST;
-			break;
-		case 7:
-			cat = "Museums";
-			args = new Bundle();
-			plf = new PoisListingFragment();
-			args.putString(SearchFragment.ARG_CATEGORY, cat);
-			plf.setArguments(args);
-			out[0] = plf;
-			out[1] = TAG_FRAGMENT_POI_LIST;
-			// this are headers and should do nothing.
-			break;
-		case 1:
-		case 4:
-		case 8:
-		default:
+			}
+		} else {
 			out = null;
-			break;
 		}
 		return out;
 	}
