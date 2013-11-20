@@ -154,20 +154,20 @@ public class DTHelper {
 		
 		tService = new TerritoryService(getAppUrl() + "core.territory");
 
-		new AsyncTask<Void, Void, BasicProfile>() {
-			@Override
-			protected BasicProfile doInBackground(Void... params) {
-				try {
-					String token = SCAccessProvider.getInstance(mContext).readToken(mContext);
-					BasicProfileService service = new BasicProfileService(getAppUrl() + "aac");
-					bp = service.getBasicProfile(token);
-					return bp;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
-				}
-			}
-		}.execute();
+//		new AsyncTask<Void, Void, BasicProfile>() {
+//			@Override
+//			protected BasicProfile doInBackground(Void... params) {
+//				try {
+//					String token = SCAccessProvider.getInstance(mContext).readToken(mContext);
+//					BasicProfileService service = new BasicProfileService(getAppUrl() + "aac");
+//					bp = service.getBasicProfile(token);
+//					return bp;
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					return null;
+//				}
+//			}
+//		}.execute();
 	}
 
 	private static String getAppUrl() {

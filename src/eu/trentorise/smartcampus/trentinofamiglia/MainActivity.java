@@ -35,6 +35,7 @@ import eu.trentorise.smartcampus.android.common.SCAsyncTask;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
@@ -44,7 +45,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragmen
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.model.DrawerItem;
 
-public class MainActivity extends ActionBarActivity implements OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements
+		OnItemClickListener {
 
 	private static final String TAG_FRAGMENT_MAP = "fragmap";
 	private static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
@@ -71,7 +73,10 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		setupProperties();
 
 		// to start with the map.
-		mFragmentManager.beginTransaction().replace(R.id.frame_content, new MapFragment(), TAG_FRAGMENT_MAP).commit();
+		mFragmentManager
+				.beginTransaction()
+				.replace(R.id.frame_content, new MapFragment(),
+						TAG_FRAGMENT_MAP).commit();
 
 	}
 
@@ -79,36 +84,22 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		try {
 			initGlobalConstants();
 
-//			String token = DTHelper.getAuthToken();
 			try {
-//				initGlobalConstants();
 				if (!SCAccessProvider.getInstance(this).login(this, null)) {
 					DTHelper.init(getApplicationContext());
-					initData(); 
+					initData();
 				}
 
-			
 			} catch (Exception e) {
 				e.printStackTrace();
-				Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getString(R.string.auth_failed),
+						Toast.LENGTH_SHORT).show();
 				finish();
 			}
-//			if (token != null) {
-//				initData(token);
-//			} else {
-//				try {
-//					if (!SCAccessProvider.getInstance(this).login(this, null)) {
-//						new TokenTask().execute();
-//					}
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
-//					finish();
-//				}
-//			}
+
 		} catch (Exception e) {
-			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG)
+					.show();
 			e.printStackTrace();
 			return;
 		}
@@ -134,8 +125,10 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		super.onDestroy();
 	}
 
-	private void initGlobalConstants() throws NameNotFoundException, NotFoundException {
-		GlobalConfig.setAppUrl(this, getResources().getString(R.string.smartcampus_app_url));
+	private void initGlobalConstants() throws NameNotFoundException,
+			NotFoundException {
+		GlobalConfig.setAppUrl(this,
+				getResources().getString(R.string.smartcampus_app_url));
 	}
 
 	@Override
@@ -144,15 +137,18 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
 		if (requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				String token = data.getExtras().getString(AccountManager.KEY_AUTHTOKEN);
+				String token = data.getExtras().getString(
+						AccountManager.KEY_AUTHTOKEN);
 				if (token == null) {
-					Toast.makeText(this, R.string.app_failure_security, Toast.LENGTH_LONG).show();
+					Toast.makeText(this, R.string.app_failure_security,
+							Toast.LENGTH_LONG).show();
 					finish();
 				} else {
 					DTHelper.init(getApplicationContext());
 					initData();
 				}
-			} else if (resultCode == RESULT_CANCELED && requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
+			} else if (resultCode == RESULT_CANCELED
+					&& requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
 				DTHelper.endAppFailure(this, R.string.app_failure_security);
 			}
 		}
@@ -160,9 +156,11 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
 	private boolean initData() {
 		try {
-			new SCAsyncTask<Void, Void, BaseDTObject>(this, new LoadDataProcessor(this)).execute();
+			new SCAsyncTask<Void, Void, BaseDTObject>(this,
+					new LoadDataProcessor(this)).execute();
 		} catch (Exception e1) {
-			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG)
+					.show();
 			return false;
 		}
 		return true;
@@ -174,12 +172,13 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		// this is a class created to avoid an Android bug
 		// see the class for further infos.
-		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name,
-				R.string.app_name);
+		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout,
+				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ListView) findViewById(R.id.drawer_list);
-		navMenuTitles = getResources().getStringArray(R.array.fragments_label_array);
+		navMenuTitles = getResources().getStringArray(
+				R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
 		mListView.setAdapter(nda);
 		mListView.setOnItemClickListener(this);
@@ -193,9 +192,12 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
 		// getting items from the xml
 		// see the method for further infos
-		populateFromXml(items, R.array.drawer_items_events_labels, R.array.drawer_items_events_icons,
-				R.array.drawer_items_places_labels, R.array.drawer_items_places_icons,
-				R.array.drawer_items_organizations_labels, R.array.drawer_items_organizations_icons);
+		populateFromXml(items, R.array.drawer_items_events_labels,
+				R.array.drawer_items_events_icons,
+				R.array.drawer_items_places_labels,
+				R.array.drawer_items_places_icons,
+				R.array.drawer_items_organizations_labels,
+				R.array.drawer_items_organizations_icons);
 		return new NavDrawerAdapter(this, items);
 	}
 
@@ -231,7 +233,10 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			items.add(new DrawerItem(true, labels[0], null));
 			for (int j = 1; j < labels.length; j++) {
 				int imgd = drawIds.getResourceId(j - 1, -1);
-				items.add(new DrawerItem(false, labels[j], ((imgd != -1) ? getResources().getDrawable(imgd) : null)));
+				items.add(new DrawerItem(
+						false,
+						labels[j],
+						((imgd != -1) ? getResources().getDrawable(imgd) : null)));
 			}
 			drawIds.recycle();
 		}
@@ -266,10 +271,12 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		// can't replace the current fragment with nothing or with one of the
 		// same type
 		if (objects != null
-				&& !(mFragmentManager.findFragmentById(R.id.frame_content).getClass().equals(objects[0].getClass()))) {
+				&& !(mFragmentManager.findFragmentById(R.id.frame_content)
+						.getClass().equals(objects[0].getClass()))) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
-			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
+			ft.replace(R.id.frame_content, (Fragment) objects[0],
+					objects[1].toString());
 			ft.addToBackStack(objects[1].toString());
 
 			ft.commit();
@@ -292,18 +299,18 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			break;
 
 		case 2:
-			 cat = "Concerts";
-			 args = new Bundle();
-			 elf = new EventsListingFragment();
+			cat = "Concerts";
+			args = new Bundle();
+			elf = new EventsListingFragment();
 			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			elf.setArguments(args);
 			out[0] = elf;
 			out[1] = TAG_FRAGMENT_POI_LIST;
 			break;
 		case 3:
-			 cat = "Concerts";
-			 args = new Bundle();
-			 elf = new EventsListingFragment();
+			cat = "Concerts";
+			args = new Bundle();
+			elf = new EventsListingFragment();
 			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			elf.setArguments(args);
 			out[0] = elf;
@@ -311,8 +318,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			break;
 		case 5:
 		case 6:
-			 cat = "Museums";
-			 args = new Bundle();
+			cat = "Museums";
+			args = new Bundle();
 			PoisListingFragment plf = new PoisListingFragment();
 			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			plf.setArguments(args);
@@ -320,9 +327,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			out[1] = TAG_FRAGMENT_POI_LIST;
 			break;
 		case 7:
-			 cat = "Museums";
-			 args = new Bundle();
-			 plf = new PoisListingFragment();
+			cat = "Museums";
+			args = new Bundle();
+			plf = new PoisListingFragment();
 			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			plf.setArguments(args);
 			out[0] = plf;
@@ -339,7 +346,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		return out;
 	}
 
-	private class LoadDataProcessor extends AbstractAsyncTaskProcessor<Void, BaseDTObject> {
+	private class LoadDataProcessor extends
+			AbstractAsyncTaskProcessor<Void, BaseDTObject> {
 
 		private int syncRequired = 0;
 		private FragmentActivity currentRootActivity = null;
@@ -349,7 +357,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 
 		@Override
-		public BaseDTObject performAction(Void... params) throws SecurityException, Exception {
+		public BaseDTObject performAction(Void... params)
+				throws SecurityException, Exception {
 
 			Exception res = null;
 
@@ -369,7 +378,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		public void handleResult(BaseDTObject result) {
 			if (syncRequired != DTHelper.SYNC_NOT_REQUIRED) {
 				if (syncRequired == DTHelper.SYNC_REQUIRED_FIRST_TIME) {
-					Toast.makeText(MainActivity.this, R.string.initial_data_load, Toast.LENGTH_LONG).show();
+					Toast.makeText(MainActivity.this,
+							R.string.initial_data_load, Toast.LENGTH_LONG)
+							.show();
 				}
 				setSupportProgressBarIndeterminateVisibility(true);
 				isLoading = true;
@@ -377,21 +388,25 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 					@Override
 					public void run() {
 						try {
-							currentRootActivity = DTHelper.start(MainActivity.this);
+							currentRootActivity = DTHelper
+									.start(MainActivity.this);
 						} catch (Exception e) {
 							e.printStackTrace();
 						} finally {
 							if (currentRootActivity != null) {
-								currentRootActivity.runOnUiThread(new Runnable() {
-									@Override
-									public void run() {
-										currentRootActivity.setProgressBarIndeterminateVisibility(false);
-										if (MainActivity.this != null) {
-											MainActivity.this.setSupportProgressBarIndeterminateVisibility(false);
-										}
-										isLoading = false;
-									}
-								});
+								currentRootActivity
+										.runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												currentRootActivity
+														.setProgressBarIndeterminateVisibility(false);
+												if (MainActivity.this != null) {
+													MainActivity.this
+															.setSupportProgressBarIndeterminateVisibility(false);
+												}
+												isLoading = false;
+											}
+										});
 							}
 						}
 					}
@@ -404,7 +419,5 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 
 	}
-
-	
 
 }
