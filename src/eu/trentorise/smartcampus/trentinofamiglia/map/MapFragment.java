@@ -59,15 +59,29 @@ public class MapFragment extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_poi_places) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(
-					R.array.drawer_items_places_labels,
-					R.array.drawer_items_places_icons);
+					R.array.map_items_places_labels,
+					R.array.map_items_places_icons);
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
 		}
-		else if (item.getItemId() == R.id.action_poi_organizations) {
+		else if (item.getItemId() == R.id.action_poi_events) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(
-					R.array.drawer_items_organizations_labels,
-					R.array.drawer_items_organizations_icons);
+					R.array.map_items_events_labels,
+					R.array.map_items_events_icons);
+			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_poi_freetime) {
+			PoiSelectFragment psf = PoiSelectFragment.istantiate(
+					R.array.map_items_freetime_labels,
+					R.array.map_items_freetime_icons);
+			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
+			return true;
+		}
+		else if (item.getItemId() == R.id.action_poi_babies) {
+			PoiSelectFragment psf = PoiSelectFragment.istantiate(
+					R.array.map_items_babies_labels,
+					R.array.map_items_babies_icons);
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
 		}

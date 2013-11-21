@@ -22,11 +22,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ListView;
 import android.widget.Toast;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
@@ -34,14 +31,13 @@ import eu.trentorise.smartcampus.android.common.SCAsyncTask;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.DrawerItem;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
-import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.DrawerItem;
 
 public class MainActivity extends ActionBarActivity implements  OnChildClickListener {
 
@@ -186,10 +182,16 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		// see the method for further infos
 		populateFromXml(items, headers, R.array.drawer_items_events_labels,
 				R.array.drawer_items_events_icons,
+				R.array.drawer_items_freetime_labels,
+				R.array.drawer_items_freetime_icons,
+				R.array.drawer_items_initiatives_labels,
+				R.array.drawer_items_initiatives_icons,
 				R.array.drawer_items_places_labels,
 				R.array.drawer_items_places_icons,
-				R.array.drawer_items_organizations_labels,
-				R.array.drawer_items_organizations_icons);
+				R.array.drawer_items_babies_labels,
+				R.array.drawer_items_babies_icons,
+				R.array.drawer_items_family_labels,
+				R.array.drawer_items_family_icons);
 		return new NavDrawerAdapter(this, headers, items);
 	}
 

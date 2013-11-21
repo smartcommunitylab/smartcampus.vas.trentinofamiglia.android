@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="map_items_freetime_labels">
+         
+       <!-- this is an header -->
+        <item>"Tempo libero e vacanze"</item>
+        
+        <item>"Piste ciclopedonali"</item>
+        <item>"Passeggiate"</item>
+        <item>"Vacanze al mare"</item>
+        </string-array>
+    <string-array name="map_items_freetime_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        </string-array>
+</resources>

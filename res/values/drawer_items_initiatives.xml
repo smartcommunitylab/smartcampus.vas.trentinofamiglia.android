@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drawer_items_initiatives_labels">
+         
+       <!-- this is an header -->
+        <item>"Iniziative"</item>
+        
+        <item>"News"</item>
+        </string-array>
+    <string-array name="drawer_items_initiatives_icons">
+        <item>@drawable/ic_launcher</item>
+        </string-array>
+</resources>

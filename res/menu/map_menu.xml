@@ -8,11 +8,17 @@
         eu.trentorise.smartcampus.trentinofamiglia:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/action_poi_places"
-                android:title="Places"/>
+                android:id="@+id/action_poi_events"
+                android:title="@string/mapmenu_events"/>
             <item
-                android:id="@+id/action_poi_organizations"
-                android:title="Organizations"/>
+                android:id="@+id/action_poi_freetime"
+                android:title="@string/mapmenu_freetime"/>
+            <item
+                android:id="@+id/action_poi_places"
+                android:title="@string/mapmenu_places"/>
+            <item
+                android:id="@+id/action_poi_babies"
+                android:title="@string/mapmenu_babies"/>
         </menu>
     </item>
 

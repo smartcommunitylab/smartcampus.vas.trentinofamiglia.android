@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="drawer_items_events_labels">
+    <string-array name="map_items_babies_labels">
          
        <!-- this is an header -->
-        <item>"Events"</item>
+        <item>"Neonati"</item>
         
-        <item>"Summer youth &amp; family"</item>
-        <item>"Alto Garda"</item>
+        <item>"Punti allattamento"</item>
+        <item>"\"Baby little home\""</item>
     </string-array>
-    <string-array name="drawer_items_events_icons">
+    <string-array name="map_items_babies_icons">
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
     </string-array>

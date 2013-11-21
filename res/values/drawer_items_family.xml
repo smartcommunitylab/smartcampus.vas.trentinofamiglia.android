@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="drawer_items_family_labels">
+
+        <!-- this is an header -->
+        <item>"Politiche familiari"</item>
+        
+        <item>"Politiche provinciali"</item>
+        <item>"Politiche dei distretti"</item>
+        <item>"Tavolo \"Nuovi Media\""</item>
+        <item>"Certificatori \"Audit\""</item>
+        <item>"Valutatori \"Audit\""</item>
+        <item>"Distretti e organizzazioni"</item>
+    </string-array>
+    <string-array name="drawer_items_family_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </string-array>
+
+</resources>

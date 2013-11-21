@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string-array name="drawer_items_places_labels">
+    <string-array name="map_items_places_labels">
 
         <!-- this is an header -->
         <item>"Luoghi"</item>
@@ -9,9 +8,8 @@
         <item>"\"Family in Trentino\""</item>
         <item>"\"Family Audit\""</item>
     </string-array>
-    <string-array name="drawer_items_places_icons">
+    <string-array name="map_items_places_icons">
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
     </string-array>
-
 </resources>
