@@ -26,7 +26,6 @@ public class EventPlaceholder {
 
 	public LocalEventObject event;
 	public TextView dateSeparator;
-	public ViewSwitcher vs;
 	public int displayChild=0;
 	public TextView title, description, notes, location, hour, tags, source, attendees;
 	public ImageView icon;

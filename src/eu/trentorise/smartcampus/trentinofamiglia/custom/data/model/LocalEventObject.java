@@ -79,7 +79,7 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 //		setTypeUserDefined(isToTimeUserDefined());
 		setUpdateTime(event.getObjectForBean().getUpdateTime());
 		setVersion(event.getObjectForBean().getVersion());
-		assignPoi(DTHelper.findPOIById(event.getObjectForBean().getPoiId()));
+//		assignPoi(DTHelper.findPOIById(event.getObjectForBean().getPoiId()));
 	}
 	public LocalEventObject copy() {
 		LocalEventObject o = new LocalEventObject();
@@ -109,7 +109,7 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 //		o.setTypeUserDefined(isToTimeUserDefined());
 		o.setUpdateTime(getUpdateTime());
 		o.setVersion(getVersion());
-		o.assignPoi(assignedPoi());
+//		o.assignPoi(assignedPoi());
 		return o;
 	}
 	public String getTimingFormatted() {

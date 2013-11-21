@@ -303,7 +303,7 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 				args.putBoolean(SearchFragment.ARG_MY, getArguments().getBoolean(SearchFragment.ARG_MY));
 			fragment.setArguments(args);
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			fragmentTransaction.replace(android.R.id.content, fragment, "pois");
+			fragmentTransaction.replace(R.id.frame_content, fragment, "pois");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
 			/* add category to bundle */

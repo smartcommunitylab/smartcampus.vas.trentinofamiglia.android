@@ -81,6 +81,7 @@
 	    9,
 	    10,
 	    11,
+	    12,
 	    13
 	],
 	"events_categories" : [
@@ -91,6 +92,7 @@
         5,
         6,
         7,
+        8,
         9
    ],
    "story_categories" : [
@@ -100,10 +102,6 @@
         5
 	],
 	"events_default" : [0],
-
-	"include" : {
-	    "type" : ["Comune", "Family", "Family - Organizations", "Museums", "museo","Concerts"]
-	},
    "center_map":[
                      46.0696727540531,
                      11.1212700605392

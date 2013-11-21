@@ -43,7 +43,11 @@ import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.DTParamsHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.GenericObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 
 /**
  * Specific storage that deletes the old data upon sync complete
@@ -78,24 +82,18 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 			@Override
 			public SyncData fetchSyncData(Long version, SyncData in) throws SecurityException, ConnectionException, ProtocolException {
 				try {
-//					Log.e("DTSyncStorage", String.valueOf(System.nanoTime()));
 					eu.trentorise.smartcampus.territoryservice.model.SyncData data = tService.synchronize(version, include, exclude, token);
-//					Log.e("DTSyncStorage", String.valueOf(System.nanoTime()));
 
 					SyncData dbData = new SyncData();
 					dbData.setVersion(data.getVersion());
 
 					dbData.setInclude(data.getInclude());
-//					Log.e("DTSyncStorage->aftersetinclude", String.valueOf(System.nanoTime()));
 
 					dbData.setExclude(data.getExclude());
-//					Log.e("DTSyncStorage->aftersetexclude", String.valueOf(System.nanoTime()));
 
 					dbData.setDeleted(convertToBasicObjectDeleted(data.getDeleted()));
-//					Log.e("DTSyncStorage->aftersetdeleted", String.valueOf(System.nanoTime()));
 
 					dbData.setUpdated(convertToBasicObject(data.getUpdated()));
-//					Log.e("DTSyncStorage->aftersetupdated", String.valueOf(System.nanoTime()));
 
 					((DTSyncStorageHelper)helper).removeOld();
 					return dbData;
@@ -170,6 +168,14 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 	    				cls = EventObjectForBean.class;
 	    				
 	    			} 
+	    			 else if ("eu.trentorise.smartcampus.dt.model.InfoObject".equals(key)) {
+		    				cls = InfoObjectForBean.class;
+		    				
+		    			}
+	    			 else if ("eu.trentorise.smartcampus.dt.model.TrackObject".equals(key)) {
+		    				cls = TrackObjectForBean.class;
+		    				
+		    			}
 //	    			else if ("eu.trentorise.smartcampus.dt.model.StoryObject".equals(key)){ 
 //	    				cls = StoryObjectForBean.class;
 //	    			}
@@ -185,11 +191,14 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 		    			} else if (EventObjectForBean.class.equals(cls)) {
 			    			newObject = new EventObjectForBean();
 		    				newObject.setObjectForBean(Utils.convertObjectToData(EventObject.class, object));
+		    			} else if (InfoObjectForBean.class.equals(cls)) {
+			    			newObject = new InfoObjectForBean();
+		    				newObject.setObjectForBean(Utils.convertObjectToData(InfoObject.class, object));
+		    			} else if (TrackObjectForBean.class.equals(cls)) {
+			    			newObject = new TrackObjectForBean();
+		    				newObject.setObjectForBean(Utils.convertObjectToData(TrackObject.class, object));
 		    			}
-//		    			else if (StoryObjectForBean.class.equals(cls)) {
-//			    			newObject = new StoryObjectForBean();
-//		    				newObject.setObjectForBean( Utils.convertObjectToData(StoryObject.class, object));
-//		    			}
+
 		    			//convert the single element
 		    			basicobjects.add(newObject);
 		    			//add the element to the return list

@@ -73,7 +73,6 @@ import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 public class PoiDetailsFragment extends Fragment {
 
 	public static final String ARG_POI_ID = "poi_id";
-
 	private boolean mStart = true;
 	private boolean mCanceledFollow = false;
 

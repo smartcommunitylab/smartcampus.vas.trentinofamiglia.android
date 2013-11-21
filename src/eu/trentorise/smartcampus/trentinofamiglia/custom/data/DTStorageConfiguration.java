@@ -22,18 +22,22 @@ import eu.trentorise.smartcampus.storage.db.StorageConfiguration;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.territoryservice.model.StoryObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 
 public class DTStorageConfiguration implements StorageConfiguration {
 	private static final long serialVersionUID = 906503482979452854L;
 
 	@SuppressWarnings("unchecked")
-	private static Class<? extends BasicObject>[] classes = (Class<? extends BasicObject>[])new Class<?>[]{POIObject.class, LocalEventObject.class,StoryObject.class};
+	private static Class<? extends BasicObject>[] classes = (Class<? extends BasicObject>[])new Class<?>[]{POIObject.class, LocalEventObject.class,InfoObject.class, TrackObject.class};												
 	private static BeanStorageHelper<PoiObjectForBean> poiHelper = new POIStorageHelper();
 	private static BeanStorageHelper<EventObjectForBean> eventHelper = new EventStorageHelper();
-//	private static BeanStorageHelper<StoryObjectForBean> storyHelper = new StoryStorageHelper();
-	
+	private static BeanStorageHelper<TrackObjectForBean> trackHelper = new TrackStorageHelper();
+	private static BeanStorageHelper<InfoObjectForBean> infotHelper = new InfoStorageHelper();	
 	@Override
 	public Class<? extends BasicObject>[] getClasses() {
 		return classes;
@@ -47,9 +51,12 @@ public class DTStorageConfiguration implements StorageConfiguration {
 		if (cls.equals(EventObjectForBean.class)||cls.equals(LocalEventObject.class)) {
 			return "events";
 		}
-//		if (cls.equals(StoryObjectForBean.class)||cls.equals(StoryObject.class)) {
-//			return "stories";
-//		}
+		if (cls.equals(TrackObjectForBean.class)||cls.equals(TrackObject.class)) {
+			return "tracks";
+		}
+		if (cls.equals(InfoObjectForBean.class)||cls.equals(InfoObject.class)) {
+			return "infos";
+		}
 		return null;
 	}
 
@@ -62,9 +69,12 @@ public class DTStorageConfiguration implements StorageConfiguration {
 		if (cls.equals(LocalEventObject.class)||(cls.equals(EventObjectForBean.class))) {
 			return (BeanStorageHelper<T>) eventHelper;
 		}
-//		if (cls.equals(StoryObject.class)||(cls.equals(StoryObjectForBean.class))) {
-//			return (BeanStorageHelper<T>) storyHelper;
-//		}
+		if (cls.equals(TrackObject.class)||(cls.equals(TrackObjectForBean.class))) {
+			return (BeanStorageHelper<T>) trackHelper;
+		}
+		if (cls.equals(InfoObject.class)||(cls.equals(InfoObjectForBean.class))) {
+			return (BeanStorageHelper<T>) infotHelper;
+		}
 		return null;
 	}
 

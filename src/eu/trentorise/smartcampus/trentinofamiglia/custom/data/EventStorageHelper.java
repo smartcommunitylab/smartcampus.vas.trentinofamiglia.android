@@ -45,9 +45,7 @@ public class EventStorageHelper implements BeanStorageHelper<EventObjectForBean>
 		String attending = cursor.getString(cursor.getColumnIndex("attending"));
 		event.setAttending(attending == null ? Collections.<String>emptyList() : Collections.singletonList(attending));
 
-//		event.setPoiIdUserDefined(cursor.getInt(cursor.getColumnIndex("poiIdUserDefined")) > 0);
-//		event.setFromTimeUserDefined(cursor.getInt(cursor.getColumnIndex("fromTimeUserDefined")) > 0);
-//		event.setToTimeUserDefined(cursor.getInt(cursor.getColumnIndex("toTimeUserDefined")) > 0);
+
 		returnEventObjectForBean.setObjectForBean(event);
 		return returnEventObjectForBean;
 	}

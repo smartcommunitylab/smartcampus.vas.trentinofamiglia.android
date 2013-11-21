@@ -152,22 +152,22 @@ public class DTHelper {
 		if (instance == null)
 			instance = new DTHelper(mContext);
 		
-		tService = new TerritoryService(getAppUrl() + "core.territory");
+		tService = new TerritoryService(getAppUrl() + "trentinofamiglia");
 
-//		new AsyncTask<Void, Void, BasicProfile>() {
-//			@Override
-//			protected BasicProfile doInBackground(Void... params) {
-//				try {
-//					String token = SCAccessProvider.getInstance(mContext).readToken(mContext);
-//					BasicProfileService service = new BasicProfileService(getAppUrl() + "aac");
-//					bp = service.getBasicProfile(token);
-//					return bp;
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					return null;
-//				}
-//			}
-//		}.execute();
+		new AsyncTask<Void, Void, BasicProfile>() {
+			@Override
+			protected BasicProfile doInBackground(Void... params) {
+				try {
+					String token = SCAccessProvider.getInstance(mContext).readToken(mContext);
+					BasicProfileService service = new BasicProfileService(getAppUrl() + "aac");
+					bp = service.getBasicProfile(token);
+					return bp;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}.execute();
 	}
 
 	private static String getAppUrl() {
@@ -325,7 +325,7 @@ public class DTHelper {
 
 			getInstance().syncInProgress = true;
 			getInstance().storage.synchronize(getAuthToken(), tService);
-			activateAutoSync();
+//			activateAutoSync();
 
 			// getInstance().storage.synchronize(getAuthToken(),
 			// GlobalConfig.getAppUrl(mContext),

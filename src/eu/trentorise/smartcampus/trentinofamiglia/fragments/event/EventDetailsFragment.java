@@ -30,6 +30,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Address;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -151,69 +152,82 @@ public class EventDetailsFragment extends Fragment {
 			 * BUTTONS
 			 */
 			// follow/unfollow
-//			if (mStart) {
-//				ToggleButton followTbtn = (ToggleButton) this.getView().findViewById(R.id.event_details_follow_tbtn);
-//				if (getEvent().getCommunityData().getFollowing().containsKey(DTHelper.getUserId())) {
-//					followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-//					followTbtn.setChecked(true);
-//				} else {
-//					followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-//					followTbtn.setChecked(false);
-//				}
-//
-//				followTbtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//						if (!mCanceledFollow) {
-//							if (isChecked) {
-//								// FOLLOW
-//								{
-//									SCAsyncTask<Object, Void, BaseDTObject> followTask = new SCAsyncTask<Object, Void, BaseDTObject>(
-//											getActivity(), new FollowAsyncTaskProcessor(getActivity(),
-//													buttonView));
-//									followTask.execute(mEvent);
-//								}
-//							} else {
-//								// UNFOLLOW
-//								SCAsyncTask<BaseDTObject, Void, BaseDTObject> unfollowTask = new SCAsyncTask<BaseDTObject, Void, BaseDTObject>(
-//										getActivity(), new UnfollowAsyncTaskProcessor(getActivity(),
-//												buttonView));
-//								unfollowTask.execute(mEvent);
-//
-//							}
-//						} else {
-//							mCanceledFollow = false;
-//						}
-//					}
-//				});
-//			}
-//
-//			// attend
-//			ToggleButton attendTbtn = (ToggleButton) this.getView().findViewById(R.id.event_details_attend_tbtn);
-//			if (getEvent().getAttending() == null || getEvent().getAttending().isEmpty()) {
-//				attendTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-//				attendTbtn.setChecked(false);
-//			} else {
-//				attendTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-//				attendTbtn.setChecked(true);
-//			}
-//
-//			attendTbtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//				@Override
-//				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//					// if (new
-//					// AMSCAccessProvider().isUserAnonymous(getActivity()))
-//					// {
-//					// // show dialog box
-//					// UserRegistration.upgradeuser(getActivity());
-//					// } else
-//					{
-//						new SCAsyncTask<Boolean, Void, LocalEventObject>(getActivity(), new AttendProcessor(
-//								getActivity(), buttonView)).execute(getEvent().getAttending() == null
-//								|| getEvent().getAttending().isEmpty());
-//					}
-//				}
-//			});
+			// if (mStart) {
+			// ToggleButton followTbtn = (ToggleButton)
+			// this.getView().findViewById(R.id.event_details_follow_tbtn);
+			// if
+			// (getEvent().getCommunityData().getFollowing().containsKey(DTHelper.getUserId()))
+			// {
+			// followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
+			// followTbtn.setChecked(true);
+			// } else {
+			// followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
+			// followTbtn.setChecked(false);
+			// }
+			//
+			// followTbtn.setOnCheckedChangeListener(new
+			// OnCheckedChangeListener() {
+			// @Override
+			// public void onCheckedChanged(CompoundButton buttonView, boolean
+			// isChecked) {
+			// if (!mCanceledFollow) {
+			// if (isChecked) {
+			// // FOLLOW
+			// {
+			// SCAsyncTask<Object, Void, BaseDTObject> followTask = new
+			// SCAsyncTask<Object, Void, BaseDTObject>(
+			// getActivity(), new FollowAsyncTaskProcessor(getActivity(),
+			// buttonView));
+			// followTask.execute(mEvent);
+			// }
+			// } else {
+			// // UNFOLLOW
+			// SCAsyncTask<BaseDTObject, Void, BaseDTObject> unfollowTask = new
+			// SCAsyncTask<BaseDTObject, Void, BaseDTObject>(
+			// getActivity(), new UnfollowAsyncTaskProcessor(getActivity(),
+			// buttonView));
+			// unfollowTask.execute(mEvent);
+			//
+			// }
+			// } else {
+			// mCanceledFollow = false;
+			// }
+			// }
+			// });
+			// }
+			//
+			// // attend
+			// ToggleButton attendTbtn = (ToggleButton)
+			// this.getView().findViewById(R.id.event_details_attend_tbtn);
+			// if (getEvent().getAttending() == null ||
+			// getEvent().getAttending().isEmpty()) {
+			// attendTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
+			// attendTbtn.setChecked(false);
+			// } else {
+			// attendTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
+			// attendTbtn.setChecked(true);
+			// }
+			//
+			// attendTbtn.setOnCheckedChangeListener(new
+			// OnCheckedChangeListener() {
+			// @Override
+			// public void onCheckedChanged(CompoundButton buttonView, boolean
+			// isChecked) {
+			// // if (new
+			// // AMSCAccessProvider().isUserAnonymous(getActivity()))
+			// // {
+			// // // show dialog box
+			// // UserRegistration.upgradeuser(getActivity());
+			// // } else
+			// {
+			// new SCAsyncTask<Boolean, Void, LocalEventObject>(getActivity(),
+			// new AttendProcessor(
+			// getActivity(), buttonView)).execute(getEvent().getAttending() ==
+			// null
+			// || getEvent().getAttending().isEmpty());
+			// }
+			// }
+			// });
 
 			// map
 			ImageButton mapBtn = (ImageButton) getView().findViewById(R.id.event_details_map);
@@ -366,7 +380,7 @@ public class EventDetailsFragment extends Fragment {
 			});
 
 			updateRating();
-//			updateAttending();
+			// updateAttending();
 
 			if (tmp_comments.length > 0) {
 				// Comments
@@ -402,18 +416,19 @@ public class EventDetailsFragment extends Fragment {
 
 	}
 
-//	private void updateAttending() {
-//		TextView tv;
-//		if (this.getView() != null) {
-//			// attendees
-//			tv = (TextView) this.getView().findViewById(R.id.attendees_num);
-//			if (getEvent().getAttendees() != null) {
-//				tv.setText(getEvent().getAttendees() + " " + getString(R.string.attendees_extended));
-//			} else {
-//				tv.setText("0 " + getString(R.string.attendees_extended));
-//			}
-//		}
-//	}
+	// private void updateAttending() {
+	// TextView tv;
+	// if (this.getView() != null) {
+	// // attendees
+	// tv = (TextView) this.getView().findViewById(R.id.attendees_num);
+	// if (getEvent().getAttendees() != null) {
+	// tv.setText(getEvent().getAttendees() + " " +
+	// getString(R.string.attendees_extended));
+	// } else {
+	// tv.setText("0 " + getString(R.string.attendees_extended));
+	// }
+	// }
+	// }
 
 	/*
 	 * private boolean hasMultimediaAttached() { return true; }
@@ -488,13 +503,16 @@ public class EventDetailsFragment extends Fragment {
 		// Menu.NONE, R.string.getdir);
 		// }
 
-//		submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_tag, Menu.NONE, R.string.submenu_tag);
+		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_tag, Menu.NONE,
+		// R.string.submenu_tag);
 
-//		// CAN DELETE ONLY OWN OBJECTS
-//		if (DTHelper.isOwnedObject(getEvent())) {
-//			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_edit, Menu.NONE, R.string.edit);
-//			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_delete, Menu.NONE, R.string.delete);
-//		}
+		// // CAN DELETE ONLY OWN OBJECTS
+		// if (DTHelper.isOwnedObject(getEvent())) {
+		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_edit, Menu.NONE,
+		// R.string.edit);
+		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_delete, Menu.NONE,
+		// R.string.delete);
+		// }
 
 		super.onPrepareOptionsMenu(menu);
 	}
@@ -502,15 +520,14 @@ public class EventDetailsFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.submenu_show_related_poi) {
-			FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager()
-					.beginTransaction();
+			FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 			PoiDetailsFragment fragment = new PoiDetailsFragment();
 			Bundle args = new Bundle();
 			args.putSerializable(PoiDetailsFragment.ARG_POI_ID, getPOI().getId());
 			fragment.setArguments(args);
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			// fragmentTransaction.detach(this);
-			fragmentTransaction.replace(android.R.id.content, fragment, "events");
+			fragmentTransaction.replace(R.id.frame_content, fragment, "events");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
 			return true;
@@ -581,63 +598,68 @@ public class EventDetailsFragment extends Fragment {
 			// return true;
 			// }
 		}
-//		else if (item.getItemId() == R.id.submenu_edit || item.getItemId() == R.id.submenu_tag) {
-//			// if (new
-//			// AMSCAccessProvider().isUserAnonymous(getActivity())) {
-//			// // show dialog box
-//			// UserRegistration.upgradeuser(getActivity());
-//			// return false;
-//			// } else
-//			{
-//				FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager()
-//						.beginTransaction();
-//				Fragment fragment = new CreateEventFragment();
-//				Bundle args = new Bundle();
-//				// args.putSerializable(CreateEventFragment.ARG_EVENT,
-//				// getEvent());
-//				args.putString(CreateEventFragment.ARG_EVENT, getEvent().getId());
-//				fragment.setArguments(args);
-//				fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//				// fragmentTransaction.detach(this);
-//				fragmentTransaction.replace(android.R.id.content, fragment, "events");
-//				fragmentTransaction.addToBackStack(fragment.getTag());
-//				fragmentTransaction.commit();
-//				return true;
-//			}
-//		} else if (item.getItemId() == R.id.submenu_delete) {
-//			// if (new
-//			// AMSCAccessProvider().isUserAnonymous(getActivity())) {
-//			// // show dialog box
-//			// UserRegistration.upgradeuser(getActivity());
-//			// return false;
-//			// } else
-//			{
-//				new SCAsyncTask<LocalEventObject, Void, Boolean>(getActivity(), new EventDeleteProcessor(getActivity()))
-//						.execute(getEvent());
-//				return true;
-//			}
-//		} 
+		// else if (item.getItemId() == R.id.submenu_edit || item.getItemId() ==
+		// R.id.submenu_tag) {
+		// // if (new
+		// // AMSCAccessProvider().isUserAnonymous(getActivity())) {
+		// // // show dialog box
+		// // UserRegistration.upgradeuser(getActivity());
+		// // return false;
+		// // } else
+		// {
+		// FragmentTransaction fragmentTransaction =
+		// getActivity().getSupportFragmentManager()
+		// .beginTransaction();
+		// Fragment fragment = new CreateEventFragment();
+		// Bundle args = new Bundle();
+		// // args.putSerializable(CreateEventFragment.ARG_EVENT,
+		// // getEvent());
+		// args.putString(CreateEventFragment.ARG_EVENT, getEvent().getId());
+		// fragment.setArguments(args);
+		// fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		// // fragmentTransaction.detach(this);
+		// fragmentTransaction.replace(android.R.id.content, fragment,
+		// "events");
+		// fragmentTransaction.addToBackStack(fragment.getTag());
+		// fragmentTransaction.commit();
+		// return true;
+		// }
+		// } else if (item.getItemId() == R.id.submenu_delete) {
+		// // if (new
+		// // AMSCAccessProvider().isUserAnonymous(getActivity())) {
+		// // // show dialog box
+		// // UserRegistration.upgradeuser(getActivity());
+		// // return false;
+		// // } else
+		// {
+		// new SCAsyncTask<LocalEventObject, Void, Boolean>(getActivity(), new
+		// EventDeleteProcessor(getActivity()))
+		// .execute(getEvent());
+		// return true;
+		// }
+		// }
 		else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-//	@Override
-//	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		if (requestCode == 3000) {
-//			if (resultCode == Activity.RESULT_OK) {
-//				Topic topic = (Topic) data.getSerializableExtra("topic");
-//				new FollowAsyncTask().execute(topic.getId());
-//				// fix to avoid onActivityResult DiscoverTrentoActivity failure
-//				data.putExtra(AccountManager.KEY_AUTHTOKEN, DTHelper.getAuthToken());
-//				mStart = false;
-//			} else {
-//				getEvent().getCommunityData().getFollowing().clear();
-//				mCanceledFollow = true;
-//			}
-//		}
-//		super.onActivityResult(requestCode, resultCode, data);
-//	}
+	// @Override
+	// public void onActivityResult(int requestCode, int resultCode, Intent
+	// data) {
+	// if (requestCode == 3000) {
+	// if (resultCode == Activity.RESULT_OK) {
+	// Topic topic = (Topic) data.getSerializableExtra("topic");
+	// new FollowAsyncTask().execute(topic.getId());
+	// // fix to avoid onActivityResult DiscoverTrentoActivity failure
+	// data.putExtra(AccountManager.KEY_AUTHTOKEN, DTHelper.getAuthToken());
+	// mStart = false;
+	// } else {
+	// getEvent().getCommunityData().getFollowing().clear();
+	// mCanceledFollow = true;
+	// }
+	// }
+	// super.onActivityResult(requestCode, resultCode, data);
+	// }
 
 	@Override
 	public void onResume() {
@@ -687,8 +709,8 @@ public class EventDetailsFragment extends Fragment {
 
 	private void setFollowByIntent() {
 		try {
-			ApplicationInfo ai = getActivity().getPackageManager().getApplicationInfo(
-					getActivity().getPackageName(), PackageManager.GET_META_DATA);
+			ApplicationInfo ai = getActivity().getPackageManager().getApplicationInfo(getActivity().getPackageName(),
+					PackageManager.GET_META_DATA);
 			Bundle aBundle = ai.metaData;
 			mFollowByIntent = aBundle.getBoolean("follow-by-intent");
 		} catch (NameNotFoundException e) {
@@ -717,7 +739,12 @@ public class EventDetailsFragment extends Fragment {
 			from.setLatitude(mylocation.getLatitudeE6() / 1E6);
 			from.setLongitude(mylocation.getLongitudeE6() / 1E6);
 		}
-		NavigationHelper.bringMeThere(getActivity(), from, to);
+		Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("it.comunitrentini.comuneintasca");
+		if (intent == null) {
+			intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.comunitrentini.comuneintasca"));
+		} else
+			// startActivity(intent);
+			NavigationHelper.bringMeThere(getActivity(), from, to);
 	}
 
 	private class RatingProcessor extends AbstractAsyncTaskProcessor<Integer, Integer> implements RatingHandler {
@@ -746,87 +773,95 @@ public class EventDetailsFragment extends Fragment {
 		}
 	}
 
-//	private class EventDeleteProcessor extends AbstractAsyncTaskProcessor<LocalEventObject, Boolean> {
-//		public EventDeleteProcessor(Activity activity) {
-//			super(activity);
-//		}
-//
-//		@Override
-//		public Boolean performAction(LocalEventObject... params) throws SecurityException, Exception {
-//			return DTHelper.deleteEvent(params[0]);
-//		}
-//
-//		@Override
-//		public void handleResult(Boolean result) {
-//			if (result) {
-//				getActivity().getSupportFragmentManager().popBackStack();
-//			} else {
-//				Toast.makeText(getActivity(), getActivity().getString(R.string.app_failure_cannot_delete),
-//						Toast.LENGTH_LONG).show();
-//			}
-//		}
-//
-//	}
-//
-//	private class AttendProcessor extends AbstractAsyncTaskProcessor<Boolean, LocalEventObject> {
-//
-//		private CompoundButton buttonView;
-//		private Boolean attend;
-//
-//		public AttendProcessor(Activity activity, CompoundButton buttonView) {
-//			super(activity);
-//			this.buttonView = buttonView;
-//		}
-//
-//		@Override
-//		public LocalEventObject performAction(Boolean... params) throws SecurityException, Exception {
-//			attend = params[0];
-//			if (attend) {
-//				return DTHelper.attend(getEvent());
-//			}
-//			return DTHelper.notAttend(getEvent());
-//		}
-//
-//		@Override
-//		public void handleResult(LocalEventObject result) {
-//			mEvent = result;
-//			updateAttending();
-//			// getActivity().invalidateOptionsMenu();
-//			// LocalEventObject event = getEvent();
-//			if (getActivity() != null)
-//				if (mEvent.getAttending() == null || mEvent.getAttending().isEmpty()) {
-//					Toast.makeText(getActivity(), R.string.not_attend_success, Toast.LENGTH_SHORT).show();
-//					buttonView.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-//				} else {
-//					Toast.makeText(getActivity(), R.string.attend_success, Toast.LENGTH_SHORT).show();
-//					buttonView.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-//				}
-//		}
-//
-//	}
-//
-//	class FollowAsyncTask extends AsyncTask<String, Void, Void> {
-//
-//		@Override
-//		protected Void doInBackground(String... params) {
-//			String topicId = params[0];
-//			try {
-//				DTHelper.follow(mEvent);
-//			} catch (Exception e) {
-//				Log.e(FollowAsyncTask.class.getName(), String.format("Exception following event %s", mEventId));
-//			}
-//			return null;
-//		}
-//
-//		@Override
-//		protected void onPostExecute(Void result) {
-//			// getActivity().invalidateOptionsMenu();
-//			if (followButtonView != null) {
-//				followButtonView.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-//				followButtonView = null;
-//			}
-//			mStart = true;
-//		}
-//
-//	}
+	// private class EventDeleteProcessor extends
+	// AbstractAsyncTaskProcessor<LocalEventObject, Boolean> {
+	// public EventDeleteProcessor(Activity activity) {
+	// super(activity);
+	// }
+	//
+	// @Override
+	// public Boolean performAction(LocalEventObject... params) throws
+	// SecurityException, Exception {
+	// return DTHelper.deleteEvent(params[0]);
+	// }
+	//
+	// @Override
+	// public void handleResult(Boolean result) {
+	// if (result) {
+	// getActivity().getSupportFragmentManager().popBackStack();
+	// } else {
+	// Toast.makeText(getActivity(),
+	// getActivity().getString(R.string.app_failure_cannot_delete),
+	// Toast.LENGTH_LONG).show();
+	// }
+	// }
+	//
+	// }
+	//
+	// private class AttendProcessor extends AbstractAsyncTaskProcessor<Boolean,
+	// LocalEventObject> {
+	//
+	// private CompoundButton buttonView;
+	// private Boolean attend;
+	//
+	// public AttendProcessor(Activity activity, CompoundButton buttonView) {
+	// super(activity);
+	// this.buttonView = buttonView;
+	// }
+	//
+	// @Override
+	// public LocalEventObject performAction(Boolean... params) throws
+	// SecurityException, Exception {
+	// attend = params[0];
+	// if (attend) {
+	// return DTHelper.attend(getEvent());
+	// }
+	// return DTHelper.notAttend(getEvent());
+	// }
+	//
+	// @Override
+	// public void handleResult(LocalEventObject result) {
+	// mEvent = result;
+	// updateAttending();
+	// // getActivity().invalidateOptionsMenu();
+	// // LocalEventObject event = getEvent();
+	// if (getActivity() != null)
+	// if (mEvent.getAttending() == null || mEvent.getAttending().isEmpty()) {
+	// Toast.makeText(getActivity(), R.string.not_attend_success,
+	// Toast.LENGTH_SHORT).show();
+	// buttonView.setBackgroundResource(R.drawable.ic_btn_monitor_off);
+	// } else {
+	// Toast.makeText(getActivity(), R.string.attend_success,
+	// Toast.LENGTH_SHORT).show();
+	// buttonView.setBackgroundResource(R.drawable.ic_btn_monitor_on);
+	// }
+	// }
+	//
+	// }
+	//
+	// class FollowAsyncTask extends AsyncTask<String, Void, Void> {
+	//
+	// @Override
+	// protected Void doInBackground(String... params) {
+	// String topicId = params[0];
+	// try {
+	// DTHelper.follow(mEvent);
+	// } catch (Exception e) {
+	// Log.e(FollowAsyncTask.class.getName(),
+	// String.format("Exception following event %s", mEventId));
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// protected void onPostExecute(Void result) {
+	// // getActivity().invalidateOptionsMenu();
+	// if (followButtonView != null) {
+	// followButtonView.setBackgroundResource(R.drawable.ic_btn_monitor_on);
+	// followButtonView = null;
+	// }
+	// mStart = true;
+	// }
+	//
+	// }
 }

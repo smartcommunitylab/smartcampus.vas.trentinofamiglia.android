@@ -20,13 +20,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
@@ -34,7 +34,6 @@ import eu.trentorise.smartcampus.android.common.SCAsyncTask;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.DrawerItem;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
@@ -42,9 +41,9 @@ import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingF
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.DrawerItem;
 
-public class MainActivity extends ActionBarActivity implements
-		OnChildClickListener {
+public class MainActivity extends ActionBarActivity implements  OnChildClickListener {
 
 	private static final String TAG_FRAGMENT_MAP = "fragmap";
 	private static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
@@ -61,7 +60,6 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		initDataManagement(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
 
@@ -69,15 +67,11 @@ public class MainActivity extends ActionBarActivity implements
 		getSupportActionBar().setHomeButtonEnabled(true);
 
 		setupProperties();
+		initDataManagement(savedInstanceState);
 
-		// to start with the map.
-		mFragmentManager
-				.beginTransaction()
-				.replace(R.id.frame_content, new MapFragment(),
-						TAG_FRAGMENT_MAP).commit();
+
 
 	}
-
 	public void navDrawerOutItemClick(View v) {
 		if (v.getId() == R.id.nav_drawer_map_tv) {
 			if (! (mFragmentManager.findFragmentById(R.id.frame_content) instanceof MapFragment))
@@ -86,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements
 				mDrawerLayout.closeDrawers();
 		}
 	}
-
+	
 	private void initDataManagement(Bundle savedInstanceState) {
 		try {
 			initGlobalConstants();
@@ -94,19 +88,17 @@ public class MainActivity extends ActionBarActivity implements
 			try {
 				if (!SCAccessProvider.getInstance(this).login(this, null)) {
 					DTHelper.init(getApplicationContext());
-					initData();
+					initData(); 
 				}
-
+			
 			} catch (Exception e) {
 				e.printStackTrace();
-				Toast.makeText(this, getString(R.string.auth_failed),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
 				finish();
 			}
 
 		} catch (Exception e) {
-			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 			return;
 		}
@@ -132,10 +124,8 @@ public class MainActivity extends ActionBarActivity implements
 		super.onDestroy();
 	}
 
-	private void initGlobalConstants() throws NameNotFoundException,
-			NotFoundException {
-		GlobalConfig.setAppUrl(this,
-				getResources().getString(R.string.smartcampus_app_url));
+	private void initGlobalConstants() throws NameNotFoundException, NotFoundException {
+		GlobalConfig.setAppUrl(this, getResources().getString(R.string.smartcampus_app_url));
 	}
 
 	@Override
@@ -144,18 +134,15 @@ public class MainActivity extends ActionBarActivity implements
 
 		if (requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				String token = data.getExtras().getString(
-						AccountManager.KEY_AUTHTOKEN);
+				String token = data.getExtras().getString(AccountManager.KEY_AUTHTOKEN);
 				if (token == null) {
-					Toast.makeText(this, R.string.app_failure_security,
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(this, R.string.app_failure_security, Toast.LENGTH_LONG).show();
 					finish();
 				} else {
 					DTHelper.init(getApplicationContext());
 					initData();
 				}
-			} else if (resultCode == RESULT_CANCELED
-					&& requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
+			} else if (resultCode == RESULT_CANCELED && requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
 				DTHelper.endAppFailure(this, R.string.app_failure_security);
 			}
 		}
@@ -163,11 +150,11 @@ public class MainActivity extends ActionBarActivity implements
 
 	private boolean initData() {
 		try {
-			new SCAsyncTask<Void, Void, BaseDTObject>(this,
-					new LoadDataProcessor(this)).execute();
+			// to start with the map.
+			mFragmentManager.beginTransaction().replace(R.id.frame_content, new MapFragment(), TAG_FRAGMENT_MAP).commit();
+			new SCAsyncTask<Void, Void, BaseDTObject>(this, new LoadDataProcessor(this)).execute();
 		} catch (Exception e1) {
-			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
 			return false;
 		}
 		return true;
@@ -179,13 +166,12 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		// this is a class created to avoid an Android bug
 		// see the class for further infos.
-		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
+		mDrawerToggle = new HackActionBarToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name,
+				R.string.app_name);
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ExpandableListView) findViewById(R.id.drawer_list);
-		navMenuTitles = getResources().getStringArray(
-				R.array.fragments_label_array);
+		navMenuTitles = getResources().getStringArray(R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
 		mListView.setAdapter(nda);
 		mListView.setOnChildClickListener(this);
@@ -206,6 +192,8 @@ public class MainActivity extends ActionBarActivity implements
 				R.array.drawer_items_organizations_icons);
 		return new NavDrawerAdapter(this, headers, items);
 	}
+
+
 
 	/**
 	 * ASSUMPTIONS: ids passed should be in this way:
@@ -257,7 +245,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		return false;
 	}
-
+	
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
@@ -373,8 +361,7 @@ public class MainActivity extends ActionBarActivity implements
 		return out;
 	}
 
-	private class LoadDataProcessor extends
-			AbstractAsyncTaskProcessor<Void, BaseDTObject> {
+	private class LoadDataProcessor extends AbstractAsyncTaskProcessor<Void, BaseDTObject> {
 
 		private int syncRequired = 0;
 		private FragmentActivity currentRootActivity = null;
@@ -384,8 +371,7 @@ public class MainActivity extends ActionBarActivity implements
 		}
 
 		@Override
-		public BaseDTObject performAction(Void... params)
-				throws SecurityException, Exception {
+		public BaseDTObject performAction(Void... params) throws SecurityException, Exception {
 
 			Exception res = null;
 
@@ -405,9 +391,7 @@ public class MainActivity extends ActionBarActivity implements
 		public void handleResult(BaseDTObject result) {
 			if (syncRequired != DTHelper.SYNC_NOT_REQUIRED) {
 				if (syncRequired == DTHelper.SYNC_REQUIRED_FIRST_TIME) {
-					Toast.makeText(MainActivity.this,
-							R.string.initial_data_load, Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(MainActivity.this, R.string.initial_data_load, Toast.LENGTH_LONG).show();
 				}
 				setSupportProgressBarIndeterminateVisibility(true);
 				isLoading = true;
@@ -415,36 +399,34 @@ public class MainActivity extends ActionBarActivity implements
 					@Override
 					public void run() {
 						try {
-							currentRootActivity = DTHelper
-									.start(MainActivity.this);
+							currentRootActivity = DTHelper.start(MainActivity.this);
 						} catch (Exception e) {
 							e.printStackTrace();
 						} finally {
 							if (currentRootActivity != null) {
-								currentRootActivity
-										.runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												currentRootActivity
-														.setProgressBarIndeterminateVisibility(false);
-												if (MainActivity.this != null) {
-													MainActivity.this
-															.setSupportProgressBarIndeterminateVisibility(false);
-												}
-												isLoading = false;
-											}
-										});
+								currentRootActivity.runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										currentRootActivity.setProgressBarIndeterminateVisibility(false);
+										if (MainActivity.this != null) {
+											MainActivity.this.setSupportProgressBarIndeterminateVisibility(false);
+										}
+										isLoading = false;
+									}
+								});
 							}
 						}
 					}
 				}).start();
 			} else {
 				setSupportProgressBarIndeterminateVisibility(false);
-				DTHelper.activateAutoSync();
+//				DTHelper.activateAutoSync();
 			}
 
 		}
 
 	}
+
+	
 
 }

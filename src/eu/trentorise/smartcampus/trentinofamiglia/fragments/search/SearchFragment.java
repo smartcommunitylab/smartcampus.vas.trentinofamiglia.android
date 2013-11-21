@@ -151,7 +151,7 @@ public class SearchFragment extends Fragment {
 
 				fragment.setArguments(args);
 				fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-				fragmentTransaction.replace(android.R.id.content, fragment, type);
+				fragmentTransaction.replace(R.id.frame_content, fragment, type);
 				fragmentTransaction.addToBackStack(fragment.getTag());
 				fragmentTransaction.commit();
 			}

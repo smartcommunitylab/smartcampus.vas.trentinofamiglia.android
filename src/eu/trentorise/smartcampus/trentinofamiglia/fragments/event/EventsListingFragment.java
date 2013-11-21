@@ -315,7 +315,7 @@ public class EventsListingFragment extends
 			fragment.setArguments(args);
 			fragmentTransaction
 					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			fragmentTransaction.replace(android.R.id.content, fragment,
+			fragmentTransaction.replace(R.id.frame_content, fragment,
 					"events");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
@@ -469,7 +469,7 @@ public class EventsListingFragment extends
 			fragmentTransaction
 					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			// fragmentTransaction.detach(this);
-			fragmentTransaction.replace(android.R.id.content, fragment,
+			fragmentTransaction.replace(R.id.frame_content, fragment,
 					"events");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();

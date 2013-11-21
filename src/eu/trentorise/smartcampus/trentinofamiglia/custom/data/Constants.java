@@ -41,7 +41,9 @@ public class Constants {
 	
 	public static final String TYPE_EVENT = "event";
 	public static final String TYPE_LOCATION = "location";
-	public static final String TYPE_STORY = "story";
+	public static final String TYPE_INFO = "info";
+	public static final String TYPE_TRACK = "track";
+
 	
 	public static String getAuthority(Context ctx) throws NameNotFoundException {
 		ApplicationInfo ai = ctx.getPackageManager().getApplicationInfo(ctx.getPackageName(), PackageManager.GET_META_DATA);
