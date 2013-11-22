@@ -69,7 +69,7 @@ public class CategoryHelper {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
 					"Politiche provinciali", R.string.categories_info_provincial_politics),
 			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Certificatori \"Audit\"", R.string.categories_info_certifiers),
+					"Consulenti \"Audit\"", R.string.categories_info_certifiers),
 			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
 					"Valutatori \"Audit\"", R.string.categories_info_evaluators),
 			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,

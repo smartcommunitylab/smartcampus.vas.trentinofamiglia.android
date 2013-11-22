@@ -36,6 +36,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
 
@@ -271,7 +272,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 
 	private Object[] getFragmentAndTag(int groupPos, int childPos) {
 		Object[] out = new Object[2];
-		String cat = "Concerts";
+		String cat = null;
 		Bundle args = new Bundle();
 		if (groupPos == -1) {
 			if (childPos == -1) { // map
@@ -307,10 +308,10 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 			}
 		} else if (groupPos == 1) { // free time and holidays
-			EventsListingFragment elf = null;
 			switch (childPos) {
-			case 0:
-				cat = "Concerts";
+			case 0:	//piste ciclopedonali
+				EventsListingFragment elf = null;
+				cat = "Piste ciclopedonali";
 				args = new Bundle();
 				elf = new EventsListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -318,13 +319,24 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[0] = elf;
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
-			case 1:
-				cat = "Concerts";
+			case 1:	//passeggiate
+				elf = null;
+				cat = "Passeggiate";
 				args = new Bundle();
 				elf = new EventsListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				elf.setArguments(args);
 				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 2:	//vacanze al mare
+				PoisListingFragment plf = null;
+				cat = "Vacanze al mare";
+				args = new Bundle();
+				plf = new PoisListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				plf.setArguments(args);
+				out[0] = plf;
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			default:
@@ -335,16 +347,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			EventsListingFragment elf = null;
 			switch (childPos) {
 			case 0:
-				cat = "Museums";
-				args = new Bundle();
-				elf = new EventsListingFragment();
-				args.putString(SearchFragment.ARG_CATEGORY, cat);
-				elf.setArguments(args);
-				out[0] = elf;
-				out[1] = TAG_FRAGMENT_POI_LIST;
-				break;
-			case 1:
-				cat = "Concerts";
+				cat = "Notizie";
 				args = new Bundle();
 				elf = new EventsListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -357,24 +360,24 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 			}
 		} else if (groupPos == 3) {// places
-			EventsListingFragment elf = null;
+			PoisListingFragment plf = null;
 			switch (childPos) {
 			case 0:
-				cat = "Museums";
+				cat = "\"Family in Trentino\"";
 				args = new Bundle();
-				elf = new EventsListingFragment();
+				plf = new PoisListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
-				elf.setArguments(args);
-				out[0] = elf;
+				plf.setArguments(args);
+				out[0] = plf;
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			case 1:
-				cat = "Museums";
+				cat = "\"Family Audit\"";
 				args = new Bundle();
-				elf = new EventsListingFragment();
+				plf = new PoisListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
-				elf.setArguments(args);
-				out[0] = elf;
+				plf.setArguments(args);
+				out[0] = plf;
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			default:
@@ -383,7 +386,30 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 
 			}
 		}else if (groupPos == 4) {// babies
-			
+			PoisListingFragment plf = null;
+			switch (childPos) {
+			case 0:
+				cat = "Punti allattamento";
+				args = new Bundle();
+				plf = new PoisListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				plf.setArguments(args);
+				out[0] = plf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 1:
+				cat = "\"Baby little home\"";
+				args = new Bundle();
+				plf = new PoisListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				plf.setArguments(args);
+				out[0] = plf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			default:
+				out = null;
+				break;
+			}
 		} else if (groupPos == 5) {// family policies
 			
 		}  
