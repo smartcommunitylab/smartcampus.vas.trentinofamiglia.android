@@ -71,8 +71,8 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		
 		e.event = getItem(position);
 		e.title.setText(e.event.getTitle());
-		if (e.event.assignedPoi() != null) {
-			e.location.setText(DTHelper.poiGetShortAddress(e.event.assignedPoi()));
+		if (e.event.getCustomData() != null && e.event.getCustomData().get("place")!=null) {
+			e.location.setText((CharSequence) e.event.getCustomData().get("place"));
 		} else {
 			e.location.setText(null);
 		}
