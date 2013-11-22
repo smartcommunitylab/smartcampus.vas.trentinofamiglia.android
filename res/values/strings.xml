@@ -8,33 +8,27 @@
     <string name="nav_drawer_map">Map</string>
     <string name="action_poi">POIs</string>
     <string name="empty" />
-    <string name="categories_event_concert">Concerts</string>
-    <string name="categories_event_happyhour">Happy hours</string>
-    <string name="categories_event_movie">Movies</string>
-    <string name="categories_event_party">Parties</string>
-    <string name="categories_event_seminar">Seminars</string>
-    <string name="categories_event_theater">Performances</string>
-    <string name="categories_event_exhibition">Exhibitions</string>
-    <string name="categories_event_family">Family</string>
-    <string name="categories_event_generic">Other</string>
-    <string name="categories_poi_museum">Museums</string>
-    <string name="categories_poi_mobility">Mobility</string>
-    <string name="categories_poi_parking">Parking</string>
-    <string name="categories_poi_office">Offices</string>
-    <string name="categories_poi_theater">Theaters</string>
-    <string name="categories_poi_university">University</string>
-    <string name="categories_poi_accommodation">Lodging</string>
-    <string name="categories_poi_library">Libraries</string>
-    <string name="categories_poi_food">Restaurants</string>
-    <string name="categories_poi_drink">Bars</string>
-    <string name="categories_poi_cinema">Cinemas</string>
-    <string name="categories_poi_family">Family</string>
-    <string name="categories_poi_generic">Other places</string>
-    <string name="categories_story_leisure">Amusement</string>
-    <string name="categories_story_offices_and_services">Organisations</string>
-    <string name="categories_story_university">University</string>
-    <string name="categories_story_culture">Art &amp; Tourism</string>
-    <string name="categories_story_generic">Other</string>
+    
+    <string name="categories_event_summer_family">Estate giovani e famiglia</string>
+    <string name="categories_event_alto_garda">Alto Garda</string>
+
+    <string name="categories_poi_family_audit">\"Family Audit\"</string>
+    <string name="categories_poi_summer_holyday">Vacanze al mare</string>
+    <string name="categories_poi_new_media">Tavolo \"Nuovi Media\"</string>
+    <string name="categories_poi_breast_point">Punti allattamento</string>
+    <string name="categories_poi_trentino_family">\"Family in Trentino\"</string>
+    
+    <string name="categories_info_provincial_politics">Politiche provinciali</string>
+    <string name="categories_info_certifiers">Certificatori \"Audit\"</string>
+    <string name="categories_info_evaluators">Valutatori \"Audit\"</string>
+    <string name="categories_info_distrectual_politics">Politiche dei distretti</string>
+    <string name="categories_info_news">Notizie</string>
+    <string name="categories_info_organizations">Distretti e organizzazioni</string>
+
+    <string name="categories_track_pedestrian">Piste ciclopedonali</string>
+    <string name="categories_track_trekking">Passeggiate</string>
+    <string name="categories_track_bicycle">Pista ciclabile</string>
+
     <string name="categories_event_today">Today\'s Events</string>
     <string name="categories_event_my">My Events</string>
     <string name="categories_story_my">My Stories</string>

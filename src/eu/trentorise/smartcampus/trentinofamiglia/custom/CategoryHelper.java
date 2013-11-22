@@ -26,13 +26,15 @@ import eu.trentorise.smartcampus.trentinofamiglia.R;
 
 public class CategoryHelper {
 	private final static String TAG = "CategoryHelper";
-	private static final String POI_NONCATEGORIZED = "Other place";
-	private static final String EVENT_NONCATEGORIZED = "Other event";
-	private static final String STORY_NONCATEGORIZED = "Other story";
+	// private static final String POI_NONCATEGORIZED = "Other place";
+	// private static final String EVENT_NONCATEGORIZED = "Other event";
+	// private static final String STORY_NONCATEGORIZED = "Other story";
 
 	public static final String CATEGORY_TYPE_POIS = "pois";
 	public static final String CATEGORY_TYPE_EVENTS = "events";
-	public static final String CATEGORY_TYPE_STORIES = "stories";
+	public static final String CATEGORY_TYPE_INFOS = "infos";
+	public static final String CATEGORY_TYPE_TRACKS = "tracks";
+
 	public static final String FAMILY_CATEGORY_POI = "Family - Organizations";
 	public static final String FAMILY_CATEGORY_EVENT = "Family";
 
@@ -46,67 +48,44 @@ public class CategoryHelper {
 			R.drawable.ic_e_myevents, CATEGORY_MY, R.string.categories_event_my);
 
 	public static CategoryDescriptor[] EVENT_CATEGORIES = new CategoryDescriptor[] {
-			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_e_concert, R.drawable.ic_e_concerts, "Concerts",
-					R.string.categories_event_concert),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_e_happyhour, R.drawable.ic_e_happyhours, "Happy hours",
-					R.string.categories_event_happyhour),
-			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_e_movie, R.drawable.ic_e_movies, "Movies",
-					R.string.categories_event_movie),
-			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_e_party, R.drawable.ic_e_parties, "Parties",
-					R.string.categories_event_party),
-			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_e_seminar, R.drawable.ic_e_seminars, "Seminars",
-					R.string.categories_event_seminar),
-			/* 6 */new CategoryDescriptor(R.drawable.ic_marker_e_performance, R.drawable.ic_e_performances, "Theaters",
-					R.string.categories_event_theater),
-			/* 7 */new CategoryDescriptor(R.drawable.ic_marker_e_exhibition, R.drawable.ic_e_exhibitions, "Exhibitions",
-					R.string.categories_event_exhibition),
-			/* 8 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family, "Family",
-					R.string.categories_event_family),
-			/* 9 */new CategoryDescriptor(R.drawable.ic_marker_e_generic, R.drawable.ic_e_other, EVENT_NONCATEGORIZED,
-					R.string.categories_event_generic), };
+			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family,
+					"Estate giovani e famiglia", R.string.categories_event_summer_family),
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family, "Alto Garda",
+					R.string.categories_event_alto_garda), };
 
 	public static CategoryDescriptor[] POI_CATEGORIES = new CategoryDescriptor[] {
-			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_museum, R.drawable.ic_p_museums, "Museums",
-					R.string.categories_poi_museum),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_mobility, R.drawable.ic_p_mobility, "Mobility",
-					R.string.categories_poi_mobility),
-			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_parking, R.drawable.ic_p_parkings, "Parking",
-					R.string.categories_poi_parking),
-			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_office, R.drawable.ic_p_offices, "Offices",
-					R.string.categories_poi_office),
-			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_p_theatre, R.drawable.ic_p_theaters, "Theater",
-					R.string.categories_poi_theater),
-			/* 6 */new CategoryDescriptor(R.drawable.ic_marker_p_university, R.drawable.ic_p_university, "University",
-					R.string.categories_poi_university),
-			/* 7 */new CategoryDescriptor(R.drawable.ic_marker_p_accomodation, R.drawable.ic_p_accomodation, "Accomodation",
-					R.string.categories_poi_accommodation),
-			/* 8 */new CategoryDescriptor(R.drawable.ic_marker_p_library, R.drawable.ic_p_libraries, "Libraries",
-					R.string.categories_poi_library),
-			/* 9 */new CategoryDescriptor(R.drawable.ic_marker_p_food, R.drawable.ic_p_food, "Food",
-					R.string.categories_poi_food),
-			/* 10 */new CategoryDescriptor(R.drawable.ic_marker_p_drink, R.drawable.ic_p_drink, "Drink",
-					R.string.categories_poi_drink),
-			/* 11 */new CategoryDescriptor(R.drawable.ic_marker_p_cinema, R.drawable.ic_p_cinemas, "Cinemas",
-					R.string.categories_poi_cinema),
-			/* 12 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Family - Organizations",
-					R.string.categories_poi_family),
-			/* 13 */new CategoryDescriptor(R.drawable.ic_marker_p_generic, R.drawable.ic_p_other, POI_NONCATEGORIZED,
-					R.string.categories_poi_generic), };
+			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "\"Family Audit\"",
+					R.string.categories_poi_family_audit),
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Vacanze al mare",
+					R.string.categories_poi_summer_holyday),
+			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Tavolo \"Nuovi Media\"", R.string.categories_poi_new_media),
+			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Punti allattamento",
+					R.string.categories_poi_breast_point),
+			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"\"Family in Trentino\"", R.string.categories_poi_trentino_family), };
 
-	public static CategoryDescriptor STORIES_MY = new CategoryDescriptor(R.drawable.ic_marker_p_generic,
-			R.drawable.ic_s_mystories, CATEGORY_MY, R.string.categories_story_my);
-	
-	public static CategoryDescriptor[] STORY_CATEGORIES = new CategoryDescriptor[] {
-			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_e_generic, R.drawable.ic_s_leisure, "Leisure",
-					R.string.categories_story_leisure),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_e_generic, R.drawable.ic_s_organizations,
-					"Offices and Services", R.string.categories_story_offices_and_services),
-			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_university, R.drawable.ic_s_university, "University",
-					R.string.categories_story_university),
-			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_e_generic, R.drawable.ic_s_cultural, "Culture",
-					R.string.categories_story_culture),
-			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_e_generic, R.drawable.ic_s_other, STORY_NONCATEGORIZED,
-					R.string.categories_story_generic), };
+	public static CategoryDescriptor[] INFO_CATEGORIES = new CategoryDescriptor[] {
+			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Politiche provinciali", R.string.categories_info_provincial_politics),
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Certificatori \"Audit\"", R.string.categories_info_certifiers),
+			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Valutatori \"Audit\"", R.string.categories_info_evaluators),
+			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Politiche dei distretti", R.string.categories_info_distrectual_politics),
+			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Notizie",
+					R.string.categories_info_news),
+			/* 6 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Distretti e organizzazioni", R.string.categories_info_organizations), };
+
+	public static CategoryDescriptor[] TRACK_CATEGORIES = new CategoryDescriptor[] {
+			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Piste ciclopedonali",
+					R.string.categories_track_pedestrian),
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Passeggiate",
+					R.string.categories_track_trekking),
+			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
+					"Pista ciclabile", R.string.categories_track_bicycle), };
 
 	private static Map<String, String> categoryMapping = new HashMap<String, String>();
 
@@ -119,42 +98,48 @@ public class CategoryHelper {
 		for (CategoryDescriptor poi : POI_CATEGORIES) {
 			descriptorMap.put(poi.category, poi);
 		}
-
-		for (CategoryDescriptor story : STORY_CATEGORIES) {
-			descriptorMap.put(story.category, story);
+		
+		for (CategoryDescriptor info : INFO_CATEGORIES) {
+			descriptorMap.put(info.category, info);
+		}
+		
+		for (CategoryDescriptor track : TRACK_CATEGORIES) {
+			descriptorMap.put(track.category, track);
 		}
 
 		for (String s : descriptorMap.keySet()) {
 			categoryMapping.put(s, s);
 		}
-		// custom categories for events
-		categoryMapping.put("Dances", "Theaters");
-		// custom categories for POIs
-		categoryMapping.put("biblioteca", "Libraries");
-		categoryMapping.put("museo", "Museums");
-		categoryMapping.put("esposizione", "Museums");
-		categoryMapping.put("arte", "Museums");
-		categoryMapping.put("luogo", POI_NONCATEGORIZED);
-		categoryMapping.put("ufficio", "Offices");
-		categoryMapping.put("sala", POI_NONCATEGORIZED);
-		categoryMapping.put("teatro", "Theater");
-		categoryMapping.put("musica", "Theater");
-		categoryMapping.put("universita", "University");
-		categoryMapping.put("bar", "Drink");
-		categoryMapping.put("ristorante", "Food");
-		categoryMapping.put("Lodging", "Accomodation");
-		categoryMapping.put("Other", POI_NONCATEGORIZED);
-		categoryMapping.put("ou", POI_NONCATEGORIZED);
+//		// custom categories for events
+//		categoryMapping.put("Dances", "Theaters");
+//		// custom categories for POIs
+//		categoryMapping.put("biblioteca", "Libraries");
+//		categoryMapping.put("museo", "Museums");
+//		categoryMapping.put("esposizione", "Museums");
+//		categoryMapping.put("arte", "Museums");
+//		// categoryMapping.put("luogo", POI_NONCATEGORIZED);
+//		categoryMapping.put("ufficio", "Offices");
+//		// categoryMapping.put("sala", POI_NONCATEGORIZED);
+//		categoryMapping.put("teatro", "Theater");
+//		categoryMapping.put("musica", "Theater");
+//		categoryMapping.put("universita", "University");
+//		categoryMapping.put("bar", "Drink");
+//		categoryMapping.put("ristorante", "Food");
+//		categoryMapping.put("Lodging", "Accomodation");
+//		// categoryMapping.put("Other", POI_NONCATEGORIZED);
+//		// categoryMapping.put("ou", POI_NONCATEGORIZED);
 	}
 
 	public static String[] getAllCategories(Set<String> set) {
 		List<String> result = new ArrayList<String>();
 		for (String key : categoryMapping.keySet()) {
 			if (set.contains(categoryMapping.get(key))) {
-				if (key.equals(EVENT_NONCATEGORIZED) || key.equals(POI_NONCATEGORIZED) || key.equals(STORY_NONCATEGORIZED)) {
-
-					result.add(null);
-				}
+				// if (key.equals(EVENT_NONCATEGORIZED) ||
+				// key.equals(POI_NONCATEGORIZED) ||
+				// key.equals(STORY_NONCATEGORIZED)) {
+				//
+				// result.add(null);
+				// }
 				result.add(key);
 				// set.remove(categoryMapping.get(key));
 			}
@@ -201,8 +186,11 @@ public class CategoryHelper {
 		return EVENT_CATEGORIES;
 	}
 
-	public static CategoryDescriptor[] getStoryCategoryDescriptors() {
-		return STORY_CATEGORIES;
+	public static CategoryDescriptor[] getInfoCategoryDescriptors() {
+		return INFO_CATEGORIES;
+	}
+	public static CategoryDescriptor[] getTrackCategoryDescriptors() {
+		return TRACK_CATEGORIES;
 	}
 
 	public static String[] getPOICategories() {
@@ -221,39 +209,23 @@ public class CategoryHelper {
 		return res;
 	}
 
-	public static String[] getStoryCategories() {
-		String[] res = new String[STORY_CATEGORIES.length];
-		for (int i = 0; i < STORY_CATEGORIES.length; i++) {
-			res[i] = STORY_CATEGORIES[i].category;
+	public static String[] getInfoCategories() {
+		String[] res = new String[INFO_CATEGORIES.length];
+		for (int i = 0; i < INFO_CATEGORIES.length; i++) {
+			res[i] = INFO_CATEGORIES[i].category;
+		}
+		return res;
+	}
+	
+	public static String[] getTrackCategories() {
+		String[] res = new String[TRACK_CATEGORIES.length];
+		for (int i = 0; i < TRACK_CATEGORIES.length; i++) {
+			res[i] = TRACK_CATEGORIES[i].category;
 		}
 		return res;
 	}
 
-	// public static CategoryDescriptor getCategoryDescriptorByCategory(String
-	// type, String cat) {
-	// CategoryDescriptor[] cdarray = null;
-	//
-	// if (type.equalsIgnoreCase(CATEGORY_TYPE_POIS)) {
-	// cdarray = POI_CATEGORIES;
-	// } else if (type.equalsIgnoreCase(CATEGORY_TYPE_EVENTS)) {
-	// cdarray = EVENT_CATEGORIES;
-	// } else if (type.equalsIgnoreCase(CATEGORY_TYPE_STORIES)) {
-	// cdarray = STORY_CATEGORIES;
-	// }
-	//
-	// if (cdarray != null) {
-	// for (int i = 0; i < cdarray.length; i++) {
-	// CategoryDescriptor cd = cdarray[i];
-	// if (cd.category.equalsIgnoreCase(cat)) {
-	// return cd;
-	// }
-	// }
-	// }
-	//
-	//
-	// return null;
-	// }
-
+	
 	public static CategoryDescriptor[] getEventCategoryDescriptorsFiltered() {
 		return DTParamsHelper.getInstance().getFilteredArrayByParams(EVENT_CATEGORIES, CATEGORY_TYPE_EVENTS);
 	}
@@ -262,10 +234,13 @@ public class CategoryHelper {
 		return DTParamsHelper.getInstance().getFilteredArrayByParams(POI_CATEGORIES, CATEGORY_TYPE_POIS);
 	}
 
-	public static CategoryDescriptor[] getStoryCategoryDescriptorsFiltered() {
-		return DTParamsHelper.getInstance().getFilteredArrayByParams(STORY_CATEGORIES, CATEGORY_TYPE_STORIES);
+	public static CategoryDescriptor[] getInfoCategoryDescriptorsFiltered() {
+		return DTParamsHelper.getInstance().getFilteredArrayByParams(INFO_CATEGORIES, CATEGORY_TYPE_INFOS);
 	}
 
+	public static CategoryDescriptor[] getTrackCategoryDescriptorsFiltered() {
+		return DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, CATEGORY_TYPE_TRACKS);
+	}
 	public static CategoryDescriptor getCategoryDescriptorByCategoryFiltered(String type, String cat) {
 		CategoryDescriptor[] cdarray = null;
 
@@ -273,8 +248,10 @@ public class CategoryHelper {
 			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(POI_CATEGORIES, type);
 		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_EVENTS)) {
 			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(EVENT_CATEGORIES, type);
-		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_STORIES)) {
-			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(STORY_CATEGORIES, type);
+		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_INFOS)) {
+			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(INFO_CATEGORIES, type);
+		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_TRACKS)) {
+			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, type);
 		}
 
 		if (cdarray != null) {
@@ -288,6 +265,5 @@ public class CategoryHelper {
 
 		return null;
 	}
-	
 
 }

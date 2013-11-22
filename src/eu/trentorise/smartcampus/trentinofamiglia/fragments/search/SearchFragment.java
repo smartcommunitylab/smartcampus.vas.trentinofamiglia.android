@@ -91,14 +91,15 @@ public class SearchFragment extends Fragment {
 		setupSpinnersAndLabel();
 		hideViewDependOnType(bundle);
 
-//		if (bundle != null && bundle.containsKey(ARG_MY)) {
-//			selectedMy = bundle.getBoolean(ARG_MY);
-//			titleSearch.setText(R.string.myevents);
-//
-//		} else 
-			if (bundle != null && bundle.containsKey(ARG_CATEGORY)) {
+		// if (bundle != null && bundle.containsKey(ARG_MY)) {
+		// selectedMy = bundle.getBoolean(ARG_MY);
+		// titleSearch.setText(R.string.myevents);
+		//
+		// } else
+		if (bundle != null && bundle.containsKey(ARG_CATEGORY)) {
 			selectedCategory = bundle.getString(ARG_CATEGORY);
-			CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered(type, selectedCategory);
+			CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered(type,
+					selectedCategory);
 			String categoryString = (catDescriptor != null) ? getActivity().getResources().getString(
 					catDescriptor.description) : null;
 			titleSearch.setText(categoryString);
@@ -121,8 +122,9 @@ public class SearchFragment extends Fragment {
 						selectedWhen = new WhenForSearch("", 0, 0);
 						passedWhen = new WhenForSearch("", DTHelper.getCurrentDateTimeForSearching(), 0);
 					} else {
-						passedWhen = new WhenForSearch("", DTHelper.getCurrentDateTimeForSearching() + selectedWhen.getFrom(),
-								DTHelper.getCurrentDateTimeForSearching() + selectedWhen.getFrom() + selectedWhen.getTo());
+						passedWhen = new WhenForSearch("", DTHelper.getCurrentDateTimeForSearching()
+								+ selectedWhen.getFrom(), DTHelper.getCurrentDateTimeForSearching()
+								+ selectedWhen.getFrom() + selectedWhen.getTo());
 					}
 				}
 				selectedWhere = whereSearchSpinner.getSelectedItemPosition() > 0 ? where.get(whereSearchSpinner
@@ -132,10 +134,10 @@ public class SearchFragment extends Fragment {
 					fragment = new EventsListingFragment();
 				} else if (CategoryHelper.CATEGORY_TYPE_POIS.equals(type)) {
 					fragment = new PoisListingFragment();
-				} 
-//				else if (CategoryHelper.CATEGORY_TYPE_STORIES.equals(type)) {
-//					fragment = new StoriesListingFragment();
-//				}
+				}
+				// else if (CategoryHelper.CATEGORY_TYPE_STORIES.equals(type)) {
+				// fragment = new StoriesListingFragment();
+				// }
 
 				Bundle args = new Bundle();
 				if (selectedWhen != null)
@@ -181,8 +183,13 @@ public class SearchFragment extends Fragment {
 			whenSearchSpinner.setVisibility(View.GONE);
 			whenLabel.setVisibility(View.GONE);
 
-		} else if (bundle != null && bundle.containsKey(CategoryHelper.CATEGORY_TYPE_STORIES)) {
-			type = CategoryHelper.CATEGORY_TYPE_STORIES;
+		} else if (bundle != null && bundle.containsKey(CategoryHelper.CATEGORY_TYPE_TRACKS)) {
+			type = CategoryHelper.CATEGORY_TYPE_TRACKS;
+			whenSearchSpinner.setVisibility(View.GONE);
+			whenLabel.setVisibility(View.GONE);
+
+		} else if (bundle != null && bundle.containsKey(CategoryHelper.CATEGORY_TYPE_INFOS)) {
+			type = CategoryHelper.CATEGORY_TYPE_INFOS;
 			whenSearchSpinner.setVisibility(View.GONE);
 			whenLabel.setVisibility(View.GONE);
 			whereSearchSpinner.setVisibility(View.GONE);
@@ -260,7 +267,8 @@ public class SearchFragment extends Fragment {
 			View newView = null;
 			TextView someText;
 
-			LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(
+					Context.LAYOUT_INFLATER_SERVICE);
 			if (isonline)
 				newView = inflater.inflate(SPINNER_ENABLED, null);
 			else {

@@ -281,7 +281,32 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[0] = mf;
 				out[1] = TAG_FRAGMENT_POI_LIST;
 			}
-		} else if (groupPos == 0) { // events
+		} else if (groupPos == 0) {// Events
+			EventsListingFragment elf = null;
+			switch (childPos) {
+			case 0:
+				cat = "Estate giovani e famiglia";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 1:
+				cat = "Alto Garda";
+				args = new Bundle();
+				elf = new EventsListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				elf.setArguments(args);
+				out[0] = elf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			default:
+				out = null;
+				break;
+			}
+		} else if (groupPos == 1) { // free time and holidays
 			EventsListingFragment elf = null;
 			switch (childPos) {
 			case 0:
@@ -306,7 +331,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out = null;
 				break;
 			}
-		} else if (groupPos == 1) {// places
+		} else if (groupPos == 2) { // News
 			EventsListingFragment elf = null;
 			switch (childPos) {
 			case 0:
@@ -331,7 +356,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out = null;
 				break;
 			}
-		} else if (groupPos == 2) {// places
+		} else if (groupPos == 3) {// places
 			EventsListingFragment elf = null;
 			switch (childPos) {
 			case 0:
@@ -357,7 +382,16 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 
 			}
-		} else {
+		}else if (groupPos == 4) {// babies
+			
+		} else if (groupPos == 5) {// family policies
+			
+		}  
+		
+		
+		
+		
+		else {
 			out = null;
 		}
 		return out;

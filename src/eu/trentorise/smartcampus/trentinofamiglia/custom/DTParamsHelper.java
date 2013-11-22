@@ -22,7 +22,9 @@ public class DTParamsHelper {
 	/* json parameters in assets/params_dt.js */
 	public static final String KEY_POI_CATEGORIES = "poi_categories";
 	public static final String KEY_EVENT_CATEGORIES = "events_categories";
-	public static final String KEY_STORY_CATEGORIES = "story_categories";
+	public static final String KEY_INFO_CATEGORIES = "infos_categories";
+	public static final String KEY_TRACK_CATEGORIES = "tracks_categories";
+ 
 	public static final String KEY_EVENTS_DEFAULT = "events_default";
 	public static final String KEY_POIS_DEFAULT = "pois_default";
 	public static final String KEY_EXCLUDE = "exclude";
@@ -78,10 +80,16 @@ public class DTParamsHelper {
 						(List<Integer>) getInstance().getParamsAsset().get(KEY_EVENT_CATEGORIES),type);
 			}
 		}
-		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_STORIES)) {
-			if (getInstance().getParamsAsset().containsKey(KEY_STORY_CATEGORIES)) {
-				return orderArrayByKey(CategoryHelper.STORY_CATEGORIES,
-						(List<Integer>) getInstance().getParamsAsset().get(KEY_STORY_CATEGORIES),type);
+		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_INFOS)) {
+			if (getInstance().getParamsAsset().containsKey(KEY_INFO_CATEGORIES)) {
+				return orderArrayByKey(CategoryHelper.INFO_CATEGORIES,
+						(List<Integer>) getInstance().getParamsAsset().get(KEY_INFO_CATEGORIES),type);
+			}
+		}
+		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_TRACKS)) {
+			if (getInstance().getParamsAsset().containsKey(KEY_TRACK_CATEGORIES)) {
+				return orderArrayByKey(CategoryHelper.TRACK_CATEGORIES,
+						(List<Integer>) getInstance().getParamsAsset().get(KEY_TRACK_CATEGORIES),type);
 			}
 		}
 
@@ -101,24 +109,26 @@ public class DTParamsHelper {
 	}
 	
 	
-	public static CategoryDescriptor[] getDefaultArrayByParams(String type) {
-		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_POIS)) {
-			if (getInstance().getParamsAsset().containsKey(KEY_POIS_DEFAULT)) {
-
-				return orderArrayByKey(CategoryHelper.POI_CATEGORIES,
-						(List<Integer>) getInstance().getParamsAsset().get(KEY_POIS_DEFAULT),type);
-
-			}
-		}
-		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_EVENTS)) {
-			if (getInstance().getParamsAsset().containsKey(KEY_EVENTS_DEFAULT)) {
-				return orderArrayByKey(CategoryHelper.EVENT_CATEGORIES,
-						(List<Integer>) getInstance().getParamsAsset().get(KEY_EVENTS_DEFAULT),type);
-			}
-		}
-
-		return null;
-	}
+//	public static CategoryDescriptor[] getDefaultArrayByParams(String type) {
+//		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_POIS)) {
+//			if (getInstance().getParamsAsset().containsKey(KEY_POIS_DEFAULT)) {
+//
+//				return orderArrayByKey(CategoryHelper.POI_CATEGORIES,
+//						(List<Integer>) getInstance().getParamsAsset().get(KEY_POIS_DEFAULT),type);
+//
+//			}
+//		}
+//		if (type.equalsIgnoreCase(CategoryHelper.CATEGORY_TYPE_EVENTS)) {
+//			if (getInstance().getParamsAsset().containsKey(KEY_EVENTS_DEFAULT)) {
+//				return orderArrayByKey(CategoryHelper.EVENT_CATEGORIES,
+//						(List<Integer>) getInstance().getParamsAsset().get(KEY_EVENTS_DEFAULT),type);
+//			}
+//		}
+//
+//
+//
+//		return null;
+//	}
 
 	private Map<Object, Object> getParamsAsset() {
 		return paramsAsset;
@@ -128,9 +138,7 @@ public class DTParamsHelper {
 	private static CategoryDescriptor[] orderArrayByKey(CategoryDescriptor[] pOI_CATEGORIES2, List<Integer> filter, String type) {
 		List<CategoryDescriptor> returnlist = new ArrayList<CategoryDescriptor>();
 		for (Integer index : filter) {
-			if ((index == 0)&&(type==CategoryHelper.CATEGORY_TYPE_EVENTS))
-				returnlist.add(CategoryHelper.EVENTS_TODAY);
-				else returnlist.add(pOI_CATEGORIES2[index - 1]);
+			 returnlist.add(pOI_CATEGORIES2[index - 1]);
 		}
 		return returnlist.toArray(new CategoryDescriptor[] {});
 	}

@@ -74,33 +74,33 @@
 	    2,
 	    3,
 	    4,
-	    5,
-	    6,
-	    7,
-	    8,
-	    9,
-	    10,
-	    11,
-	    12,
-	    13
+	    5
 	],
 	"events_categories" : [
 	    1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
+        2
    ],
-   "story_categories" : [
+   "info_categories" : [
         1,
         2,
         4,
-        5
+        5,
+        6
 	],
+	   "track_categories" : [
+	                         1,
+	                         2,
+	                         3
+	                 	],
+	"include" : {
+
+			    "type" : [
+			              "Estate giovani e famiglia", "Alto Garda", "\"Family Audit\"",
+			              "Vacanze al mare","Tavolo \"Nuovi Media\"","Punti allattamento","\"Family in Trentino\"",
+			              "Politiche provinciali","Certificatori \"Audit\"","Valutatori \"Audit\"",
+			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Pista ciclabile"
+			              ]
+	},
 	"events_default" : [0],
    "center_map":[
                      46.0696727540531,
