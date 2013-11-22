@@ -417,7 +417,7 @@ private void render(Collection<? extends BaseDTObject> objects) {
 		if (objects != null && getActivity() != null) {
 			List<MarkerOptions> cluster = MapManager.ClusteringHelper.cluster(
 					getActivity().getApplicationContext(), getSupportMap(), objects);
-			MapManager.ClusteringHelper.render(getSupportMap(), cluster);
+			MapManager.ClusteringHelper.render(getActivity(), getSupportMap(), cluster, objects);
 		}
 	}
 

@@ -15,14 +15,11 @@
  ******************************************************************************/
 package eu.trentorise.smartcampus.trentinofamiglia.custom.data;
 
-import java.util.Collections;
 import java.util.Map;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import eu.trentorise.smartcampus.storage.db.BeanStorageHelper;
-import eu.trentorise.smartcampus.territoryservice.model.EventObject;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 
@@ -39,6 +36,8 @@ public class TrackStorageHelper implements BeanStorageHelper<TrackObjectForBean>
 		track.setFromTime(cursor.getLong(cursor.getColumnIndex("fromTime")));
 		track.setToTime(cursor.getLong(cursor.getColumnIndex("toTime")));
 		track.setTiming(cursor.getString(cursor.getColumnIndex("timing")));
+		track.setTrack(cursor.getString(cursor.getColumnIndex("track")));
+		
 
 		returnEventObjectForBean.setObjectForBean(track);
 		return returnEventObjectForBean;
@@ -51,6 +50,7 @@ public class TrackStorageHelper implements BeanStorageHelper<TrackObjectForBean>
 		values.put("fromTime", track.getFromTime());
 		values.put("toTime", track.getToTime());
 		values.put("timing", track.getTiming());
+		values.put("track", track.getTrack());
 		
 		return values;
 	}
@@ -62,6 +62,7 @@ public class TrackStorageHelper implements BeanStorageHelper<TrackObjectForBean>
 		defs.put("fromTime", "INTEGER");
 		defs.put("toTime", "INTEGER");
 		defs.put("timing", "TEXT");
+		defs.put("track", "TEXT");
 		return defs;
 	}
 

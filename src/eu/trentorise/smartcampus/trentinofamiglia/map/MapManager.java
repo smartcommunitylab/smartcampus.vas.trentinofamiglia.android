@@ -41,6 +41,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 
@@ -51,6 +53,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.DTParamsHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 
 public class MapManager {
 
@@ -88,23 +91,49 @@ public class MapManager {
 	}
 
 	public static void fitMapWithOverlays(Collection<? extends BaseDTObject> objects, GoogleMap map) {
-		double[] ll = null, rr = null;
-		if (objects != null) {
+		double[] llrr = null;
+		if (objects != null && !objects.isEmpty()) {
+			
 			for (BaseDTObject o : objects) {
-				double[] location = o.getLocation();
-				if (ll == null) {
-					ll = location.clone();
-					rr = ll.clone();
+				if (o instanceof TrackObject) {
+					double[] point = new double[2];
+					for (LatLng ll : ((TrackObject) o).decodedLine()) {
+						point[0] = ll.latitude;
+						point[1] = ll.longitude;
+						llrr = fit(llrr, point);
+					}
 				} else {
-					ll[0] = Math.min(ll[0], location[0]);
-					ll[1] = Math.max(ll[1], location[1]);
-
-					rr[0] = Math.max(rr[0], location[0]);
-					rr[1] = Math.min(rr[1], location[1]);
+					llrr = fit(llrr, o.getLocation());
 				}
 			}
 		}
-		fit(map, ll, rr, objects != null && objects.size() > 1);
+		if (llrr != null) {
+			fit(map, new double[]{llrr[0], llrr[1]}, new double[]{llrr[2], llrr[3]}, objects != null && objects.size() > 1);
+		} else {
+			fit(map, null, null, objects != null && objects.size() > 1);
+		}
+	}
+
+	/**
+	 * @param llrr
+	 * @param location
+	 * @return
+	 */
+	private static double[] fit(double[] llrr, double[] location) {
+		if (llrr == null) {
+			llrr = new double[4];
+			llrr[0] = location[0];
+			llrr[1] = location[1];
+			llrr[2] = location[0];
+			llrr[3] = location[1];
+		} else {
+			llrr[0] = Math.min(llrr[0], location[0]);
+			llrr[1] = Math.max(llrr[1], location[1]);
+
+			llrr[2] = Math.max(llrr[2], location[0]);
+			llrr[3] = Math.min(llrr[3], location[1]);
+		}
+		return llrr;
 	}
 
 	private static void fit(GoogleMap map, double[] ll, double[] rr, boolean zoomIn) {
@@ -242,10 +271,34 @@ public class MapManager {
 			return markers;
 		}
 
+		/**
+		 * Render markers on the map
+		 * @param map
+		 * @param markers
+		 */
 		public static void render(GoogleMap map, List<MarkerOptions> markers) {
 			for (MarkerOptions mo : markers) {
 				map.addMarker(mo);
 			}
+		}
+
+		/**
+		 * Render clustered object markers and eventual lines of the {@link TrackObject}
+		 * @param map
+		 * @param markers
+		 * @param objects
+		 */
+		public static void render(Context ctx, GoogleMap map, List<MarkerOptions> markers, Collection<? extends BaseDTObject> objects) {
+			for (MarkerOptions mo : markers) {
+				map.addMarker(mo);
+			}
+			List<List<LatLng>> paths = new ArrayList<List<LatLng>>();
+			for (BaseDTObject o : objects) {
+				if (o instanceof TrackObject) {
+					paths.add(((TrackObject)o).decodedLine());
+				}
+			}
+			draw(map, paths, ctx);
 		}
 
 		private static MarkerOptions createSingleMarker(BaseDTObject item, int x, int y) {
@@ -406,6 +459,28 @@ public class MapManager {
 		LatLng latLng = null;
 		latLng = new LatLng(object.getLocation()[0], object.getLocation()[1]);
 		return latLng;
+	}
+
+	private static boolean draw(GoogleMap map, List<List<LatLng>> legsPoints, Context ctx) {
+		for (int i = 0; i < legsPoints.size(); i++) {
+			// default
+			int color = ctx.getResources().getColor(R.color.path);
+			List<LatLng> legPoints = legsPoints.get(i);
+			drawPath(map, legPoints, color);
+		}
+		return true;
+	}
+
+	private static void drawPath(GoogleMap map, List<LatLng> points, int color) {
+		// int x1 = -1, y1 = -1, x2 = -1, y2 = -1;
+		Paint paint = new Paint();
+		paint.setColor(color);
+		paint.setStyle(Paint.Style.FILL_AND_STROKE);
+		paint.setStrokeWidth(6);
+
+		PolylineOptions po = new PolylineOptions().addAll(points).width(6).color(color);
+		Polyline pl = map.addPolyline(po);
+		pl.setVisible(true);
 	}
 
 }
