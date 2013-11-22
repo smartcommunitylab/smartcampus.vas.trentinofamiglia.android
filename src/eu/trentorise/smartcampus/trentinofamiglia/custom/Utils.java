@@ -9,14 +9,13 @@ import android.location.Address;
 import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion.TYPE;
 import eu.trentorise.smartcampus.social.model.Concept;
-import eu.trentorise.smartcampus.territoryservice.TerritoryService;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.territoryservice.model.EventObject;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
-import eu.trentorise.smartcampus.territoryservice.model.StepObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 
 public class Utils {
 	public static final String userPoiObject = "eu.trentorise.smartcampus.dt.model.UserPOIObject";
@@ -92,6 +91,15 @@ public class Utils {
 		return a;
 	}
 
+	/**
+	 * @param mTrack
+	 * @return
+	 */
+	public static Address getTrackAsGoogleAddress(TrackObject mTrack) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public static boolean isCreatedByUser(BaseDTObject obj) {
 		if (obj.getDomainType() == null || userPoiObject.equals(obj.getDomainType())) {
 			return true;
@@ -126,4 +134,6 @@ public class Utils {
 
 		return returnEvents;
 	}
+
+
 }

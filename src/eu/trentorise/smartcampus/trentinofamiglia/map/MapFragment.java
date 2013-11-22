@@ -92,6 +92,7 @@ private static final String TAG_FRAGMENT_POI_SELECT = "poi_select";
 public static final String ARG_POI_CATEGORY = "poi category";
 public static final String ARG_EVENT_CATEGORY = "event category";
 public static final String ARG_OBJECTS = "objects";
+public static final String ARG_TRACK_CATEGORY = "track_category";
 protected GoogleMap mMap;
 
 private String[] poiCategories = null;

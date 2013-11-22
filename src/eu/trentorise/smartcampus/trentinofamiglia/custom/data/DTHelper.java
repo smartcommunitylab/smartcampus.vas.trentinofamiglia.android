@@ -79,6 +79,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectF
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.GenericObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.WhenForSearch;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.WhereForSearch;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
@@ -423,6 +425,20 @@ public class DTHelper {
 		try {
 			PoiObjectForBean poi = getInstance().storage.getObjectById(poiId, PoiObjectForBean.class);
 			return poi.getObjectForBean();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * @param trackId
+	 * @return
+	 */
+	public static TrackObject findTrackById(String trackId) {
+		try {
+			TrackObjectForBean track = getInstance().storage.getObjectById(trackId, TrackObjectForBean.class);
+			return track.getObjectForBean();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

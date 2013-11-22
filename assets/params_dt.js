@@ -98,7 +98,7 @@
 			              "Estate giovani e famiglia", "Alto Garda", "\"Family Audit\"",
 			              "Vacanze al mare","Tavolo \"Nuovi Media\"","Punti allattamento","\"Family in Trentino\"",
 			              "Politiche provinciali","Certificatori \"Audit\"","Valutatori \"Audit\"",
-			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Pista ciclabile"
+			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Passeggiate"
 			              ]
 	},
 	"events_default" : [1],
