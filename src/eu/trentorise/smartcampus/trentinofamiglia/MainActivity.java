@@ -82,10 +82,10 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			initGlobalConstants();
 
 			try {
-				if (!SCAccessProvider.getInstance(this).login(this, null)) {
+//				if (!SCAccessProvider.getInstance(this).login(this, null)) {
 					DTHelper.init(getApplicationContext());
 					initData(); 
-				}
+//				}
 			
 			} catch (Exception e) {
 				e.printStackTrace();

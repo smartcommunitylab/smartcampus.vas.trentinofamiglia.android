@@ -48,6 +48,10 @@
         android:launchMode="singleTask"
         android:logo="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
+        
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        
+        
         <meta-data
             android:name="eu.trentorise.smartcampus.account.SHARED_PACKAGE"
             android:value="eu.trentorise.smartcampus.trentinofamiglia" />
@@ -78,10 +82,10 @@
             android:value="AIzaSyAYMob8Ipl_ykdVq9hkQTvFVSQMNSXn3aA" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_ID"
-            android:value="4fda1c9f-c15d-41df-a80c-8e986e4d3c6f" />
+            android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET"
-            android:value="659b168c-1d59-4814-ad48-b73ebe089ad9" />
+            android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.AUTH_URL"
             android:value="https://vas-dev.smartcampuslab.it/aac" />

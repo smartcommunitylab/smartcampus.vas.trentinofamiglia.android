@@ -38,7 +38,6 @@ import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
@@ -55,8 +54,6 @@ import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.SuggestionHelper;
 import eu.trentorise.smartcampus.network.RemoteConnector;
 import eu.trentorise.smartcampus.network.RemoteConnector.CLIENT_TYPE;
-import eu.trentorise.smartcampus.profileservice.BasicProfileService;
-import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.ConnectionException;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.ProtocolException;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
@@ -143,7 +140,7 @@ public class DTHelper {
 
 	private boolean syncInProgress = false;
 	private FragmentActivity rootActivity = null;
-	static BasicProfile bp = null;
+//	static BasicProfile bp = null;
 
 	// private String myToken = null;
 	// private UserProfile userProfile = null;
@@ -154,20 +151,20 @@ public class DTHelper {
 		
 		tService = new TerritoryService(getAppUrl() + "trentinofamiglia");
 
-		new AsyncTask<Void, Void, BasicProfile>() {
-			@Override
-			protected BasicProfile doInBackground(Void... params) {
-				try {
-					String token = SCAccessProvider.getInstance(mContext).readToken(mContext);
-					BasicProfileService service = new BasicProfileService(getAppUrl() + "aac");
-					bp = service.getBasicProfile(token);
-					return bp;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
-				}
-			}
-		}.execute();
+//		new AsyncTask<Void, Void, BasicProfile>() {
+//			@Override
+//			protected BasicProfile doInBackground(Void... params) {
+//				try {
+//					String token = SCAccessProvider.getInstance(mContext).readToken(mContext);
+//					BasicProfileService service = new BasicProfileService(getAppUrl() + "aac");
+//					bp = service.getBasicProfile(token);
+//					return bp;
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					return null;
+//				}
+//			}
+//		}.execute();
 	}
 
 	private static String getAppUrl() {
@@ -193,7 +190,7 @@ public class DTHelper {
 		try {
 			mToken = getAccessProvider().readToken(mContext);
 		} catch (AACException e) {
-			e.printStackTrace();
+			Log.e(DTHelper.class.getName(),"No token data");
 		}
 		return mToken;
 	}
@@ -207,15 +204,15 @@ public class DTHelper {
 	// }
 	// }
 
-	public static String getUserId() {
-		// UserData data = getAccessProvider().readUserData(instance.mContext,
-		// null);
-		if (bp != null) {
-			return bp.getUserId();
-		} else
-			getUserProfile();
-		return null;
-	}
+//	public static String getUserId() {
+//		// UserData data = getAccessProvider().readUserData(instance.mContext,
+//		// null);
+//		if (bp != null) {
+//			return bp.getUserId();
+//		} else
+//			getUserProfile();
+//		return null;
+//	}
 
 	private static void getUserProfile() {
 
@@ -350,17 +347,17 @@ public class DTHelper {
 	}
 
 	public static void destroy() {
-		try {
-			String authority = Constants.getAuthority(mContext);
-			Account account = new Account(
-					eu.trentorise.smartcampus.ac.Constants.getAccountName(mContext),
-					eu.trentorise.smartcampus.ac.Constants.getAccountType(mContext));
-			ContentResolver.removePeriodicSync(account, authority, new Bundle());
-			ContentResolver.setSyncAutomatically(account, authority, false);
-			ContentResolver.setIsSyncable(account, authority, 0);
-		} catch (Exception e) {
-			Log.e(DTHelper.class.getName(), "Failed destroy: " + e.getMessage());
-		}
+//		try {
+//			String authority = Constants.getAuthority(mContext);
+//			Account account = new Account(
+//					eu.trentorise.smartcampus.ac.Constants.getAccountName(mContext),
+//					eu.trentorise.smartcampus.ac.Constants.getAccountType(mContext));
+//			ContentResolver.removePeriodicSync(account, authority, new Bundle());
+//			ContentResolver.setSyncAutomatically(account, authority, false);
+//			ContentResolver.setIsSyncable(account, authority, 0);
+//		} catch (Exception e) {
+//			Log.e(DTHelper.class.getName(), "Failed destroy: " + e.getMessage());
+//		}
 	}
 
 	// public static Collection<POIObject> getAllPOI() throws DataException,
@@ -1350,18 +1347,18 @@ public class DTHelper {
 	}
 
 	public static boolean isOwnedObject(BaseDTObject obj) {
-		if (obj.getId() == null)
-			return true;
-		// UserData p = null;
-		// try {
-		// p = accessProvider.readUserData(mContext, null);
-		// } catch (DataException e) {
-		//
-		// }
-		if (bp != null)
-			return bp.getUserId().equals(obj.getCreatorId());
-		else
-			getUserProfile();
+//		if (obj.getId() == null)
+//			return true;
+//		// UserData p = null;
+//		// try {
+//		// p = accessProvider.readUserData(mContext, null);
+//		// } catch (DataException e) {
+//		//
+//		// }
+//		if (bp != null)
+//			return bp.getUserId().equals(obj.getCreatorId());
+//		else
+//			getUserProfile();
 		return false;
 	}
 
