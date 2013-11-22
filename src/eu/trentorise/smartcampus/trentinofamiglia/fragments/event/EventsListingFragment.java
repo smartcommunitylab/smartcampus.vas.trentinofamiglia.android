@@ -119,24 +119,24 @@ public class EventsListingFragment extends
 		if (!idEvent.equals("")) {
 			// get info of the event
 			LocalEventObject event = DTHelper.findEventById(idEvent);
-			POIObject poi = null;
-			if (event != null) {
-				poi = DTHelper.findPOIById(event.getPoiId());
-			}
-			if (event == null) {
-				// cancellazione
-				removeEvent(eventsAdapter, indexAdapter);
-
-			} else {
-				// modifica se numero della versione e' diverso
-				if (event.getUpdateTime() == 0) {
-
-					event.assignPoi(poi);
-					restoreElement(eventsAdapter, indexAdapter, event);
-					// removeEvent(eventsAdapter,indexAdapter);
-					// insertEvent(event);
-				}
-			}
+//			POIObject poi = null;
+//			if (event != null) {
+//				poi = DTHelper.findPOIById(event.getPoiId());
+//			}
+//			if (event == null) {
+//				// cancellazione
+//				removeEvent(eventsAdapter, indexAdapter);
+//
+//			} else {
+//				// modifica se numero della versione e' diverso
+//				if (event.getUpdateTime() == 0) {
+//
+//					event.assignPoi(poi);
+//					restoreElement(eventsAdapter, indexAdapter, event);
+//					// removeEvent(eventsAdapter,indexAdapter);
+//					// insertEvent(event);
+//				}
+//			}
 			// notify
 			eventsAdapter.notifyDataSetChanged();
 			idEvent = "";
@@ -556,12 +556,12 @@ public class EventsListingFragment extends
 
 			List<LocalEventObject> sorted = new ArrayList<LocalEventObject>(
 					listEvents);
-			for (LocalEventObject eventObject : sorted) {
-				if (eventObject != null && eventObject.getPoiId() != null) {
-					eventObject.assignPoi(DTHelper.findPOIById(eventObject
-							.getPoiId()));
-				}
-			}
+//			for (LocalEventObject eventObject : sorted) {
+//				if (eventObject != null && eventObject.getPoiId() != null) {
+//					eventObject.assignPoi(DTHelper.findPOIById(eventObject
+//							.getPoiId()));
+//				}
+//			}
 
 			// if (params[0].position == 0) {
 			Calendar cal = Calendar.getInstance();

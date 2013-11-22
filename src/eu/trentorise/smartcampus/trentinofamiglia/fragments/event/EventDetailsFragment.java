@@ -15,9 +15,11 @@
  ******************************************************************************/
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.event;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,6 +32,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -80,7 +83,7 @@ public class EventDetailsFragment extends Fragment {
 	private boolean mStart = true;
 	private boolean mCanceledFollow = false;
 
-	private POIObject mPoi = null;
+//	private POIObject mPoi = null;
 	private LocalEventObject mEvent = null;
 	private TmpComment tmp_comments[];
 	private String mEventId;
@@ -111,12 +114,12 @@ public class EventDetailsFragment extends Fragment {
 		return inflater.inflate(R.layout.eventdetails, container, false);
 	}
 
-	private POIObject getPOI() {
-		if (mPoi == null) {
-			getEvent();
-		}
-		return mPoi;
-	}
+//	private POIObject getPOI() {
+//		if (mPoi == null) {
+//			getEvent();
+//		}
+//		return mPoi;
+//	}
 
 	private LocalEventObject getEvent() {
 		if (mEventId == null) {
@@ -126,10 +129,10 @@ public class EventDetailsFragment extends Fragment {
 		if (mEvent == null) {
 			mEvent = DTHelper.findEventById(mEventId);
 		}
-		if (mEvent != null) {
-			mPoi = DTHelper.findPOIById(mEvent.getPoiId());
-			mEvent.assignPoi(mPoi);
-		}
+//		if (mEvent != null) {
+//			mPoi = DTHelper.findPOIById(mEvent.getPoiId());
+//			mEvent.assignPoi(mPoi);
+//		}
 
 		return mEvent;
 	}
@@ -234,9 +237,9 @@ public class EventDetailsFragment extends Fragment {
 			mapBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (mPoi != null) {
+					if (mEvent.getLocation() != null) {
 						ArrayList<BaseDTObject> list = new ArrayList<BaseDTObject>();
-						getEvent().setLocation(mPoi.getLocation());
+						getEvent().setLocation(mEvent.getLocation());
 						list.add(getEvent());
 						MapManager.switchToMapView(list, mFragment);
 					} else {
@@ -250,7 +253,7 @@ public class EventDetailsFragment extends Fragment {
 			directionsBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (mPoi != null) {
+					if (mEvent.getLocation() != null) {
 
 						bringMeThere(getEvent());
 					} else {
@@ -264,10 +267,11 @@ public class EventDetailsFragment extends Fragment {
 
 			// location
 			tv = (TextView) this.getView().findViewById(R.id.event_details_loc);
-			POIObject poi = getPOI();
-			if (poi != null) {
-				tv.setText(Utils.getPOIshortAddress(poi));
-			} else {
+//			POIObject poi = getPOI();
+			if (mEvent.getCustomData() != null && mEvent.getCustomData().get("place")!=null) {
+				//esegui get address information
+					tv.setText((CharSequence) mEvent.getCustomData().get("place"));
+					} else {
 				((LinearLayout) this.getView().findViewById(R.id.eventdetails)).removeView(tv);
 			}
 
@@ -519,85 +523,85 @@ public class EventDetailsFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.submenu_show_related_poi) {
-			FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-			PoiDetailsFragment fragment = new PoiDetailsFragment();
-			Bundle args = new Bundle();
-			args.putSerializable(PoiDetailsFragment.ARG_POI_ID, getPOI().getId());
-			fragment.setArguments(args);
-			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			// fragmentTransaction.detach(this);
-			fragmentTransaction.replace(R.id.frame_content, fragment, "events");
-			fragmentTransaction.addToBackStack(fragment.getTag());
-			fragmentTransaction.commit();
-			return true;
-			// } else if (item.getItemId() == R.id.submenu_get_dir) {
-			// bringMeThere(getEvent());
-			// return true;
-			// } else if (item.getItemId() == R.id.submenu_see_on_map) {
-			// ArrayList<BaseDTObject> list = new ArrayList<BaseDTObject>();
-			// getEvent().setLocation(poi.getLocation());
-			// list.add(getEvent());
-			// MapManager.switchToMapView(list, this);
-			// return true;
-			// } else if (item.getItemId() == R.id.submenu_follow) {
-			// FollowEntityObject obj = new
-			// FollowEntityObject(getEvent().getEntityId(),
-			// getEvent().getTitle(),
-			// DTConstants.ENTITY_TYPE_EVENT);
-			// if (mFollowByIntent) {
-			// FollowHelper.follow(this, obj, 3000);
-			// } else {
-			// SCAsyncTask<Object, Void, Topic> followTask = new
-			// SCAsyncTask<Object, Void, Topic>(getActivity(),
-			// new FollowAsyncTaskProcessor(getActivity()));
-			// followTask.execute(getActivity().getApplicationContext(),
-			// DTParamsHelper.getAppToken(),
-			// DTHelper.getAuthToken(), obj);
-			// }
-			// return true;
-			// } else if (item.getItemId() == R.id.submenu_unfollow) {
-			// BaseDTObject obj;
-			// try {
-			// obj = DTHelper.findEventByEntityId(getEvent().getEntityId());
-			// if (obj != null) {
-			// SCAsyncTask<BaseDTObject, Void, BaseDTObject> unfollowTask = new
-			// SCAsyncTask<BaseDTObject, Void, BaseDTObject>(
-			// getActivity(), new
-			// UnfollowAsyncTaskProcessor(getActivity()));
-			// unfollowTask.execute(obj);
-			//
-			// }
-			// } catch (Exception e) {
-			// Log.e(EventDetailsFragment.class.getName(),
-			// String.format("Error unfollowing event %s",
-			// getEvent().getEntityId()));
-			// }
-			// return true;
-			// } else if (item.getItemId() == R.id.submenu_rate) {
-			// if (new
-			// AMSCAccessProvider().isUserAnonymous(getActivity())) {
-			// // show dialog box
-			// UserRegistration.upgradeuser(getActivity());
-			// return false;
-			// } else {
-			// ratingDialog();
-			// return true;
-			// }
-			// } else if (item.getItemId() == R.id.submenu_attend) {
-			// if (new
-			// AMSCAccessProvider().isUserAnonymous(getActivity())) {
-			// // show dialog box
-			// UserRegistration.upgradeuser(getActivity());
-			// return false;
-			// } else {
-			// new SCAsyncTask<Boolean, Void, EventObject>(getActivity(), new
-			// AttendProcessor(getActivity()))
-			// .execute(getEvent().getAttending() == null ||
-			// getEvent().getAttending().isEmpty());
-			// return true;
-			// }
-		}
+//		if (item.getItemId() == R.id.submenu_show_related_poi) {
+//			FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//			PoiDetailsFragment fragment = new PoiDetailsFragment();
+//			Bundle args = new Bundle();
+//			args.putSerializable(PoiDetailsFragment.ARG_POI_ID, getPOI().getId());
+//			fragment.setArguments(args);
+//			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//			// fragmentTransaction.detach(this);
+//			fragmentTransaction.replace(R.id.frame_content, fragment, "events");
+//			fragmentTransaction.addToBackStack(fragment.getTag());
+//			fragmentTransaction.commit();
+//			return true;
+//			// } else if (item.getItemId() == R.id.submenu_get_dir) {
+//			// bringMeThere(getEvent());
+//			// return true;
+//			// } else if (item.getItemId() == R.id.submenu_see_on_map) {
+//			// ArrayList<BaseDTObject> list = new ArrayList<BaseDTObject>();
+//			// getEvent().setLocation(poi.getLocation());
+//			// list.add(getEvent());
+//			// MapManager.switchToMapView(list, this);
+//			// return true;
+//			// } else if (item.getItemId() == R.id.submenu_follow) {
+//			// FollowEntityObject obj = new
+//			// FollowEntityObject(getEvent().getEntityId(),
+//			// getEvent().getTitle(),
+//			// DTConstants.ENTITY_TYPE_EVENT);
+//			// if (mFollowByIntent) {
+//			// FollowHelper.follow(this, obj, 3000);
+//			// } else {
+//			// SCAsyncTask<Object, Void, Topic> followTask = new
+//			// SCAsyncTask<Object, Void, Topic>(getActivity(),
+//			// new FollowAsyncTaskProcessor(getActivity()));
+//			// followTask.execute(getActivity().getApplicationContext(),
+//			// DTParamsHelper.getAppToken(),
+//			// DTHelper.getAuthToken(), obj);
+//			// }
+//			// return true;
+//			// } else if (item.getItemId() == R.id.submenu_unfollow) {
+//			// BaseDTObject obj;
+//			// try {
+//			// obj = DTHelper.findEventByEntityId(getEvent().getEntityId());
+//			// if (obj != null) {
+//			// SCAsyncTask<BaseDTObject, Void, BaseDTObject> unfollowTask = new
+//			// SCAsyncTask<BaseDTObject, Void, BaseDTObject>(
+//			// getActivity(), new
+//			// UnfollowAsyncTaskProcessor(getActivity()));
+//			// unfollowTask.execute(obj);
+//			//
+//			// }
+//			// } catch (Exception e) {
+//			// Log.e(EventDetailsFragment.class.getName(),
+//			// String.format("Error unfollowing event %s",
+//			// getEvent().getEntityId()));
+//			// }
+//			// return true;
+//			// } else if (item.getItemId() == R.id.submenu_rate) {
+//			// if (new
+//			// AMSCAccessProvider().isUserAnonymous(getActivity())) {
+//			// // show dialog box
+//			// UserRegistration.upgradeuser(getActivity());
+//			// return false;
+//			// } else {
+//			// ratingDialog();
+//			// return true;
+//			// }
+//			// } else if (item.getItemId() == R.id.submenu_attend) {
+//			// if (new
+//			// AMSCAccessProvider().isUserAnonymous(getActivity())) {
+//			// // show dialog box
+//			// UserRegistration.upgradeuser(getActivity());
+//			// return false;
+//			// } else {
+//			// new SCAsyncTask<Boolean, Void, EventObject>(getActivity(), new
+//			// AttendProcessor(getActivity()))
+//			// .execute(getEvent().getAttending() == null ||
+//			// getEvent().getAttending().isEmpty());
+//			// return true;
+//			// }
+//		}
 		// else if (item.getItemId() == R.id.submenu_edit || item.getItemId() ==
 		// R.id.submenu_tag) {
 		// // if (new
@@ -638,9 +642,9 @@ public class EventDetailsFragment extends Fragment {
 		// return true;
 		// }
 		// }
-		else {
+//		else {
 			return super.onOptionsItemSelected(item);
-		}
+//		}
 	}
 
 	// @Override
@@ -731,7 +735,9 @@ public class EventDetailsFragment extends Fragment {
 	 * 
 	 */
 	protected void callBringMeThere() {
-		Address to = Utils.getPOIasGoogleAddress(getPOI());
+		Address to = new Address(Locale.getDefault());
+		to.setLatitude(mEvent.getLocation()[0]);
+		to.setLongitude(mEvent.getLocation()[1]);
 		Address from = null;
 		GeoPoint mylocation = MapManager.requestMyLocation(getActivity());
 		if (mylocation != null) {
@@ -769,95 +775,4 @@ public class EventDetailsFragment extends Fragment {
 		}
 	}
 
-	// private class EventDeleteProcessor extends
-	// AbstractAsyncTaskProcessor<LocalEventObject, Boolean> {
-	// public EventDeleteProcessor(Activity activity) {
-	// super(activity);
-	// }
-	//
-	// @Override
-	// public Boolean performAction(LocalEventObject... params) throws
-	// SecurityException, Exception {
-	// return DTHelper.deleteEvent(params[0]);
-	// }
-	//
-	// @Override
-	// public void handleResult(Boolean result) {
-	// if (result) {
-	// getActivity().getSupportFragmentManager().popBackStack();
-	// } else {
-	// Toast.makeText(getActivity(),
-	// getActivity().getString(R.string.app_failure_cannot_delete),
-	// Toast.LENGTH_LONG).show();
-	// }
-	// }
-	//
-	// }
-	//
-	// private class AttendProcessor extends AbstractAsyncTaskProcessor<Boolean,
-	// LocalEventObject> {
-	//
-	// private CompoundButton buttonView;
-	// private Boolean attend;
-	//
-	// public AttendProcessor(Activity activity, CompoundButton buttonView) {
-	// super(activity);
-	// this.buttonView = buttonView;
-	// }
-	//
-	// @Override
-	// public LocalEventObject performAction(Boolean... params) throws
-	// SecurityException, Exception {
-	// attend = params[0];
-	// if (attend) {
-	// return DTHelper.attend(getEvent());
-	// }
-	// return DTHelper.notAttend(getEvent());
-	// }
-	//
-	// @Override
-	// public void handleResult(LocalEventObject result) {
-	// mEvent = result;
-	// updateAttending();
-	// // getActivity().invalidateOptionsMenu();
-	// // LocalEventObject event = getEvent();
-	// if (getActivity() != null)
-	// if (mEvent.getAttending() == null || mEvent.getAttending().isEmpty()) {
-	// Toast.makeText(getActivity(), R.string.not_attend_success,
-	// Toast.LENGTH_SHORT).show();
-	// buttonView.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-	// } else {
-	// Toast.makeText(getActivity(), R.string.attend_success,
-	// Toast.LENGTH_SHORT).show();
-	// buttonView.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-	// }
-	// }
-	//
-	// }
-	//
-	// class FollowAsyncTask extends AsyncTask<String, Void, Void> {
-	//
-	// @Override
-	// protected Void doInBackground(String... params) {
-	// String topicId = params[0];
-	// try {
-	// DTHelper.follow(mEvent);
-	// } catch (Exception e) {
-	// Log.e(FollowAsyncTask.class.getName(),
-	// String.format("Exception following event %s", mEventId));
-	// }
-	// return null;
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(Void result) {
-	// // getActivity().invalidateOptionsMenu();
-	// if (followButtonView != null) {
-	// followButtonView.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-	// followButtonView = null;
-	// }
-	// mStart = true;
-	// }
-	//
-	// }
 }

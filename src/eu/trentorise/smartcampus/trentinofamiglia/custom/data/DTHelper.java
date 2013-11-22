@@ -1690,9 +1690,9 @@ public class DTHelper {
 	}
 
 	public static void bringmethere(FragmentActivity activity, Address from, Address to) {
-		Intent intent = activity.getPackageManager().getLaunchIntentForPackage("it.comunitrentini.comuneintasca");
+		Intent intent = activity.getPackageManager().getLaunchIntentForPackage("eu.trentorise.smartcampus.viaggiatrento");
 		if (intent == null) {
-			intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.comunitrentini.comuneintasca"));
+			intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=eu.trentorise.smartcampus.viaggiatrento"));
 			activity.startActivity(intent);
 		} else
 			// startActivity(intent);
