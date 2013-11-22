@@ -101,7 +101,7 @@
 			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Pista ciclabile"
 			              ]
 	},
-	"events_default" : [0],
+	"events_default" : [1],
    "center_map":[
                      46.0696727540531,
                      11.1212700605392

@@ -8,27 +8,22 @@
     <string name="nav_drawer_map">Map</string>
     <string name="action_poi">POIs</string>
     <string name="empty" />
-    
     <string name="categories_event_summer_family">Estate giovani e famiglia</string>
     <string name="categories_event_alto_garda">Alto Garda</string>
-
     <string name="categories_poi_family_audit">\"Family Audit\"</string>
     <string name="categories_poi_summer_holyday">Vacanze al mare</string>
     <string name="categories_poi_new_media">Tavolo \"Nuovi Media\"</string>
     <string name="categories_poi_breast_point">Punti allattamento</string>
     <string name="categories_poi_trentino_family">\"Family in Trentino\"</string>
-    
     <string name="categories_info_provincial_politics">Politiche provinciali</string>
     <string name="categories_info_certifiers">Consulenti \"Audit\"</string>
     <string name="categories_info_evaluators">Valutatori \"Audit\"</string>
     <string name="categories_info_distrectual_politics">Politiche dei distretti</string>
     <string name="categories_info_news">Notizie</string>
     <string name="categories_info_organizations">Distretti e organizzazioni</string>
-
     <string name="categories_track_pedestrian">Piste ciclopedonali</string>
     <string name="categories_track_trekking">Passeggiate</string>
     <string name="categories_track_bicycle">Pista ciclabile</string>
-
     <string name="categories_event_today">Today\'s Events</string>
     <string name="categories_event_my">My Events</string>
     <string name="categories_story_my">My Stories</string>
@@ -47,7 +42,13 @@
     <string name="app_failure_security">Failed to retrieve authentication data</string>
     <string name="app_failure_operation">OOPS! An error occurred. Please check your connection or try again later</string>
     <string name="initial_data_load">Loading initial data&#8230; (it may take a while this time)</string>
-
+    <string name="backstring">Indietro</string>
+    <string name="showdetails">Dettagli&#8230;</string>
+    <string name="info_dialog_title_poi">Informazioni luogo</string>
+    <string name="info_dialog_title_event">Informazioni evento</string>
+    <string name="info_dialog_title_track">Informazioni tracciato</string>
+    <string name="app_failure_obj_not_found">Oggetto non trovato!</string>
+        
     <!-- <string name="smartcampus_auth_url"> https://vas-dev.smartcampuslab.it/accesstoken-provider/ac</string> -->
     <!-- <string name="smartcampus_app_url">https://vas.smartcampuslab.it</string> -->
     <string name="smartcampus_app_url">https://vas-dev.smartcampuslab.it</string>

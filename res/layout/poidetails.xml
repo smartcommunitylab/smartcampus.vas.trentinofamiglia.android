@@ -62,14 +62,14 @@
 <!--                     android:layout_marginRight="4dp" -->
 <!--                     android:text="@string/follow" /> -->
 
-                <ToggleButton
-                    android:id="@+id/poidetails_follow_tbtn"
-                    android:layout_width="64dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="8dp"
-                    android:text="@string/empty"
-                    android:textOff="@string/empty"
-                    android:textOn="@string/empty" />
+<!--                 <ToggleButton -->
+<!--                     android:id="@+id/poidetails_follow_tbtn" -->
+<!--                     android:layout_width="64dp" -->
+<!--                     android:layout_height="20dp" -->
+<!--                     android:layout_marginRight="8dp" -->
+<!--                     android:text="@string/empty" -->
+<!--                     android:textOff="@string/empty" -->
+<!--                     android:textOn="@string/empty" /> -->
 
                 <ImageButton
                     android:id="@+id/poidetails_map"

@@ -31,13 +31,16 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
@@ -50,6 +53,7 @@ import eu.trentorise.smartcampus.ac.AACException;
 import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
 import eu.trentorise.smartcampus.android.common.LocationHelper;
+import eu.trentorise.smartcampus.android.common.navigation.NavigationHelper;
 import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.SuggestionHelper;
 import eu.trentorise.smartcampus.network.RemoteConnector;
@@ -1667,6 +1671,17 @@ public class DTHelper {
 		return poi.getTitle()
 				+ (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? "" : (", " + poi
 						.getPoi().getStreet()));
+	}
+
+	public static void bringmethere(FragmentActivity activity, Address from, Address to) {
+		Intent intent = activity.getPackageManager().getLaunchIntentForPackage("it.comunitrentini.comuneintasca");
+		if (intent == null) {
+			intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.comunitrentini.comuneintasca"));
+			activity.startActivity(intent);
+		} else
+			// startActivity(intent);
+			NavigationHelper.bringMeThere(activity, from, to);
+		
 	}
 
 }

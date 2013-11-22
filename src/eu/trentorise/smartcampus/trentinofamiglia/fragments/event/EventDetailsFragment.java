@@ -739,12 +739,8 @@ public class EventDetailsFragment extends Fragment {
 			from.setLatitude(mylocation.getLatitudeE6() / 1E6);
 			from.setLongitude(mylocation.getLongitudeE6() / 1E6);
 		}
-		Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("it.comunitrentini.comuneintasca");
-		if (intent == null) {
-			intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.comunitrentini.comuneintasca"));
-		} else
-			// startActivity(intent);
-			NavigationHelper.bringMeThere(getActivity(), from, to);
+		DTHelper.bringmethere(getActivity(), from, to);
+
 	}
 
 	private class RatingProcessor extends AbstractAsyncTaskProcessor<Integer, Integer> implements RatingHandler {

@@ -223,7 +223,7 @@ public class PoiDetailsFragment extends Fragment {
 						from.setLatitude(mylocation.getLatitudeE6() / 1E6);
 						from.setLongitude(mylocation.getLongitudeE6() / 1E6);
 					}
-					NavigationHelper.bringMeThere(getActivity(), from, to);
+					DTHelper.bringmethere(getActivity(), from, to);
 				}
 			});
 			/*
