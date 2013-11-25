@@ -85,4 +85,8 @@
     <string name="hotel_level">Livello famiglia: %s</string>
     <string name="hotel_cat">Categoria: %s stelle</string>
     
+    <string name="event_subcat">Categoria: %s</string>
+    <string name="event_price">Prezzo: %s </string>
+    <string name="event_price_free">Prezzo: gratuito</string>
+    
 </resources>

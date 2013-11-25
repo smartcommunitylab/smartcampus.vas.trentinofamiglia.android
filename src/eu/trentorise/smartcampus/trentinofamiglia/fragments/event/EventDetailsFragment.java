@@ -15,29 +15,22 @@
  ******************************************************************************/
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.event;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,12 +51,9 @@ import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-import eu.trentorise.smartcampus.android.common.follow.model.Topic;
-import eu.trentorise.smartcampus.android.common.navigation.NavigationHelper;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.territoryservice.model.CommunityData;
-import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
@@ -73,7 +63,6 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TmpComment;
-import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoiDetailsFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
 public class EventDetailsFragment extends Fragment {
@@ -285,8 +274,9 @@ public class EventDetailsFragment extends Fragment {
 
 			// description, optional
 			tv = (TextView) this.getView().findViewById(R.id.event_details_descr);
-			if (mEvent.getDescription() != null && mEvent.getDescription().length() > 0) {
-				tv.setText(mEvent.getFormattedDescription());
+			String customDesc = mEvent.customDescription(getActivity());
+			if (customDesc != null && customDesc.length() > 0) {
+				tv.setText(Html.fromHtml(customDesc));
 			} else {
 				((LinearLayout) this.getView().findViewById(R.id.eventdetails)).removeView(tv);
 			}

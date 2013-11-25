@@ -91,5 +91,9 @@
     
     <string name="hotel_level">Family level: %s</string>
     <string name="hotel_cat">Category: %s stars</string>
+
+    <string name="event_subcat">Category: %s</string>
+    <string name="event_price">Price: %s </string>
+    <string name="event_price_free">Price: free</string>
     
 </resources>
