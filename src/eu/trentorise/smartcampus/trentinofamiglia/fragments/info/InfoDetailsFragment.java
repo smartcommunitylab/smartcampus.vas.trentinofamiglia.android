@@ -114,8 +114,9 @@ public class InfoDetailsFragment extends Fragment {
 
 			// description, optional
 			tv = (TextView) this.getView().findViewById(R.id.info_details_descr);
-			if (mInfo.getDescription() != null && mInfo.getDescription().length() > 0) {
-				tv.setText(Html.fromHtml(mInfo.getDescription()));
+			String customDescr = mInfo.customDescription(getActivity());
+			if (customDescr != null && customDescr.length() > 0) {
+				tv.setText(Html.fromHtml(customDescr));
 			} else {
 				((LinearLayout) this.getView().findViewById(R.id.infodetails)).removeView(tv);
 			}

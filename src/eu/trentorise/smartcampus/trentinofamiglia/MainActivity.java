@@ -31,6 +31,7 @@ import eu.trentorise.smartcampus.android.common.SCAsyncTask;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.DrawerItem;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
@@ -290,22 +291,22 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			EventsListingFragment elf = null;
 			switch (childPos) {
 			case 0:
-				cat = "Estate giovani e famiglia";
+				cat = CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA;
 				args = new Bundle();
 				elf = new EventsListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				elf.setArguments(args);
 				out[0] = elf;
-				out[1] = TAG_FRAGMENT_POI_LIST;
+				out[1] = TAG_FRAGMENT_EVENT_LIST;
 				break;
 			case 1:
-				cat = "Alto Garda";
+				cat = CategoryHelper.CAT_EVENT_ALTO_GARDA;
 				args = new Bundle();
 				elf = new EventsListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				elf.setArguments(args);
 				out[0] = elf;
-				out[1] = TAG_FRAGMENT_POI_LIST;
+				out[1] = TAG_FRAGMENT_EVENT_LIST;
 				break;
 			default:
 				out = null;
@@ -315,7 +316,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			switch (childPos) {
 			case 0:	//piste ciclopedonali
 				TrackListingFragment tlf = null;
-				cat = "Piste ciclopedonali";
+				cat = CategoryHelper.CAT_TRACK_PISTE_CICLOPEDONALI;
 				args = new Bundle();
 				tlf = new TrackListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -325,7 +326,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 			case 1:	//passeggiate
 				tlf = null;
-				cat = "Passeggiate";
+				cat = CategoryHelper.CAT_TRACK_PASSEGGIATE;
 				args = new Bundle();
 				tlf = new TrackListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -335,7 +336,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 			case 2:	//vacanze al mare
 				PoisListingFragment plf = null;
-				cat = "Vacanze al mare";
+				cat = CategoryHelper.CAT_POI_VACANZE_AL_MARE;
 				args = new Bundle();
 				plf = new PoisListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -351,7 +352,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			InfoListingFragment elf = null;
 			switch (childPos) {
 			case 0:
-				cat = "Notizie";
+				cat = CategoryHelper.CAT_INFO_NOTIZIE;
 				args = new Bundle();
 				elf = new InfoListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -367,7 +368,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			PoisListingFragment plf = null;
 			switch (childPos) {
 			case 0:
-				cat = "\"Family in Trentino\"";
+				cat = CategoryHelper.CAT_POI_FAMILY_IN_TRENTINO;
 				args = new Bundle();
 				plf = new PoisListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -376,7 +377,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			case 1:
-				cat = "\"Family Audit\"";
+				cat = CategoryHelper.CAT_POI_FAMILY_AUDIT;
 				args = new Bundle();
 				plf = new PoisListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -393,7 +394,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			PoisListingFragment plf = null;
 			switch (childPos) {
 			case 0:
-				cat = "Punti allattamento";
+				cat = CategoryHelper.CAT_POI_PUNTI_ALLATTAMENTO;
 				args = new Bundle();
 				plf = new PoisListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
@@ -423,15 +424,15 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			out[1] = TAG_FRAGMENT_INFO_LIST;
 			switch (childPos) {
 			case 0:
-				cat = "Politiche provinciali";
+				cat = CategoryHelper.CAT_INFO_POLITICHE_PROVINCIALI;
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 1:
-				cat = "Politiche dei distretti";
+				cat = CategoryHelper.CAT_INFO_POLITICHE_DEI_DISTRETTI;
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 2:
-				cat = "Tavolo \"Nuovi Media\"";
+				cat = CategoryHelper.CAT_POI_TAVOLO_NUOVI_MEDIA;
 				args = new Bundle();
 				PoisListingFragment plf = null;
 				plf = new PoisListingFragment();
@@ -441,15 +442,15 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			case 3:
-				cat = "Certificatori \"Audit\"";
+				cat = CategoryHelper.CAT_INFO_CERTIFICATORI_AUDIT;
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 4:
-				cat = "Valutatori \"Audit\"";
+				cat = CategoryHelper.CAT_INFO_VALUTATORI_AUDIT;
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 5:
-				cat = "Distretti e organizzazioni";
+				cat = CategoryHelper.CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI;
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			default:
