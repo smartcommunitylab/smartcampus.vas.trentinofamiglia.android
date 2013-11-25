@@ -31,7 +31,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -240,7 +239,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		}
 		Bundle bundle = this.getArguments();
 		String category = (bundle != null) ? bundle.getString(SearchFragment.ARG_CATEGORY) : null;
-		CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered("pois", category);
+		CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered(CategoryHelper.CATEGORY_TYPE_INFOS, category);
 		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description) : null;
 
 		// set title

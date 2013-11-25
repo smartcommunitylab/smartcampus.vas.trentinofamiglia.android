@@ -263,28 +263,30 @@ public class CategoryHelper {
 		return DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, CATEGORY_TYPE_TRACKS);
 	}
 	public static CategoryDescriptor getCategoryDescriptorByCategoryFiltered(String type, String cat) {
-		CategoryDescriptor[] cdarray = null;
-
-		if (type.equalsIgnoreCase(CATEGORY_TYPE_POIS)) {
-			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(POI_CATEGORIES, type);
-		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_EVENTS)) {
-			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(EVENT_CATEGORIES, type);
-		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_INFOS)) {
-			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(INFO_CATEGORIES, type);
-		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_TRACKS)) {
-			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, type);
-		}
-
-		if (cdarray != null) {
-			for (int i = 0; i < cdarray.length; i++) {
-				CategoryDescriptor cd = cdarray[i];
-				if (cd.category.equalsIgnoreCase(cat)) {
-					return cd;
-				}
-			}
-		}
-
-		return null;
+		return descriptorMap.get(cat);
+		
+//		CategoryDescriptor[] cdarray = null;
+//
+//		if (type.equalsIgnoreCase(CATEGORY_TYPE_POIS)) {
+//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(POI_CATEGORIES, type);
+//		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_EVENTS)) {
+//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(EVENT_CATEGORIES, type);
+//		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_INFOS)) {
+//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(INFO_CATEGORIES, type);
+//		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_TRACKS)) {
+//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, type);
+//		}
+//
+//		if (cdarray != null) {
+//			for (int i = 0; i < cdarray.length; i++) {
+//				CategoryDescriptor cd = cdarray[i];
+//				if (cd.category.equalsIgnoreCase(cat)) {
+//					return cd;
+//				}
+//			}
+//		}
+//
+//		return null;
 	}
 
 }

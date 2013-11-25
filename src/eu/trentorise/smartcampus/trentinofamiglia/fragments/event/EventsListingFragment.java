@@ -323,7 +323,7 @@ public class EventsListingFragment extends
 		TextView title = (TextView) getView().findViewById(R.id.list_title);
 		String category = bundle.getString(SearchFragment.ARG_CATEGORY);
 		CategoryDescriptor catDescriptor = CategoryHelper
-				.getCategoryDescriptorByCategoryFiltered("events", category);
+				.getCategoryDescriptorByCategoryFiltered(CategoryHelper.CATEGORY_TYPE_EVENTS, category);
 		String categoryString = (catDescriptor != null) ? context
 				.getResources().getString(catDescriptor.description) : null;
 
