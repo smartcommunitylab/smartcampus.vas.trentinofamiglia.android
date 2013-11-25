@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.trentinofamiglia.map;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,18 +23,39 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.SelectPoiAdapter;
 
 public class PoiSelectFragment extends DialogFragment implements
 		OnItemClickListener {
+	
+	public static enum REQUEST_TYPE{
+		POI,
+		EVENT
+	}
 
 	private static final String TAG_LABEL = "labels";
 	private static final String TAG_ICONS = "icons";
+	private static final String TAG_CATEGORIES = "categories";
+	private static final String TAG_REQUEST = "request";
+
+	private static final int TARGET_FRAG_REQUEST_CODE = 0;
 
 	private Button mCancel;
 	private Button mShow;
+	private MapItemsHandler mCallback;
+	private ListView mListView;
+	private String[] mCategories;
+	private boolean[] mItemStatus;
+	private REQUEST_TYPE mReqType;
 
-	public static PoiSelectFragment istantiate(int labelResId, int iconResId) {
+	public static PoiSelectFragment istantiate(MapFragment mapFrag, int labelResId, int iconResId,REQUEST_TYPE type,
+			String... categories ) {
 		Bundle args = new Bundle();
 		args.putInt(TAG_LABEL, labelResId);
 		args.putInt(TAG_ICONS, iconResId);
+		args.putStringArray(TAG_CATEGORIES, categories);
+		args.putSerializable(TAG_REQUEST, type);
 		PoiSelectFragment psf = new PoiSelectFragment();
+		if(mapFrag instanceof MapItemsHandler)
+			psf.setTargetFragment(mapFrag, TARGET_FRAG_REQUEST_CODE);
+		else
+			throw new IllegalArgumentException("The passed MapFragment should implement MapItemsHandler");
 		psf.setArguments(args);
 		return psf;
 	}
@@ -41,13 +63,14 @@ public class PoiSelectFragment extends DialogFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		mCallback = (MapItemsHandler) getTargetFragment();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		getDialog().setTitle("Something");
+		// TODO externalize string
+		getDialog().setTitle("Pick some:");
 		View v = inflater.inflate(R.layout.fragment_select_poi, container,
 				false);
 		return v;
@@ -59,32 +82,50 @@ public class PoiSelectFragment extends DialogFragment implements
 
 		Bundle b = getArguments();
 		int labels = b.getInt(TAG_LABEL);
+		mCategories = b.getStringArray(TAG_CATEGORIES);
+		mReqType = (REQUEST_TYPE) b.getSerializable(TAG_REQUEST);
 		List<String> elements = Arrays.asList(getResources().getStringArray(
 				labels));
+		mItemStatus = new boolean[elements.size()-1];
 		setupView(b, elements);
 	}
 
 	private void setupView(Bundle b, List<String> elements) {
 		int icons = b.getInt(TAG_ICONS);
-		ListView lv = (ListView) getView().findViewById(
-				R.id.select_poi_listview);
-		lv.setOnItemClickListener(this);
+		mListView = (ListView) getView().findViewById(R.id.select_poi_listview);
+		mListView.setOnItemClickListener(this);
 
 		TextView tv = (TextView) getView().findViewById(R.id.select_poi_header);
 		tv.setText(elements.get(0));
 
-		lv.setAdapter(new SelectPoiAdapter(getActivity(), elements.subList(1,
-				elements.size()), icons));
+		mListView.setAdapter(new SelectPoiAdapter(getActivity(), elements
+				.subList(1, elements.size()), icons));
 
 		mCancel = (Button) getView().findViewById(R.id.select_poi_cancel);
 		mCancel.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				getDialog().dismiss();
 			}
 		});
 		mShow = (Button) getView().findViewById(R.id.select_poi_confirm);
+		mShow.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				List<String> toLoad = new ArrayList<String>();
+				for(int i=0;i<mCategories.length;i++){
+					if(mItemStatus[i])
+						toLoad.add(mCategories[i]);
+				}
+				if(mReqType==REQUEST_TYPE.EVENT)
+					mCallback.setEventCategoriesToLoad(toLoad.toArray(new String[toLoad.size()]));
+				else
+					mCallback.setPOICategoriesToLoad(toLoad.toArray(new String[toLoad.size()]));
+				getDialog().dismiss();
+			}
+		});
 	}
 
 	@Override
@@ -93,5 +134,6 @@ public class PoiSelectFragment extends DialogFragment implements
 				.findViewById(R.id.select_poi_checkTv);
 		ctv.setChecked(!ctv.isChecked());
 		ctv.setTag(ctv.isChecked());
+		mItemStatus[arg2]= ctv.isChecked();
 	}
 }
