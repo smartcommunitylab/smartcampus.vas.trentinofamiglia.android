@@ -82,9 +82,17 @@ public class InfoDialog extends DialogFragment {
 						CategoryHelper.CATEGORY_TYPE_EVENTS, event.getType()).description);
 				msgText += "</p><br/>";
 			}
-			msgText += "<p>" + event.getTiming() + "</p>";
+			msgText += "<p>" + event.eventDatesString() + "</p>";
+			if (event.getTiming() != null) {
+				msgText += "<p>" + event.getTiming() + "</p>";
+			}
 			if (poi != null) {
 				msgText += "<p>" + Utils.getPOIshortAddress(poi) + "</p>";
+			} else {
+				String place = Utils.getEventShortAddress(event);
+				if (place != null) {
+					msgText += "<p>" + place + "</p>";
+				}
 			}
 			msg.setText(Html.fromHtml(msgText));
 		}

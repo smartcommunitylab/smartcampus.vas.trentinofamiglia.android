@@ -28,10 +28,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 
 
@@ -72,11 +71,8 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		
 		e.event = getItem(position);
 		e.title.setText(e.event.getTitle());
-		if (e.event.getCustomData() != null && e.event.getCustomData().get("place")!=null) {
-			e.location.setText((CharSequence) e.event.getCustomData().get("place"));
-		} else {
-			e.location.setText(null);
-		}
+		String place = Utils.getEventShortAddress(e.event);
+		e.location.setText(place);
 		e.hour.setText(e.event.dateTimeString());
 		//e.hour.setText(e.event.getTimingFormatted());
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(e.event.getType()));
