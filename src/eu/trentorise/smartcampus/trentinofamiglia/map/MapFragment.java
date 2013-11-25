@@ -357,7 +357,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 											.getEventsByCategories(0, -1,
 													eventsNotTodayCategories));
 								
-							} elsenewList.remove(obj);
+							} else
 								newList=DTHelper.getEventsByCategories(0, -1,
 										categories);
 							Iterator<LocalEventObject> i = newList.iterator();
