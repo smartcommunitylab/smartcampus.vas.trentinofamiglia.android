@@ -77,6 +77,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.DTParamsHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.GenericObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
@@ -444,6 +446,21 @@ public class DTHelper {
 			return null;
 		}
 	}
+
+	/**
+	 * @param idInfo
+	 * @return
+	 */
+	public static InfoObject findInfoById(String idInfo) {
+		try {
+			InfoObjectForBean info = getInstance().storage.getObjectById(idInfo, InfoObjectForBean.class);
+			return info.getObjectForBean();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 	/**
 	 * return true if the object was created and false if updated

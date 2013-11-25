@@ -175,13 +175,8 @@ public class TrackDetailsFragment extends Fragment {
 				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 			}
 
-			// notes
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
-			if (mTrack.getCommunityData() != null && mTrack.getDescription() != null && mTrack.getDescription().length() > 0) {
-				tv.setText(mTrack.getDescription());
-			} else {
-				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-			}
+			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 
 			// multimedia
 			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
