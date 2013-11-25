@@ -73,6 +73,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 
 	private String[] poiCategories = null;
 	private String[] eventsCategories = null;
+	private String[] tracksCategories = null;
 	private String[] eventsNotTodayCategories = null;
 	private Collection<? extends BaseDTObject> objects;
 
@@ -222,7 +223,13 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 			poiCategories = null;
 			setEventCategoriesToLoad(getArguments().getString(
 					ARG_EVENT_CATEGORY));
-		} else {
+		}  else if (getArguments() != null
+				&& getArguments().containsKey(ARG_TRACK_CATEGORY)) {
+			tracksCategories = null;
+			setMiscellaneousToLoad(getArguments().getString(
+					ARG_TRACK_CATEGORY));
+		} 
+		else {
 			if (poiCategories != null) {
 				setPOICategoriesToLoad(poiCategories);
 			}
