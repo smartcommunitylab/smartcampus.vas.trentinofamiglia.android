@@ -1407,7 +1407,6 @@ public class DTHelper {
 		/* calcola when */
 		String[] argsArray = null;
 		ArrayList<String> args = null;
-
 		if (distance != null) {
 			/* search online */
 			return getObjectsFromServer(position, size, what, distance, when, my, cls, inCategories, sort);

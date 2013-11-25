@@ -1,11 +1,14 @@
 package eu.trentorise.smartcampus.trentinofamiglia.map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +38,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
+import eu.trentorise.smartcampus.protocolcarrier.exceptions.ConnectionException;
+import eu.trentorise.smartcampus.protocolcarrier.exceptions.ProtocolException;
+import eu.trentorise.smartcampus.storage.DataException;
+import eu.trentorise.smartcampus.storage.StorageConfigurationException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.territoryservice.model.EventObject;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
@@ -44,6 +52,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper.Category
 import eu.trentorise.smartcampus.trentinofamiglia.custom.DTParamsHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventDetailsFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoiDetailsFragment;
@@ -112,8 +122,8 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		} else if (item.getItemId() == R.id.action_poi_freetime) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(this,
 					R.array.map_items_freetime_labels,
-					R.array.map_items_freetime_icons, REQUEST_TYPE.POI,
-					new String[] { CategoryHelper.TRACK_CATEGORIES[0].category,
+					R.array.map_items_freetime_icons, new String[] {
+							CategoryHelper.TRACK_CATEGORIES[0].category,
 							CategoryHelper.TRACK_CATEGORIES[1].category,
 							CategoryHelper.POI_CATEGORIES[1].category });
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
@@ -201,20 +211,8 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		if (getArguments() != null && getArguments().containsKey(ARG_OBJECTS)) {
 			poiCategories = null;
 			eventsCategories = null;
-			List<BaseDTObject> list = (List<BaseDTObject>) getArguments()
-					.getSerializable(ARG_OBJECTS);
-			new AsyncTask<List<BaseDTObject>, Void, List<BaseDTObject>>() {
-				@Override
-				protected List<BaseDTObject> doInBackground(
-						List<BaseDTObject>... params) {
-					return params[0];
-				}
-
-				@Override
-				protected void onPostExecute(List<BaseDTObject> result) {
-					addObjects(result);
-				}
-			}.execute(list);
+			drawTracks((List<BaseDTObject>) getArguments().getSerializable(
+					ARG_OBJECTS));
 		} else if (getArguments() != null
 				&& getArguments().containsKey(ARG_POI_CATEGORY)) {
 			eventsCategories = null;
@@ -232,6 +230,24 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 				setEventCategoriesToLoad(eventsCategories);
 			}
 		}
+	}
+
+	// Mi dava fastidio il giallo u.u
+	@SuppressWarnings("unchecked")
+	private void drawTracks(List<? extends BaseDTObject> list) {
+
+		new AsyncTask<List<? extends BaseDTObject>, Void, List<? extends BaseDTObject>>() {
+			@Override
+			protected List<? extends BaseDTObject> doInBackground(
+					List<? extends BaseDTObject>... params) {
+				return params[0];
+			}
+
+			@Override
+			protected void onPostExecute(List<? extends BaseDTObject> result) {
+				addObjects(result);
+			}
+		}.execute(list);
 	}
 
 	@Override
@@ -301,6 +317,59 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 					}
 
 				}).execute();
+	}
+
+	@Override
+	public void setMiscellaneousToLoad(String... categories) {
+		List<String> tracks = new ArrayList<String>();
+		List<String> events = new ArrayList<String>();
+		List<String> pois = new ArrayList<String>();
+		for (String s : categories) {
+			if (Arrays.asList(CategoryHelper.getTrackCategories()).contains(s)) {
+				tracks.add(s);
+
+			} else if (Arrays.asList(CategoryHelper.getEventCategories())
+					.contains(s)) {
+				events.add(s);
+			} else if (Arrays.asList(CategoryHelper.getPOICategories())
+					.contains(s)) {
+				pois.add(s);
+			} else
+				Log.e(this.getClass().getName(), "category not found: " + s);
+		}
+		setEventCategoriesToLoad(events.toArray(new String[pois.size()]));
+		setPOICategoriesToLoad(pois.toArray(new String[pois.size()]));
+		if (!tracks.isEmpty()) {
+			try {
+				SortedMap<String, Integer> sort = new TreeMap<String, Integer>();
+				sort.put("title", 1);
+				List<TrackObject> returnArray = new ArrayList<TrackObject>();
+				Collection<TrackObjectForBean> result = DTHelper
+						.searchInGeneral(0, -1, null, null, null, false,
+								TrackObjectForBean.class, sort,
+								tracks.toArray(new String[pois.size()]));
+				for (TrackObjectForBean trackBean : result) {
+					returnArray.add(trackBean.getObjectForBean());
+				}
+				drawTracks(returnArray);
+			} catch (DataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (StorageConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// TODO only tracks left.
 	}
 
 	private void onBaseDTObjectTap(BaseDTObject o) {
@@ -547,4 +616,5 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		}
 
 	}
+
 }

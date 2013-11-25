@@ -368,7 +368,6 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 				returnArray.add(trackBean.getObjectForBean());
 			}
 			return returnArray;
-			
 		} catch (Exception e) {
 			Log.e(TrackListingFragment.class.getName(), e.getMessage());
 			e.printStackTrace();
