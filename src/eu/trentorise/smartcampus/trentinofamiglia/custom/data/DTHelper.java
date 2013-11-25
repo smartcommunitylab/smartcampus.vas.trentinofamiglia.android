@@ -1523,7 +1523,7 @@ public class DTHelper {
 			if (cls == PoiObjectForBean.class) {
 				Collection<POIObject> pois = null;
 				Collection<PoiObjectForBean> poisbean = new ArrayList<PoiObjectForBean>();
-				pois = tService.getPOIs(filter, getAuthToken());
+				pois = tService.getPOIs(filter, null);
 
 				for (POIObject poi : pois) {
 					PoiObjectForBean poiBean = new PoiObjectForBean();
@@ -1534,7 +1534,7 @@ public class DTHelper {
 			} else if (cls == EventObjectForBean.class) {
 				Collection<EventObject> events = null;
 				Collection<EventObjectForBean> eventsbean = new ArrayList<EventObjectForBean>();
-				events = tService.getEvents(filter, getAuthToken());
+				events = tService.getEvents(filter, null);
 
 				for (EventObject poi : events) {
 					EventObjectForBean eventBean = new EventObjectForBean();
@@ -1544,18 +1544,7 @@ public class DTHelper {
 				result = (Collection<T>) eventsbean;
 
 			} 
-//			else if (cls == StoryObjectForBean.class) {
-//				Collection<StoryObject> stories = null;
-//				Collection<StoryObjectForBean> storiesbean = new ArrayList<StoryObjectForBean>();
-//				stories = tService.getStories(filter, getAuthToken());
-//
-//				for (StoryObject poi : stories) {
-//					StoryObjectForBean storyBean = new StoryObjectForBean();
-//					storyBean.setObjectForBean(poi);
-//					storiesbean.add(storyBean);
-//				}
-//				result = (Collection<T>) storiesbean;
-//			}
+
 			if (result != null) {
 				synchronize();
 			}

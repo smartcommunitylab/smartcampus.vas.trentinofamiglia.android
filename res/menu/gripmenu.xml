@@ -14,14 +14,16 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:eu.trentorise.smartcampus.trentinofamiglia="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mainmenu_toggler"
         android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_light"
         android:menuCategory="system"
         android:orderInCategory="10"
         android:showAsAction="always"
-        android:title="@string/empty">
+        android:title="@string/empty"
+        eu.trentorise.smartcampus.trentinofamiglia:showAsAction="ifRoom">
         <menu android:id="@+id/placeholder_menu" >
         </menu>
     </item>

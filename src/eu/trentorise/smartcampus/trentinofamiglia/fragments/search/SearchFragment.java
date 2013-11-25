@@ -187,6 +187,8 @@ public class SearchFragment extends Fragment {
 			type = CategoryHelper.CATEGORY_TYPE_TRACKS;
 			whenSearchSpinner.setVisibility(View.GONE);
 			whenLabel.setVisibility(View.GONE);
+			whereSearchSpinner.setVisibility(View.GONE);
+			whereLabel.setVisibility(View.GONE);
 
 		} else if (bundle != null && bundle.containsKey(CategoryHelper.CATEGORY_TYPE_INFOS)) {
 			type = CategoryHelper.CATEGORY_TYPE_INFOS;

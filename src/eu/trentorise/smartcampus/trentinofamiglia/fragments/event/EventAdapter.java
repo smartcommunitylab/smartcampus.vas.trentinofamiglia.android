@@ -43,11 +43,12 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 	private Context context;
 	private int layoutResourceId;
 	private int elementSelected = -1;
-
-	public EventAdapter(Context context, int layoutResourceId) {
+	private boolean postProcAndHeader = true;
+	public EventAdapter(Context context, int layoutResourceId, boolean postProcAndHeader) {
 		super(context, layoutResourceId);
 		this.context = context;
 		this.layoutResourceId = layoutResourceId;
+		this.postProcAndHeader = postProcAndHeader; 
 	}
 
 	@Override
@@ -95,7 +96,7 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			previousEvent.setTimeInMillis(getItem(position - 1).getFromTime());
 		}
 
-		if (previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) {
+		if ((previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) && postProcAndHeader) {
 			e.dateSeparator.setVisibility(View.VISIBLE);
 			// create date
 			e.dateSeparator.setText(setDateString(e));
