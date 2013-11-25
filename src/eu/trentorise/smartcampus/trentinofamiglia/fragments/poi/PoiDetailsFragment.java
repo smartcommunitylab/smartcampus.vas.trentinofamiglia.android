@@ -61,6 +61,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper.RatingHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.POIHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TmpComment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
@@ -227,15 +228,16 @@ public class PoiDetailsFragment extends Fragment {
 
 			// description, optional
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_descr);
-			if (mPoi.getDescription() != null && mPoi.getDescription().length() > 0) {
-				tv.setText(mPoi.getDescription());
+			String customDesc = POIHelper.customDescription(mPoi, getActivity());
+			if (customDesc != null && customDesc.length() > 0) {
+				tv.setText(Html.fromHtml(customDesc));
 			} else {
 				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 			}
 
-			// notes
-			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
-			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//			// notes
+//			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
+//			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 
 			// location
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_loc);
