@@ -461,53 +461,6 @@ public class EventDetailsFragment extends Fragment {
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-		// String userId = DTHelper.getUserId();
-		LocalEventObject event = getEvent();
-
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
-
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_rate, Menu.NONE,
-		// R.string.rate);
-
-		// if (event.getAttending() == null || event.getAttending().isEmpty()) {
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_attend, Menu.NONE,
-		// R.string.attend);
-		// } else {
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_attend, Menu.NONE,
-		// R.string.attend_not);
-		// }
-
-		// if (getEvent().getCommunityData().getFollowing().containsKey(userId))
-		// {
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_unfollow, Menu.NONE,
-		// R.string.unfollow);
-		// } else {
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_follow, Menu.NONE,
-		// R.string.follow);
-		// }
-
-		// if (getPOI() != null) {
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_see_on_map,
-		// Menu.NONE, R.string.onmap);
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_show_related_poi,
-		// Menu.NONE, R.string.related_poi);
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_get_dir,
-		// Menu.NONE, R.string.getdir);
-		// }
-
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_tag, Menu.NONE,
-		// R.string.submenu_tag);
-
-		// // CAN DELETE ONLY OWN OBJECTS
-		// if (DTHelper.isOwnedObject(getEvent())) {
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_edit, Menu.NONE,
-		// R.string.edit);
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_delete, Menu.NONE,
-		// R.string.delete);
-		// }
-
 		super.onPrepareOptionsMenu(menu);
 	}
 

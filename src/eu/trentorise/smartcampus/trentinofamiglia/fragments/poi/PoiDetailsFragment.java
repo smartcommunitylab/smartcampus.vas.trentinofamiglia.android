@@ -369,28 +369,6 @@ public class PoiDetailsFragment extends Fragment {
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-		// String userId = DTHelper.getUserId();
-
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
-
-		// submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_rate, Menu.NONE,
-		// R.string.rate);
-		// submenu.add(Menu.NONE, R.id.submenu_get_dir, Menu.NONE,
-		// R.string.getdir);
-		// submenu.add(Menu.NONE, R.id.submenu_see_on_map, Menu.NONE,
-		// R.string.onmap);
-
-		submenu.add(Menu.NONE, R.id.submenu_show_related_events, Menu.NONE, R.string.submenu_related_events);
-//		submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_tag, Menu.NONE, R.string.submenu_tag);
-//
-//		// ONLY THE OWNER CAN EDIT AND DELETE OBJECTS
-//		if (DTHelper.isOwnedObject(getPOI())) {
-//			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_edit, Menu.NONE, R.string.edit);
-//			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_delete, Menu.NONE, R.string.delete);
-//		}
-
 		super.onPrepareOptionsMenu(menu);
 	}
 
