@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -169,8 +170,9 @@ public class TrackDetailsFragment extends Fragment {
 
 			// description, optional
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_descr);
-			if (mTrack.getDescription() != null && mTrack.getDescription().length() > 0) {
-				tv.setText(mTrack.getDescription());
+			String customDescr = mTrack.customDescription(getActivity());
+			if (customDescr != null && customDescr.length() > 0) {
+				tv.setText(Html.fromHtml(customDescr));
 			} else {
 				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 			}
@@ -178,19 +180,19 @@ public class TrackDetailsFragment extends Fragment {
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
 			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 
-			// multimedia
-			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
-					R.id.gallery_btn));
-			// source
-			tv = (TextView) this.getView().findViewById(R.id.poi_details_source);
-			if (mTrack.getSource() != null && mTrack.getSource().length() > 0) {
-				/* Source is "ou" sometimes O_o */
-				tv.setText(mTrack.getSource());
-			} else if (Utils.isCreatedByUser(mTrack)) {
-				tv.setText(getString(R.string.source_smartcampus));
-			} else {
-				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-			}
+//			// multimedia
+//			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
+//					R.id.gallery_btn));
+//			// source
+//			tv = (TextView) this.getView().findViewById(R.id.poi_details_source);
+//			if (mTrack.getSource() != null && mTrack.getSource().length() > 0) {
+//				/* Source is "ou" sometimes O_o */
+//				tv.setText(mTrack.getSource());
+//			} else if (Utils.isCreatedByUser(mTrack)) {
+//				tv.setText(getString(R.string.source_smartcampus));
+//			} else {
+//				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//			}
 
 			// rating
 			RatingBar rating = (RatingBar) getView().findViewById(R.id.poi_rating);

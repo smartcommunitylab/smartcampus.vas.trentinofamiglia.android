@@ -122,34 +122,34 @@
                 android:layout_marginTop="8dp"
                 android:autoLink="web|all" />
 
-            <TextView
-                android:id="@+id/poi_details_tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textStyle="italic" />
+<!--             <TextView -->
+<!--                 android:id="@+id/poi_details_tags" -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_marginTop="8dp" -->
+<!--                 android:textStyle="italic" /> -->
 
-            <LinearLayout
-                android:id="@+id/multimedia_source"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp" >
+<!--             <LinearLayout -->
+<!--                 android:id="@+id/multimedia_source" -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_gravity="center_vertical" -->
+<!--                 android:layout_marginTop="8dp" > -->
 
-                <ImageButton
-                    android:id="@+id/gallery_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_gallery"
-                    android:contentDescription="@string/empty" />
+<!--                 <ImageButton -->
+<!--                     android:id="@+id/gallery_btn" -->
+<!--                     android:layout_width="wrap_content" -->
+<!--                     android:layout_height="wrap_content" -->
+<!--                     android:background="@drawable/ic_gallery" -->
+<!--                     android:contentDescription="@string/empty" /> -->
 
-                <TextView
-                    android:id="@+id/poi_details_source"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right" />
-            </LinearLayout>
+<!--                 <TextView -->
+<!--                     android:id="@+id/poi_details_source" -->
+<!--                     android:layout_width="0dp" -->
+<!--                     android:layout_height="wrap_content" -->
+<!--                     android:layout_weight="1" -->
+<!--                     android:gravity="right" /> -->
+<!--             </LinearLayout> -->
 
             <View
                 android:layout_width="match_parent"

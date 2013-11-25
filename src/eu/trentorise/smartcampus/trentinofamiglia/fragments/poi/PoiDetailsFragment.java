@@ -21,14 +21,11 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Address;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -53,8 +50,6 @@ import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-import eu.trentorise.smartcampus.android.common.follow.model.Topic;
-import eu.trentorise.smartcampus.android.common.navigation.NavigationHelper;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.territoryservice.model.CommunityData;
@@ -255,19 +250,19 @@ public class PoiDetailsFragment extends Fragment {
 				}
 			});
 
-			// tags
-			tv = (TextView) this.getView().findViewById(R.id.poi_details_tags);
-			if (mPoi.getCommunityData() != null && mPoi.getCommunityData().getTags() != null
-					&& mPoi.getCommunityData().getTags().size() > 0) {
-				tv.setText(Utils.conceptToSimpleString(mPoi.getCommunityData().getTags()));
-			} else {
-				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-			}
-
-			// multimedia
-			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
-					R.id.gallery_btn));
-
+//			// tags
+//			tv = (TextView) this.getView().findViewById(R.id.poi_details_tags);
+//			if (mPoi.getCommunityData() != null && mPoi.getCommunityData().getTags() != null
+//					&& mPoi.getCommunityData().getTags().size() > 0) {
+//				tv.setText(Utils.conceptToSimpleString(mPoi.getCommunityData().getTags()));
+//			} else {
+//				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//			}
+//
+//			// multimedia
+//			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
+//					R.id.gallery_btn));
+//
 			/*
 			 * ImageButton b = (ImageButton) getView().findViewById(
 			 * R.id.gallery_btn); if (hasMultimediaAttached())
@@ -287,15 +282,15 @@ public class PoiDetailsFragment extends Fragment {
 			 * this.getView().findViewById(R.id.tablerow)) .removeView(b);
 			 */
 			// source
-			tv = (TextView) this.getView().findViewById(R.id.poi_details_source);
-			if (mPoi.getSource() != null && mPoi.getSource().length() > 0) {
-				/* Source is "ou" sometimes O_o */
-				tv.setText(mPoi.getSource());
-			} else if (Utils.isCreatedByUser(mPoi)) {
-				tv.setText(getString(R.string.source_smartcampus));
-			} else {
-				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-			}
+//			tv = (TextView) this.getView().findViewById(R.id.poi_details_source);
+//			if (mPoi.getSource() != null && mPoi.getSource().length() > 0) {
+//				/* Source is "ou" sometimes O_o */
+//				tv.setText(mPoi.getSource());
+//			} else if (Utils.isCreatedByUser(mPoi)) {
+//				tv.setText(getString(R.string.source_smartcampus));
+//			} else {
+//				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//			}
 
 			// rating
 			RatingBar rating = (RatingBar) getView().findViewById(R.id.poi_rating);

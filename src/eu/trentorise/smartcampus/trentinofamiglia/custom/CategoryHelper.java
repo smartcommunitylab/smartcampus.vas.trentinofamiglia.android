@@ -25,6 +25,27 @@ import java.util.Set;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 
 public class CategoryHelper {
+	
+	public static final String CAT_TRACK_PISTA_CICLABILE = "Pista ciclabile";
+	public static final String CAT_TRACK_PASSEGGIATE = "Passeggiate";
+	public static final String CAT_TRACK_PISTE_CICLOPEDONALI = "Piste ciclopedonali";
+	
+	public static final String CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI = "Distretti e organizzazioni";
+	public static final String CAT_INFO_POLITICHE_DEI_DISTRETTI = "Politiche dei distretti";
+	public static final String CAT_INFO_VALUTATORI_AUDIT = "Valutatori \"Audit\"";
+	public static final String CAT_INFO_CERTIFICATORI_AUDIT = "Certificatori \"Audit\"";
+	public static final String CAT_INFO_POLITICHE_PROVINCIALI = "Politiche provinciali";
+	public static final String CAT_INFO_NOTIZIE = "Notizie";
+
+	public static final String CAT_POI_FAMILY_IN_TRENTINO = "\"Family in Trentino\"";
+	public static final String CAT_POI_TAVOLO_NUOVI_MEDIA = "Tavolo \"Nuovi Media\"";
+	public static final String CAT_POI_PUNTI_ALLATTAMENTO = "Punti allattamento";
+	public static final String CAT_POI_VACANZE_AL_MARE = "Vacanze al mare";
+	public static final String CAT_POI_FAMILY_AUDIT = "\"Family Audit\"";
+
+	public static final String CAT_EVENT_ALTO_GARDA = "Alto Garda";
+	public static final String CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA = "Estate giovani e famiglia";
+	
 	private final static String TAG = "CategoryHelper";
 	// private static final String POI_NONCATEGORIZED = "Other place";
 	// private static final String EVENT_NONCATEGORIZED = "Other event";
@@ -49,43 +70,43 @@ public class CategoryHelper {
 
 	public static CategoryDescriptor[] EVENT_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family,
-					"Estate giovani e famiglia", R.string.categories_event_summer_family),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family, "Alto Garda",
-					R.string.categories_event_alto_garda), };
+					CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA, R.string.categories_event_summer_family),
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family, 
+					CAT_EVENT_ALTO_GARDA, R.string.categories_event_alto_garda), };
 
 	public static CategoryDescriptor[] POI_CATEGORIES = new CategoryDescriptor[] {
-			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "\"Family Audit\"",
+			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, CAT_POI_FAMILY_AUDIT,
 					R.string.categories_poi_family_audit),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Vacanze al mare",
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, CAT_POI_VACANZE_AL_MARE,
 					R.string.categories_poi_summer_holyday),
 			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Tavolo \"Nuovi Media\"", R.string.categories_poi_new_media),
-			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Punti allattamento",
+					CAT_POI_TAVOLO_NUOVI_MEDIA, R.string.categories_poi_new_media),
+			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, CAT_POI_PUNTI_ALLATTAMENTO,
 					R.string.categories_poi_breast_point),
 			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"\"Family in Trentino\"", R.string.categories_poi_trentino_family), };
+					CAT_POI_FAMILY_IN_TRENTINO, R.string.categories_poi_trentino_family), };
 
 	public static CategoryDescriptor[] INFO_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Politiche provinciali", R.string.categories_info_provincial_politics),
+					CAT_INFO_POLITICHE_PROVINCIALI, R.string.categories_info_provincial_politics),
 			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Certificatori \"Audit\"", R.string.categories_info_certifiers),
+					CAT_INFO_CERTIFICATORI_AUDIT, R.string.categories_info_certifiers),
 			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Valutatori \"Audit\"", R.string.categories_info_evaluators),
+					CAT_INFO_VALUTATORI_AUDIT, R.string.categories_info_evaluators),
 			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Politiche dei distretti", R.string.categories_info_distrectual_politics),
-			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Notizie",
+					CAT_INFO_POLITICHE_DEI_DISTRETTI, R.string.categories_info_distrectual_politics),
+			/* 5 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, CAT_INFO_NOTIZIE,
 					R.string.categories_info_news),
 			/* 6 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Distretti e organizzazioni", R.string.categories_info_organizations), };
+					CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI, R.string.categories_info_organizations), };
 
 	public static CategoryDescriptor[] TRACK_CATEGORIES = new CategoryDescriptor[] {
-			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Piste ciclopedonali",
+			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, CAT_TRACK_PISTE_CICLOPEDONALI,
 					R.string.categories_track_pedestrian),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, "Passeggiate",
+			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family, CAT_TRACK_PASSEGGIATE,
 					R.string.categories_track_trekking),
 			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_p_family,
-					"Pista ciclabile", R.string.categories_track_bicycle), };
+					CAT_TRACK_PISTA_CICLABILE, R.string.categories_track_bicycle), };
 
 	private static Map<String, String> categoryMapping = new HashMap<String, String>();
 
