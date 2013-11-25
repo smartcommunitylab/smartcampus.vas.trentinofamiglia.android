@@ -21,6 +21,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -114,7 +115,7 @@ public class InfoDetailsFragment extends Fragment {
 			// description, optional
 			tv = (TextView) this.getView().findViewById(R.id.info_details_descr);
 			if (mInfo.getDescription() != null && mInfo.getDescription().length() > 0) {
-				tv.setText(mInfo.getDescription());
+				tv.setText(Html.fromHtml(mInfo.getDescription()));
 			} else {
 				((LinearLayout) this.getView().findViewById(R.id.infodetails)).removeView(tv);
 			}

@@ -11,10 +11,11 @@ public class InfoObject extends BaseDTObject{
 
 	@Override
 	public String getDescription() {
+		String d = super.getDescription();
 		if (getCustomData().containsKey("link")) {
-			return super.getDescription()+"\n\n"+getCustomData().get("link");
+			d += "<br/><a href=\""+getCustomData().get("link")+"\">"+getCustomData().get("link")+"</a>";
 		}
-		return super.getDescription();
+		return d;
 	}
 
 	

@@ -418,16 +418,17 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			InfoListingFragment elf = null;
 			args = new Bundle();
 			elf = new InfoListingFragment();
-			args.putString(SearchFragment.ARG_CATEGORY, cat);
 			elf.setArguments(args);
 			out[0] = elf;
 			out[1] = TAG_FRAGMENT_INFO_LIST;
 			switch (childPos) {
 			case 0:
 				cat = "Politiche provinciali";
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 1:
 				cat = "Politiche dei distretti";
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 2:
 				cat = "Tavolo \"Nuovi Media\"";
@@ -440,13 +441,16 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			case 3:
-				cat = "Consulenti \"Audit\"";
+				cat = "Certificatori \"Audit\"";
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 4:
 				cat = "Valutatori \"Audit\"";
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 5:
 				cat = "Distretti e organizzazioni";
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			default:
 				out = null;
