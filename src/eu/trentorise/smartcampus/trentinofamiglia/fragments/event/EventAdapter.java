@@ -73,7 +73,7 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		e.title.setText(e.event.getTitle());
 		String place = Utils.getEventShortAddress(e.event);
 		e.location.setText(place);
-		e.hour.setText(e.event.dateTimeString());
+		e.hour.setText(e.event.eventDatesString());
 		//e.hour.setText(e.event.getTimingFormatted());
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(e.event.getType()));
 
