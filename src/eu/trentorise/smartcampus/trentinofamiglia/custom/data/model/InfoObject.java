@@ -9,4 +9,14 @@ public class InfoObject extends BaseDTObject{
 	 */
 	private static final long serialVersionUID = 558360097784617161L;
 
+	@Override
+	public String getDescription() {
+		if (getCustomData().containsKey("link")) {
+			return super.getDescription()+"\n\n"+getCustomData().get("link");
+		}
+		return super.getDescription();
+	}
+
+	
+	
 }

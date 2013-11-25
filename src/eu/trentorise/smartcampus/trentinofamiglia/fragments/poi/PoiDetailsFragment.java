@@ -240,15 +240,7 @@ public class PoiDetailsFragment extends Fragment {
 
 			// notes
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
-			// if (mPoi.getCommunityData() != null &&
-			// mPoi.getCommunityData().getNotes() != null
-			// && mPoi.getCommunityData().getNotes().length() > 0) {
-			// tv.setText(mPoi.getCommunityData().getNotes());
-			if (mPoi.getCommunityData() != null && mPoi.getDescription() != null && mPoi.getDescription().length() > 0) {
-				tv.setText(mPoi.getDescription());
-			} else {
-				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-			}
+			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 
 			// location
 			tv = (TextView) this.getView().findViewById(R.id.poi_details_loc);

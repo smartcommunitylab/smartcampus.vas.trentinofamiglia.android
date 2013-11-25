@@ -36,6 +36,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.HackActionBarToggle;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.NavDrawerAdapter;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.info.InfoListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.track.TrackListingFragment;
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	private static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
 	private static final String TAG_FRAGMENT_EVENT_LIST = "fragewent";
 	private static final Object TAG_FRAGMENT_TRACK_LIST = "fragtrack";
+	private static final Object TAG_FRAGMENT_INFO_LIST = "fraginfo";
 
 	private FragmentManager mFragmentManager;
 	private DrawerLayout mDrawerLayout;
@@ -346,16 +348,16 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 			}
 		} else if (groupPos == 2) { // News
-			EventsListingFragment elf = null;
+			InfoListingFragment elf = null;
 			switch (childPos) {
 			case 0:
 				cat = "Notizie";
 				args = new Bundle();
-				elf = new EventsListingFragment();
+				elf = new InfoListingFragment();
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				elf.setArguments(args);
 				out[0] = elf;
-				out[1] = TAG_FRAGMENT_POI_LIST;
+				out[1] = TAG_FRAGMENT_INFO_LIST;
 				break;
 			default:
 				out = null;
@@ -413,7 +415,43 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 			}
 		} else if (groupPos == 5) {// family policies
-			
+			InfoListingFragment elf = null;
+			args = new Bundle();
+			elf = new InfoListingFragment();
+			args.putString(SearchFragment.ARG_CATEGORY, cat);
+			elf.setArguments(args);
+			out[0] = elf;
+			out[1] = TAG_FRAGMENT_INFO_LIST;
+			switch (childPos) {
+			case 0:
+				cat = "Politiche provinciali";
+				break;
+			case 1:
+				cat = "Politiche dei distretti";
+				break;
+			case 2:
+				cat = "Tavolo \"Nuovi Media\"";
+				args = new Bundle();
+				PoisListingFragment plf = null;
+				plf = new PoisListingFragment();
+				args.putString(SearchFragment.ARG_CATEGORY, cat);
+				plf.setArguments(args);
+				out[0] = plf;
+				out[1] = TAG_FRAGMENT_POI_LIST;
+				break;
+			case 3:
+				cat = "Consulenti \"Audit\"";
+				break;
+			case 4:
+				cat = "Valutatori \"Audit\"";
+				break;
+			case 5:
+				cat = "Distretti e organizzazioni";
+				break;
+			default:
+				out = null;
+				break;
+			}
 		}  
 		
 		

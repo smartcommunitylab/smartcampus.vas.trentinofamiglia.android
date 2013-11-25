@@ -98,8 +98,11 @@ public class Utils {
 	 * @return
 	 */
 	public static Address getTrackAsGoogleAddress(TrackObject mTrack) {
-		// TODO Auto-generated method stub 
-		return null;
+		Address a = new Address(Locale.getDefault());
+		a.setLatitude(mTrack.startingPoint().latitude);
+		a.setLongitude(mTrack.startingPoint().longitude);
+		a.setAddressLine(0, mTrack.getTitle());
+		return a;
 	}
 	
 	public static boolean isCreatedByUser(BaseDTObject obj) {
