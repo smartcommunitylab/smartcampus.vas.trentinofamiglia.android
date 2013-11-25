@@ -6,8 +6,8 @@
         <!-- this is an header -->
         <item>"Luoghi"</item>
         
-        <item>"\"Family in Trentino\""</item>
-        <item>"\"Family Audit\""</item>
+        <item>Family in Trentino</item>
+        <item>Family Audit</item>
     </string-array>
     <string-array name="drawer_items_places_icons">
         <item>@drawable/ic_launcher</item>

@@ -26,7 +26,8 @@ public class PoiSelectFragment extends DialogFragment implements
 	
 	public static enum REQUEST_TYPE{
 		POI,
-		EVENT
+		EVENT,
+		NONE
 	}
 
 	private static final String TAG_LABEL = "labels";
@@ -51,6 +52,22 @@ public class PoiSelectFragment extends DialogFragment implements
 		args.putInt(TAG_ICONS, iconResId);
 		args.putStringArray(TAG_CATEGORIES, categories);
 		args.putSerializable(TAG_REQUEST, type);
+		PoiSelectFragment psf = new PoiSelectFragment();
+		if(mapFrag instanceof MapItemsHandler)
+			psf.setTargetFragment(mapFrag, TARGET_FRAG_REQUEST_CODE);
+		else
+			throw new IllegalArgumentException("The passed MapFragment should implement MapItemsHandler");
+		psf.setArguments(args);
+		return psf;
+	}
+	
+	public static PoiSelectFragment istantiate(MapFragment mapFrag, int labelResId, int iconResId,
+			String... categories ) {
+		Bundle args = new Bundle();
+		args.putInt(TAG_LABEL, labelResId);
+		args.putInt(TAG_ICONS, iconResId);
+		args.putStringArray(TAG_CATEGORIES, categories);
+		args.putSerializable(TAG_REQUEST, REQUEST_TYPE.NONE);
 		PoiSelectFragment psf = new PoiSelectFragment();
 		if(mapFrag instanceof MapItemsHandler)
 			psf.setTargetFragment(mapFrag, TARGET_FRAG_REQUEST_CODE);
@@ -121,7 +138,7 @@ public class PoiSelectFragment extends DialogFragment implements
 				}
 				if(mReqType==REQUEST_TYPE.EVENT)
 					mCallback.setEventCategoriesToLoad(toLoad.toArray(new String[toLoad.size()]));
-				else
+				else if(mReqType==REQUEST_TYPE.POI)
 					mCallback.setPOICategoriesToLoad(toLoad.toArray(new String[toLoad.size()]));
 				getDialog().dismiss();
 			}
