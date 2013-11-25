@@ -33,8 +33,10 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventDetailsFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoiDetailsFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.track.TrackDetailsFragment;
 
 public class InfoDialog extends DialogFragment {
 	public static final String PARAM = "DTO_OBJECT";
@@ -43,10 +45,6 @@ public class InfoDialog extends DialogFragment {
 	
 	 public InfoDialog() {
 	 }
-
-//	 public InfoDialog(BaseDTObject o) {
-//	 this.data = o;
-//	 }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +55,8 @@ public class InfoDialog extends DialogFragment {
 			getDialog().setTitle(getString(R.string.info_dialog_title_poi));
 		} else if (data instanceof LocalEventObject) {
 			getDialog().setTitle(R.string.info_dialog_title_event);
+		} else if (data instanceof TrackObject) {
+			getDialog().setTitle(R.string.info_dialog_title_track);
 		}
 		return inflater.inflate(R.layout.mapdialog, container, false);
 	}
@@ -95,7 +95,9 @@ public class InfoDialog extends DialogFragment {
 				}
 			}
 			msg.setText(Html.fromHtml(msgText));
-		}
+		} else 	if (data instanceof TrackObject) {
+			msg.setText(Html.fromHtml("<h2>" + data.getTitle() + "</h2>"));
+		}	
 
 		msg.setMovementMethod(new ScrollingMovementMethod());
 
@@ -125,6 +127,13 @@ public class InfoDialog extends DialogFragment {
 				} else if (data instanceof LocalEventObject) {
 					EventDetailsFragment fragment = new EventDetailsFragment();
 					args.putString(EventDetailsFragment.ARG_EVENT_ID, (data.getId()));
+					fragment.setArguments(args);
+					fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					fragmentTransaction.replace(R.id.frame_content, fragment, "me");
+					fragmentTransaction.addToBackStack(fragment.getTag());
+				} else if (data instanceof TrackObject) {
+					TrackDetailsFragment fragment = new TrackDetailsFragment();
+					args.putString(TrackDetailsFragment.ARG_TRACK_ID, (data.getId()));
 					fragment.setArguments(args);
 					fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 					fragmentTransaction.replace(R.id.frame_content, fragment, "me");

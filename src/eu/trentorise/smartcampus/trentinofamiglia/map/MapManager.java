@@ -298,7 +298,18 @@ public class MapManager {
 					paths.add(((TrackObject)o).decodedLine());
 				}
 			}
-			draw(map, paths, ctx);
+			if (paths.size() == 1) {
+				draw(map, paths, ctx);
+			}
+		}
+
+		private static MarkerOptions createTrackMarker(TrackObject item) {
+			LatLng latLng = item.startingPoint();
+			int markerIcon = CategoryHelper.getMapIconByType(item.getType());
+
+			MarkerOptions marker = new MarkerOptions().position(latLng)
+					.icon(BitmapDescriptorFactory.fromResource(markerIcon)).title(item.getId());
+			return marker;
 		}
 
 		private static MarkerOptions createSingleMarker(BaseDTObject item, int x, int y) {
@@ -457,7 +468,11 @@ public class MapManager {
 
 	private static LatLng getLatLngFromBasicObject(BaseDTObject object) {
 		LatLng latLng = null;
-		latLng = new LatLng(object.getLocation()[0], object.getLocation()[1]);
+		if (object instanceof TrackObject) {
+			latLng = ((TrackObject) object).startingPoint();
+		} else { 
+			latLng = new LatLng(object.getLocation()[0], object.getLocation()[1]);
+		}
 		return latLng;
 	}
 
