@@ -183,6 +183,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		 */
 		menu.clear();
 		getActivity().getMenuInflater().inflate(R.menu.list_menu, menu);
+		menu.getItem(0).setVisible(false);//hide show on map
 		if (category == null) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
 		}	
@@ -206,7 +207,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 			}
 			return true;
 		}
-	else if (item.getItemId() == R.id.submenu_search) {
+	else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

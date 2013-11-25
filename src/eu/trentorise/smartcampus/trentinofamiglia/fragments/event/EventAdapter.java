@@ -97,7 +97,7 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			previousEvent.setTimeInMillis(getItem(position - 1).getFromTime());
 		}
 
-		if (previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE) && postProcAndHeader) {
+		if ((previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) && postProcAndHeader) {
 			e.dateSeparator.setVisibility(View.VISIBLE);
 			// create date
 			e.dateSeparator.setText(setDateString(e));

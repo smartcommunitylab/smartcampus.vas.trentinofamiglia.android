@@ -225,7 +225,7 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 			return true;
 		}
 
-	else if (item.getItemId() == R.id.submenu_search) {
+	else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
