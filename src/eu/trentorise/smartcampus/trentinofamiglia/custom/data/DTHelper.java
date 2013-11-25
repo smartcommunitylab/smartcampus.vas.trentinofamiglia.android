@@ -1688,13 +1688,6 @@ public class DTHelper {
 		}
 		return null;
 	}
-
-	public static String poiGetShortAddress(POIObject poi) {
-		return poi.getTitle()
-				+ (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? "" : (", " + poi
-						.getPoi().getStreet()));
-	}
-
 	public static void bringmethere(FragmentActivity activity, Address from, Address to) {
 		Intent intent = activity.getPackageManager().getLaunchIntentForPackage("eu.trentorise.smartcampus.viaggiatrento");
 		if (intent == null) {
