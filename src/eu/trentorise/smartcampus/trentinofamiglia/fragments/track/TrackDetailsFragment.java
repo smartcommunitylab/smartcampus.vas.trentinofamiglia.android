@@ -177,9 +177,9 @@ public class TrackDetailsFragment extends Fragment {
 				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
 			}
 
-			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
-			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-
+//			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
+//			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//
 //			// multimedia
 //			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
 //					R.id.gallery_btn));

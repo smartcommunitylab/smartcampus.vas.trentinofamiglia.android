@@ -88,5 +88,12 @@
     <string name="rating_place_dialog_title">Rate this place:</string>
     <string name="rating_event_dialog_title">Rate this event:</string>
     <string name="rating_success">Your rating has been saved</string>
+    
+    <string name="hotel_level">Family level: %s</string>
+    <string name="hotel_cat">Category: %s stars</string>
 
+    <string name="event_subcat">Category: %s</string>
+    <string name="event_price">Price: %s </string>
+    <string name="event_price_free">Price: free</string>
+    
 </resources>

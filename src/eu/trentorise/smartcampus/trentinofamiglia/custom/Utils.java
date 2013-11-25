@@ -75,9 +75,15 @@ public class Utils {
 	}
 
 	public static String getPOIshortAddress(POIObject poi) {
-		return poi.getTitle()
-				+ (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? "" : (", " + poi
-						.getPoi().getStreet()));
+		String res = (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? 
+				"" : poi .getPoi().getStreet());
+		
+		String city = (poi.getPoi().getCity() == null || poi.getPoi().getCity().length() == 0 ? 
+				"" : poi .getPoi().getCity());
+		if (city != null) res += (res.length() > 0 ? ", " : "") + city;
+
+		if (res.length() > 0) return res;
+		return poi.getTitle();
 	}
 
 	public static Address getPOIasGoogleAddress(POIObject poi) {
