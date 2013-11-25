@@ -8,6 +8,6 @@
         <item>"News"</item>
         </string-array>
     <string-array name="drawer_items_initiatives_icons">
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_news</item>
         </string-array>
 </resources>
