@@ -238,14 +238,6 @@ public class TrackDetailsFragment extends Fragment {
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-		// String userId = DTHelper.getUserId();
-
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
-
-		submenu.add(Menu.NONE, R.id.submenu_show_related_events, Menu.NONE, R.string.submenu_related_events);
-
 		super.onPrepareOptionsMenu(menu);
 	}
 
