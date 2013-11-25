@@ -52,7 +52,6 @@ import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.TaggingDialog.TagProvider;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
-import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
@@ -178,8 +177,7 @@ public class EventsListingFragment extends
 
 		// post proc for multidays
 		i = 0;
-		List<LocalEventObject> newList = postProcForRecurrentEvents(returnList,
-				biggerFromTime, false);
+		List<LocalEventObject> newList = returnList;//postProcForRecurrentEvents(returnList, biggerFromTime, false);
 		while (i < newList.size()) {
 			eventsAdapter.insert(newList.get(i), i);
 			i++;
@@ -569,12 +567,12 @@ public class EventsListingFragment extends
 			calToDate(cal);
 			long biggerFromTime = cal.getTimeInMillis();
 			// }
-			if (sorted.size() > 0) {
-				// listEvents.addAll(postProcForRecurrentEvents(sorted,
-				// biggerFromTime));
-				return postProcForRecurrentEvents(sorted, biggerFromTime,
-						result.size() == 0 || result.size() < getSize());
-			} else
+//			if (sorted.size() > 0) {
+//				// listEvents.addAll(postProcForRecurrentEvents(sorted,
+//				// biggerFromTime));
+//				return postProcForRecurrentEvents(sorted, biggerFromTime,
+//						result.size() == 0 || result.size() < getSize());
+//			} else
 				return sorted;
 		} catch (Exception e) {
 			Log.e(EventsListingFragment.class.getName(), e.getMessage());

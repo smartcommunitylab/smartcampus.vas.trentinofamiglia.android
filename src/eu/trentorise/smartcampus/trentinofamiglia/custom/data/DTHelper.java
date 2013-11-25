@@ -1446,7 +1446,7 @@ public class DTHelper {
 			 * se evento metti in ordine di data ma se place metti in ordine
 			 * alfabetico
 			 */
-			if (EventObject.class.getCanonicalName().equals(cls.getCanonicalName())) {
+			if (EventObjectForBean.class.getCanonicalName().equals(cls.getCanonicalName())) {
 				return getInstance().storage.query(cls, where, argsArray, position, size, "fromTime ASC");
 			} else {
 				return getInstance().storage.query(cls, where, argsArray, position, size, "title ASC");

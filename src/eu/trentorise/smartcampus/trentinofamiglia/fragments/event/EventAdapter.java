@@ -76,7 +76,8 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		} else {
 			e.location.setText(null);
 		}
-		e.hour.setText(e.event.getTimingFormatted());
+//		e.hour.setText(e.event.getTimingFormatted());
+		e.hour.setText(e.event.eventDatesString());
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(e.event.getType()));
 
 		if (CategoryHelper.FAMILY_CATEGORY_EVENT.equals(e.event.getType()))
@@ -95,13 +96,14 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			previousEvent.setTimeInMillis(getItem(position - 1).getFromTime());
 		}
 
-		if (previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) {
-			e.dateSeparator.setVisibility(View.VISIBLE);
-			// create date
-			e.dateSeparator.setText(setDateString(e));
-		} else {
-			e.dateSeparator.setVisibility(View.GONE);
-		}
+//		if (previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) {
+//			e.dateSeparator.setVisibility(View.VISIBLE);
+//			// create date
+//			e.dateSeparator.setText(setDateString(e));
+//		} else {
+//			e.dateSeparator.setVisibility(View.GONE);
+//		}
+		e.dateSeparator.setVisibility(View.GONE);
 
 		return row;
 	}

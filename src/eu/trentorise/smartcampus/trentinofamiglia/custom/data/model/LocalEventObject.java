@@ -1,6 +1,7 @@
 package eu.trentorise.smartcampus.trentinofamiglia.custom.data.model;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
@@ -32,6 +33,20 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 
 	public CharSequence dateTimeString() {
 		return DATE_FORMAT.format(new Date(getFromTime()));
+	}
+
+	public CharSequence eventDatesString() {
+		String res = DATE_FORMAT.format(new Date(getFromTime()));
+		if (getToTime() != null && getToTime() != getFromTime()) {
+			Calendar f = Calendar.getInstance();
+			f.setTimeInMillis(getFromTime());
+			Calendar t = Calendar.getInstance();
+			t.setTimeInMillis(getToTime());
+			if (t.get(Calendar.DATE) != f.get(Calendar.DATE)) {
+				res += " - "+ DATE_FORMAT.format(new Date(getToTime()));
+			}
+		}
+		return res;
 	}
 
 	public CharSequence toDateTimeString() {
