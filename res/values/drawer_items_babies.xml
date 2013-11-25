@@ -9,7 +9,7 @@
         <item>Baby little home</item>
     </string-array>
     <string-array name="drawer_items_babies_icons">
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_breastfeeding_center</item>
+        <item>@drawable/ic_baby_little_home</item>
     </string-array>
 </resources>

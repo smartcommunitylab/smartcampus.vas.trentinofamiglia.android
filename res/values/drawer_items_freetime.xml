@@ -12,6 +12,6 @@
     <string-array name="drawer_items_freetime_icons">
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_vacanze_al_mare</item>
         </string-array>
 </resources>
