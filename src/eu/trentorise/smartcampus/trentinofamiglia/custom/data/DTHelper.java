@@ -1445,7 +1445,7 @@ public class DTHelper {
 			 * se evento metti in ordine di data ma se place metti in ordine
 			 * alfabetico
 			 */
-			if (EventObject.class.getCanonicalName().equals(cls.getCanonicalName())) {
+			if (EventObjectForBean.class.getCanonicalName().equals(cls.getCanonicalName())) {
 				return getInstance().storage.query(cls, where, argsArray, position, size, "fromTime ASC");
 			} else {
 				return getInstance().storage.query(cls, where, argsArray, position, size, "title ASC");
@@ -1522,7 +1522,7 @@ public class DTHelper {
 			if (cls == PoiObjectForBean.class) {
 				Collection<POIObject> pois = null;
 				Collection<PoiObjectForBean> poisbean = new ArrayList<PoiObjectForBean>();
-				pois = tService.getPOIs(filter, getAuthToken());
+				pois = tService.getPOIs(filter, null);
 
 				for (POIObject poi : pois) {
 					PoiObjectForBean poiBean = new PoiObjectForBean();
@@ -1533,7 +1533,7 @@ public class DTHelper {
 			} else if (cls == EventObjectForBean.class) {
 				Collection<EventObject> events = null;
 				Collection<EventObjectForBean> eventsbean = new ArrayList<EventObjectForBean>();
-				events = tService.getEvents(filter, getAuthToken());
+				events = tService.getEvents(filter, null);
 
 				for (EventObject poi : events) {
 					EventObjectForBean eventBean = new EventObjectForBean();
@@ -1543,18 +1543,7 @@ public class DTHelper {
 				result = (Collection<T>) eventsbean;
 
 			} 
-//			else if (cls == StoryObjectForBean.class) {
-//				Collection<StoryObject> stories = null;
-//				Collection<StoryObjectForBean> storiesbean = new ArrayList<StoryObjectForBean>();
-//				stories = tService.getStories(filter, getAuthToken());
-//
-//				for (StoryObject poi : stories) {
-//					StoryObjectForBean storyBean = new StoryObjectForBean();
-//					storyBean.setObjectForBean(poi);
-//					storiesbean.add(storyBean);
-//				}
-//				result = (Collection<T>) storiesbean;
-//			}
+
 			if (result != null) {
 				synchronize();
 			}
@@ -1698,13 +1687,6 @@ public class DTHelper {
 		}
 		return null;
 	}
-
-	public static String poiGetShortAddress(POIObject poi) {
-		return poi.getTitle()
-				+ (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? "" : (", " + poi
-						.getPoi().getStreet()));
-	}
-
 	public static void bringmethere(FragmentActivity activity, Address from, Address to) {
 		Intent intent = activity.getPackageManager().getLaunchIntentForPackage("eu.trentorise.smartcampus.viaggiatrento");
 		if (intent == null) {

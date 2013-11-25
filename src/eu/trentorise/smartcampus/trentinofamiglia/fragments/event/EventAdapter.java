@@ -28,10 +28,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 
 
@@ -43,11 +42,12 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 	private Context context;
 	private int layoutResourceId;
 	private int elementSelected = -1;
-
-	public EventAdapter(Context context, int layoutResourceId) {
+	private boolean postProcAndHeader = true;
+	public EventAdapter(Context context, int layoutResourceId, boolean postProcAndHeader) {
 		super(context, layoutResourceId);
 		this.context = context;
 		this.layoutResourceId = layoutResourceId;
+		this.postProcAndHeader = postProcAndHeader; 
 	}
 
 	@Override
@@ -71,12 +71,10 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		
 		e.event = getItem(position);
 		e.title.setText(e.event.getTitle());
-		if (e.event.getCustomData() != null && e.event.getCustomData().get("place")!=null) {
-			e.location.setText((CharSequence) e.event.getCustomData().get("place"));
-		} else {
-			e.location.setText(null);
-		}
-		e.hour.setText(e.event.getTimingFormatted());
+		String place = Utils.getEventShortAddress(e.event);
+		e.location.setText(place);
+		e.hour.setText(e.event.dateTimeString());
+		//e.hour.setText(e.event.getTimingFormatted());
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(e.event.getType()));
 
 		if (CategoryHelper.FAMILY_CATEGORY_EVENT.equals(e.event.getType()))
@@ -95,7 +93,7 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			previousEvent.setTimeInMillis(getItem(position - 1).getFromTime());
 		}
 
-		if (previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) {
+		if ((previousEvent == null || previousEvent.get(Calendar.DATE) != currentEvent.get(Calendar.DATE)) && postProcAndHeader) {
 			e.dateSeparator.setVisibility(View.VISIBLE);
 			// create date
 			e.dateSeparator.setText(setDateString(e));

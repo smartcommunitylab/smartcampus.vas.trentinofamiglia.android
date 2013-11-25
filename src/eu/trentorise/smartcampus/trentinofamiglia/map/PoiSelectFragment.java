@@ -1,3 +1,4 @@
+
 package eu.trentorise.smartcampus.trentinofamiglia.map;
 
 import java.lang.reflect.Array;
@@ -156,3 +157,4 @@ public class PoiSelectFragment extends DialogFragment implements
 		mItemStatus[arg2]= ctv.isChecked();
 	}
 }
+

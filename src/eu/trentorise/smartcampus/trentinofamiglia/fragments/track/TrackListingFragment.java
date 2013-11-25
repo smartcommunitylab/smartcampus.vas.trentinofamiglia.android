@@ -184,20 +184,11 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 		 * item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		 */
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
+		getActivity().getMenuInflater().inflate(R.menu.list_menu, menu);
 
 		if (category == null) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
 		}
-
-		if (getArguments() == null || !getArguments().containsKey(SearchFragment.ARG_LIST)
-				&& !getArguments().containsKey(SearchFragment.ARG_QUERY)) {
-			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_search, Menu.NONE, R.string.search_txt);
-		}
-
-		submenu.add(Menu.CATEGORY_SYSTEM, R.id.map_view, Menu.NONE, R.string.map_view);
 
 		super.onPrepareOptionsMenu(menu);
 	}
@@ -218,8 +209,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 				MapManager.switchToMapView(target, this);
 			}
 			return true;
-		}
-	else if (item.getItemId() == R.id.submenu_search) {
+		} else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -253,7 +243,8 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 		Bundle bundle = this.getArguments();
 		String category = (bundle != null) ? bundle.getString(SearchFragment.ARG_CATEGORY) : null;
 		CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered("pois", category);
-		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description) : null;
+		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description)
+				: null;
 
 		// set title
 		TextView title = (TextView) getView().findViewById(R.id.list_title);
@@ -340,19 +331,19 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 			List<TrackObject> returnArray = new ArrayList<TrackObject>();
 			Bundle bundle = getArguments();
 			boolean my = false;
-			if (bundle.getBoolean(SearchFragment.ARG_MY)) my = true;
+			if (bundle.getBoolean(SearchFragment.ARG_MY))
+				my = true;
 			String categories = bundle.getString(SearchFragment.ARG_CATEGORY);
 			String query = bundle.getString(SearchFragment.ARG_QUERY);
-			
+
 			SortedMap<String, Integer> sort = new TreeMap<String, Integer>();
 			sort.put("title", 1);
-			
+
 			if (categories != null || my || query != null) {
-				result = DTHelper.searchInGeneral(params[0].position, params[0].size,
-						query,
+				result = DTHelper.searchInGeneral(params[0].position, params[0].size, query,
 						(WhereForSearch) bundle.getParcelable(SearchFragment.ARG_WHERE_SEARCH),
-						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my, TrackObjectForBean.class, sort,
-						categories);
+						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
+						TrackObjectForBean.class, sort, categories);
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
 				List<TrackObjectForBean> results = (List<TrackObjectForBean>) bundle.get(SearchFragment.ARG_LIST);
 				for (TrackObjectForBean trackBean : results) {
@@ -362,7 +353,6 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 			} else {
 				return Collections.emptyList();
 			}
-
 
 			for (TrackObjectForBean trackBean : result) {
 				returnArray.add(trackBean.getObjectForBean());
@@ -375,15 +365,16 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 		}
 	}
 
-	private class TrackLoader extends AbstractAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<TrackObject>> {
+	private class TrackLoader extends
+			AbstractAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<TrackObject>> {
 
 		public TrackLoader(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		public List<TrackObject> performAction(AbstractLstingFragment.ListingRequest... params) throws SecurityException,
-				Exception {
+		public List<TrackObject> performAction(AbstractLstingFragment.ListingRequest... params)
+				throws SecurityException, Exception {
 			return getTracks(params);
 		}
 
@@ -414,15 +405,13 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 	}
 
 	private void updateList(boolean empty) {
-		if (getView()!=null){
+		if (getView() != null) {
 
-		ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(
-				R.id.poilistcontainer));
-		if (empty) {
-			ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(
-					R.id.poilistcontainer));
-		}
-		hideListItemsMenu(null, false);
+			ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+			if (empty) {
+				ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+			}
+			hideListItemsMenu(null, false);
 		}
 	}
 

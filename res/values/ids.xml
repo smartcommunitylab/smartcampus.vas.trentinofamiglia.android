@@ -50,5 +50,9 @@
 <!--     <item name="menu_item_notifications" type="id"/> -->
 <!--     <item name="menu_item_show_places_layers" type="id"/> -->
 <!--     <item name="menu_item_show_events_layers" type="id"/> -->
+<item name="action_poi_places" type="id" />
+<item name="action_poi_events" type="id" />
+<item name="action_poi_freetime" type="id" />
+<item name="action_poi_babies" type="id" />
 
 </resources>

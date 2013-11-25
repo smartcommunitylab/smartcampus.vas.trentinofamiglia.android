@@ -52,7 +52,6 @@ import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.TaggingDialog.TagProvider;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
-import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
@@ -94,6 +93,7 @@ public class EventsListingFragment extends
 	private Boolean reload = false;
 	private Integer postitionSelected = -1;
 	private List<LocalEventObject> listEvents = new ArrayList<LocalEventObject>();
+	private boolean postProcAndHeader =true;
 
 	@Override
 	public void onActivityCreated(Bundle arg0) {
@@ -105,9 +105,11 @@ public class EventsListingFragment extends
 			indexAdapter = arg0.getInt(ARG_INDEX);
 
 		}
+
+		postProcAndHeader= false;
 		/* create the adapter is it is the first time you load */
 		if (eventsAdapter == null) {
-			eventsAdapter = new EventAdapter(context, R.layout.events_row);
+			eventsAdapter = new EventAdapter(context, R.layout.events_row, postProcAndHeader);
 		}
 		setAdapter(eventsAdapter);
 
@@ -178,8 +180,7 @@ public class EventsListingFragment extends
 
 		// post proc for multidays
 		i = 0;
-		List<LocalEventObject> newList = postProcForRecurrentEvents(returnList,
-				biggerFromTime, false);
+		List<LocalEventObject> newList = returnList;//postProcForRecurrentEvents(returnList, biggerFromTime, false);
 		while (i < newList.size()) {
 			eventsAdapter.insert(newList.get(i), i);
 			i++;
@@ -239,28 +240,8 @@ public class EventsListingFragment extends
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
-		/*
-		 * menu.clear(); MenuItem item = menu.add(Menu.CATEGORY_SYSTEM,
-		 * R.id.map_view, Menu.NONE, R.string.map_view);
-		 * item.setIcon(R.drawable.ic_map);
-		 * item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		 */
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
-
-		if (getArguments() == null || !getArguments().containsKey(ARG_POI)
-				&& !getArguments().containsKey(SearchFragment.ARG_LIST)
-				&& !getArguments().containsKey(ARG_QUERY_TODAY)
-				&& !getArguments().containsKey(SearchFragment.ARG_QUERY)) {
-			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_search, Menu.NONE,
-					R.string.search_txt);
-		}
-
-		submenu.add(Menu.CATEGORY_SYSTEM, R.id.map_view, Menu.NONE,
-				R.string.map_view);
+		getActivity().getMenuInflater().inflate(R.menu.list_menu, menu);
 
 		if (category == null) {
 			category = (getArguments() != null) ? getArguments().getString(
@@ -297,7 +278,7 @@ public class EventsListingFragment extends
 			return true;
 		}
 
-		else if (item.getItemId() == R.id.submenu_search) {
+		else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager()
@@ -333,7 +314,7 @@ public class EventsListingFragment extends
 
 
 		if (reload) {
-			eventsAdapter = new EventAdapter(context, R.layout.events_row);
+			eventsAdapter = new EventAdapter(context, R.layout.events_row, postProcAndHeader);
 			setAdapter(eventsAdapter);
 			reload = false;
 		}
@@ -556,28 +537,24 @@ public class EventsListingFragment extends
 
 			List<LocalEventObject> sorted = new ArrayList<LocalEventObject>(
 					listEvents);
-//			for (LocalEventObject eventObject : sorted) {
-//				if (eventObject != null && eventObject.getPoiId() != null) {
-//					eventObject.assignPoi(DTHelper.findPOIById(eventObject
-//							.getPoiId()));
-//				}
-//			}
-
-			// if (params[0].position == 0) {
-			Calendar cal = Calendar.getInstance();
-			cal.setTimeInMillis(System.currentTimeMillis());
-			calToDate(cal);
-			long biggerFromTime = cal.getTimeInMillis();
-			// }
-			if (sorted.size() > 0) {
-				// listEvents.addAll(postProcForRecurrentEvents(sorted,
-				// biggerFromTime));
-				return postProcForRecurrentEvents(sorted, biggerFromTime,
-						result.size() == 0 || result.size() < getSize());
-			} else
+			if (!postProcAndHeader) {
 				return sorted;
+			} else {
+				Calendar cal = Calendar.getInstance();
+				cal.setTimeInMillis(System.currentTimeMillis());
+				calToDate(cal);
+				long biggerFromTime = cal.getTimeInMillis();
+				if (sorted.size() > 0) {
+					// listEvents.addAll(postProcForRecurrentEvents(sorted,
+					// biggerFromTime));
+					return postProcForRecurrentEvents(sorted, biggerFromTime,
+							result.size() == 0 || result.size() < getSize());
+				} else {
+					return sorted;
+				}
+			}	
 		} catch (Exception e) {
-			Log.e(EventsListingFragment.class.getName(), e.getMessage());
+			Log.e(EventsListingFragment.class.getName(), ""+e.getMessage());
 			e.printStackTrace();
 			listEvents = Collections.emptyList();
 			return listEvents;

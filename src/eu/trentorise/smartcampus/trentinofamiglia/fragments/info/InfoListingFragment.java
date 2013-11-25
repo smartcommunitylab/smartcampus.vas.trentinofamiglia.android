@@ -182,21 +182,11 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		 * item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		 */
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
-
+		getActivity().getMenuInflater().inflate(R.menu.list_menu, menu);
+		menu.getItem(0).setVisible(false);//hide show on map
 		if (category == null) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
-		}
-
-		if (getArguments() == null || !getArguments().containsKey(SearchFragment.ARG_LIST)
-				&& !getArguments().containsKey(SearchFragment.ARG_QUERY)) {
-			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_search, Menu.NONE, R.string.search_txt);
-		}
-
-		submenu.add(Menu.CATEGORY_SYSTEM, R.id.map_view, Menu.NONE, R.string.map_view);
-
+		}	
 		super.onPrepareOptionsMenu(menu);
 	}
 
@@ -217,7 +207,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 			}
 			return true;
 		}
-	else if (item.getItemId() == R.id.submenu_search) {
+	else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

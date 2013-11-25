@@ -193,59 +193,14 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 		 * item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		 */
 		menu.clear();
-		getActivity().getMenuInflater().inflate(R.menu.gripmenu, menu);
-		SubMenu submenu = menu.getItem(0).getSubMenu();
-		submenu.clear();
+		getActivity().getMenuInflater().inflate(R.menu.list_menu, menu);
+//		SubMenu submenu = menu.getItem(0).getSubMenu();
+//		submenu.clear();
 
 		if (category == null) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
 		}
 
-		if (getArguments() == null || !getArguments().containsKey(SearchFragment.ARG_LIST)
-				&& !getArguments().containsKey(SearchFragment.ARG_QUERY)) {
-			// SearchHelper.createSearchMenu(submenu, getActivity(), new
-			// SearchHelper.OnSearchListener() {
-			// @Override
-			// public void onSearch(String query) {
-			// FragmentTransaction fragmentTransaction =
-			// getActivity().getSupportFragmentManager()
-			// .beginTransaction();
-			// PoisListingFragment fragment = new PoisListingFragment();
-			// Bundle args = new Bundle();
-			// args.putString(SearchFragment.ARG_QUERY, query);
-			// String category = (getArguments() != null) ?
-			// getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
-			// args.putString(SearchFragment.ARG_CATEGORY_SEARCH, category);
-			// fragment.setArguments(args);
-			// fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			// fragmentTransaction.replace(android.R.id.content, fragment,
-			// "pois");
-			// fragmentTransaction.addToBackStack(fragment.getTag());
-			// fragmentTransaction.commit();
-			// }
-			// });
-			submenu.add(Menu.CATEGORY_SYSTEM, R.id.submenu_search, Menu.NONE, R.string.search_txt);
-		}
-
-		submenu.add(Menu.CATEGORY_SYSTEM, R.id.map_view, Menu.NONE, R.string.map_view);
-
-//		if (category != null) {
-//			String addString = getString(R.string.add)
-//					+ " "
-//					+ getString(CategoryHelper.getCategoryDescriptorByCategoryFiltered(CategoryHelper.CATEGORY_TYPE_POIS,
-//							category).description) + " " + getString(R.string.place);
-//			if (Locale.getDefault().equals(Locale.ITALY))
-//				addString = getString(R.string.add)
-//						+ " "
-//						+ getString(R.string.place)
-//						+ " su "
-//						+ getString(CategoryHelper.getCategoryDescriptorByCategoryFiltered(CategoryHelper.CATEGORY_TYPE_POIS,
-//								category).description);
-//
-//			submenu.add(Menu.CATEGORY_SYSTEM, R.id.menu_item_addpoi, Menu.NONE, addString);
-//		}
-
-//		NotificationsSherlockFragmentDT.onPrepareOptionsMenuNotifications(menu);
 
 		super.onPrepareOptionsMenu(menu);
 	}
@@ -269,28 +224,8 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 			}
 			return true;
 		}
-//		else if (item.getItemId() == R.id.menu_item_addpoi) {
-////			if (new AMSCAccessProvider().isUserAnonymous(getActivity())) {
-////				// show dialog box
-////				UserRegistration.upgradeuser(getActivity());
-////				return false;
-////			} else 
-//			{
-//				FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//				Fragment fragment = new CreatePoiFragment();
-//				Bundle args = new Bundle();
-//				args.putString(SearchFragment.ARG_CATEGORY, category);
-//				fragment.setArguments(args);
-//				fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//				// fragmentTransaction.detach(this);
-//				fragmentTransaction.replace(android.R.id.content, fragment, "pois");
-//				fragmentTransaction.addToBackStack(fragment.getTag());
-//				fragmentTransaction.commit();
-//				reload = true;
-//				return true;
-//			}
-//		}
-	else if (item.getItemId() == R.id.submenu_search) {
+
+	else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

@@ -75,9 +75,15 @@ public class Utils {
 	}
 
 	public static String getPOIshortAddress(POIObject poi) {
-		return poi.getTitle()
-				+ (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? "" : (", " + poi
-						.getPoi().getStreet()));
+		String res = (poi.getPoi().getStreet() == null || poi.getPoi().getStreet().length() == 0 ? 
+				"" : poi .getPoi().getStreet());
+		
+		String city = (poi.getPoi().getCity() == null || poi.getPoi().getCity().length() == 0 ? 
+				"" : poi .getPoi().getCity());
+		if (city != null && city.length() > 0) res += (res.length() > 0 ? ", " : "") + city;
+
+		if (res.length() > 0) return res;
+		return poi.getTitle();
 	}
 
 	public static Address getPOIasGoogleAddress(POIObject poi) {
@@ -173,6 +179,18 @@ public class Utils {
 			polyline.add(p);
 		}
         return polyline;
+	}
+
+	/**
+	 * @param event
+	 * @return
+	 */
+	public static String getEventShortAddress(LocalEventObject event) {
+		if (event.getCustomData() != null && event.getCustomData().get("place")!=null) {
+			return event.getCustomData().get("place").toString();
+		} else {
+			return null;
+		}
 	}
 
 }

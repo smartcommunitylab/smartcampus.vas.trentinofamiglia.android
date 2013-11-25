@@ -1,13 +1,13 @@
 package eu.trentorise.smartcampus.trentinofamiglia.custom.data.model;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
+import android.content.Context;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.R;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 
 public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice.model.EventObject {
 	private static final long serialVersionUID = 388550207183035548L;
@@ -33,6 +33,20 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 
 	public CharSequence dateTimeString() {
 		return DATE_FORMAT.format(new Date(getFromTime()));
+	}
+
+	public CharSequence eventDatesString() {
+		String res = DATE_FORMAT.format(new Date(getFromTime()));
+		if (getToTime() != null && getToTime() != getFromTime()) {
+			Calendar f = Calendar.getInstance();
+			f.setTimeInMillis(getFromTime());
+			Calendar t = Calendar.getInstance();
+			t.setTimeInMillis(getToTime());
+			if (t.get(Calendar.DATE) != f.get(Calendar.DATE)) {
+				res += " - "+ DATE_FORMAT.format(new Date(getToTime()));
+			}
+		}
+		return res;
 	}
 
 	public CharSequence toDateTimeString() {
@@ -121,20 +135,29 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 		return description;
 	}
 
-	public Spanned getFormattedDescription() {
-		if (description != null) {
-			if (description.indexOf('<')>=0) {
-				return Html.fromHtml(description);
+	public String customDescription(Context ctx) {
+		String d = getDescription();
+		if (CategoryHelper.CAT_EVENT_ALTO_GARDA.equals(getType())) {
+			d += "<br/>" + ctx.getString(R.string.event_subcat, getCustomData().get("category"));
+			if ("NO".equals(getCustomData().get("free"))) {
+				d += "<br/>" + ctx.getString(R.string.event_price, getCustomData().get("price"));
 			} else {
-				return new SpannableString(description);
+				d += "<br/>" + ctx.getString(R.string.event_price_free);
+			}
+			if (getCustomData().containsKey("link")) {
+				d +="<br/>"+ getCustomData().get("link");
 			}
 		}
-		return null;
+		if (CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA.equals(getType())) {
+			// TODO
+		}
+		return d;
 	} 
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	
 
 }

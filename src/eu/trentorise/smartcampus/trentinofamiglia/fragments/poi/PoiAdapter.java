@@ -26,6 +26,7 @@ import android.widget.TextView;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 
 public class PoiAdapter extends ArrayAdapter<POIObject> {
@@ -64,7 +65,7 @@ public class PoiAdapter extends ArrayAdapter<POIObject> {
 		if (CategoryHelper.FAMILY_CATEGORY_POI.equals(p.poi.getType()))
 			drawable = poiCertified(p.poi);
 		p.icon.setImageDrawable(drawable);
-		p.location.setText(DTHelper.poiGetShortAddress(p.poi));
+		p.location.setText(Utils.getPOIshortAddress(p.poi));
 
 		return row;
 	}
