@@ -80,7 +80,7 @@ public class Utils {
 		
 		String city = (poi.getPoi().getCity() == null || poi.getPoi().getCity().length() == 0 ? 
 				"" : poi .getPoi().getCity());
-		if (city != null && city.length() > 0) res += (res.length() > 0 ? ", " : "") + city;
+		if (city != null && city.length() > 0) res += (res.length() > 0 ? " " : "") + city;
 
 		if (res.length() > 0) return res;
 		return poi.getTitle();
