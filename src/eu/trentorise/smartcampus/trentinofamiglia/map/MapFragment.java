@@ -91,34 +91,38 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		inflater.inflate(R.menu.map_menu, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_poi_places) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(this,
 					R.array.map_items_places_labels,
-					R.array.map_items_places_icons,REQUEST_TYPE.POI, CategoryHelper.getPOICategories());
+					R.array.map_items_places_icons, REQUEST_TYPE.POI,
+					new String[] { CategoryHelper.POI_CATEGORIES[0].category,
+							CategoryHelper.POI_CATEGORIES[4].category });
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
-		}
-		else if (item.getItemId() == R.id.action_poi_events) {
+		} else if (item.getItemId() == R.id.action_poi_events) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(this,
 					R.array.map_items_events_labels,
-					R.array.map_items_events_icons,REQUEST_TYPE.EVENT, CategoryHelper.getEventCategories());
+					R.array.map_items_events_icons, REQUEST_TYPE.EVENT,
+					CategoryHelper.getEventCategories());
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
-		}
-		else if (item.getItemId() == R.id.action_poi_freetime) {
+		} else if (item.getItemId() == R.id.action_poi_freetime) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(this,
 					R.array.map_items_freetime_labels,
-					R.array.map_items_freetime_icons,REQUEST_TYPE.POI);
+					R.array.map_items_freetime_icons, REQUEST_TYPE.POI,
+					new String[] { CategoryHelper.TRACK_CATEGORIES[0].category,
+							CategoryHelper.TRACK_CATEGORIES[1].category,
+							CategoryHelper.POI_CATEGORIES[1].category });
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
-		}
-		else if (item.getItemId() == R.id.action_poi_babies) {
+		} else if (item.getItemId() == R.id.action_poi_babies) {
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(this,
 					R.array.map_items_babies_labels,
-					R.array.map_items_babies_icons,REQUEST_TYPE.POI);
+					R.array.map_items_babies_icons, REQUEST_TYPE.POI,
+					new String[] { CategoryHelper.POI_CATEGORIES[3].category });
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
 		}
@@ -278,7 +282,18 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 							 * check if todays is checked and cat with
 							 * searchTodayEvents
 							 */
-							return DTHelper.getPOIByCategory(0, -1, categories);
+							Collection<POIObject> list = DTHelper
+									.getPOIByCategory(0, -1, categories);
+							Iterator<POIObject> i = list.iterator();
+							while (i.hasNext()) {
+								POIObject obj = i.next();
+								obj.getLocation();
+								if (obj.getLocation()[0] == 0
+										&& obj.getLocation()[1] == 0)
+									i.remove();
+							}
+							return list;
+
 						} catch (Exception e) {
 							e.printStackTrace();
 							return Collections.emptyList();
@@ -333,8 +348,8 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		/* actually only event or poi at the same time */
 		this.poiCategories = null;
 
-		//mItemizedoverlay.clearMarkers();
-		
+		// mItemizedoverlay.clearMarkers();
+
 		getSupportMap().clear();
 
 		new SCAsyncTask<Void, Void, Collection<? extends BaseDTObject>>(
@@ -356,15 +371,16 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 									newList.addAll(DTHelper
 											.getEventsByCategories(0, -1,
 													eventsNotTodayCategories));
-								
+
 							} else
-								newList=DTHelper.getEventsByCategories(0, -1,
+								newList = DTHelper.getEventsByCategories(0, -1,
 										categories);
 							Iterator<LocalEventObject> i = newList.iterator();
-							while(i.hasNext()){
+							while (i.hasNext()) {
 								LocalEventObject obj = i.next();
 								obj.getLocation();
-								if(obj.getLocation()[0]==0 && obj.getLocation()[1]==0)
+								if (obj.getLocation()[0] == 0
+										&& obj.getLocation()[1] == 0)
 									i.remove();
 							}
 							return newList;

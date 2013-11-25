@@ -5,8 +5,8 @@
        <!-- this is an header -->
         <item>"Neonati"</item>
         
-        <item>"Punti allattamento"</item>
-        <item>"\"Baby little home\""</item>
+        <item>Punti allattamento</item>
+        <item>Baby little home</item>
     </string-array>
     <string-array name="drawer_items_babies_icons">
         <item>@drawable/ic_launcher</item>
