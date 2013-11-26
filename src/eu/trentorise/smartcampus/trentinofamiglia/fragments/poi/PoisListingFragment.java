@@ -212,7 +212,8 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 
 		if (item.getItemId() == R.id.map_view) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
-			if (category != null) {
+			boolean query = getArguments().containsKey(SearchFragment.ARG_QUERY);
+			if (category != null && !query) {
 				MapManager.switchToMapView(category, MapFragment.ARG_POI_CATEGORY, this);
 			} else {
 				ArrayList<BaseDTObject> target = new ArrayList<BaseDTObject>();

@@ -14,12 +14,12 @@
         <item>"Distretti e organizzazioni"</item>
     </string-array>
     <string-array name="drawer_items_family_icons">
+        <item>@drawable/ic_politics</item>
+        <item>@drawable/ic_politics_district</item>
+        <item>@drawable/ic_nuovi_media</item>
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_districts</item>
     </string-array>
 
 </resources>

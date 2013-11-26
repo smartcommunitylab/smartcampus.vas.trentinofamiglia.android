@@ -10,6 +10,6 @@
     </string-array>
     <string-array name="drawer_items_events_icons">
         <item>@drawable/ic_summer_events</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_alto_garda</item>
     </string-array>
 </resources>

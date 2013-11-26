@@ -198,7 +198,9 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 
 		if (item.getItemId() == R.id.map_view) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
-			if (category != null) {
+			boolean query = getArguments().containsKey(SearchFragment.ARG_QUERY);
+
+			if (category != null && !query) {
 				MapManager.switchToMapView(category, MapFragment.ARG_TRACK_CATEGORY, this);
 			} else {
 				ArrayList<BaseDTObject> target = new ArrayList<BaseDTObject>();

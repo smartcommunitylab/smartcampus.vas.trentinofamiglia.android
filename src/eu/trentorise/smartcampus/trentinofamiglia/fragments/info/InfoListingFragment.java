@@ -182,10 +182,10 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		 */
 		menu.clear();
 		getActivity().getMenuInflater().inflate(R.menu.list_menu, menu);
-		menu.getItem(0).setVisible(false);//hide show on map
+		menu.getItem(0).setVisible(false);// hide show on map
 		if (category == null) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
-		}	
+		}
 		super.onPrepareOptionsMenu(menu);
 	}
 
@@ -194,7 +194,9 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 
 		if (item.getItemId() == R.id.map_view) {
 			category = (getArguments() != null) ? getArguments().getString(SearchFragment.ARG_CATEGORY) : null;
-			if (category != null) {
+			boolean query = getArguments().containsKey(SearchFragment.ARG_QUERY);
+
+			if (category != null && !query) {
 				MapManager.switchToMapView(category, MapFragment.ARG_TRACK_CATEGORY, this);
 			} else {
 				ArrayList<BaseDTObject> target = new ArrayList<BaseDTObject>();
@@ -205,8 +207,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 				MapManager.switchToMapView(target, this);
 			}
 			return true;
-		}
-	else if (item.getItemId() == R.id.search_action) {
+		} else if (item.getItemId() == R.id.search_action) {
 			FragmentTransaction fragmentTransaction;
 			Fragment fragment;
 			fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -239,8 +240,10 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		}
 		Bundle bundle = this.getArguments();
 		String category = (bundle != null) ? bundle.getString(SearchFragment.ARG_CATEGORY) : null;
-		CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered(CategoryHelper.CATEGORY_TYPE_INFOS, category);
-		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description) : null;
+		CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered(
+				CategoryHelper.CATEGORY_TYPE_INFOS, category);
+		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description)
+				: null;
 
 		// set title
 		TextView title = (TextView) getView().findViewById(R.id.list_title);
@@ -327,19 +330,19 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 			List<InfoObject> returnArray = new ArrayList<InfoObject>();
 			Bundle bundle = getArguments();
 			boolean my = false;
-			if (bundle.getBoolean(SearchFragment.ARG_MY)) my = true;
+			if (bundle.getBoolean(SearchFragment.ARG_MY))
+				my = true;
 			String categories = bundle.getString(SearchFragment.ARG_CATEGORY);
 			String query = bundle.getString(SearchFragment.ARG_QUERY);
-			
+
 			SortedMap<String, Integer> sort = new TreeMap<String, Integer>();
 			sort.put("title", 1);
-			
+
 			if (categories != null || my || query != null) {
-				result = DTHelper.searchInGeneral(params[0].position, params[0].size,
-						query,
+				result = DTHelper.searchInGeneral(params[0].position, params[0].size, query,
 						(WhereForSearch) bundle.getParcelable(SearchFragment.ARG_WHERE_SEARCH),
-						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my, InfoObjectForBean.class, sort,
-						categories);
+						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
+						InfoObjectForBean.class, sort, categories);
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
 				List<InfoObjectForBean> results = (List<InfoObjectForBean>) bundle.get(SearchFragment.ARG_LIST);
 				for (InfoObjectForBean infoBean : results) {
@@ -350,12 +353,11 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 				return Collections.emptyList();
 			}
 
-
 			for (InfoObjectForBean trackBean : result) {
 				returnArray.add(trackBean.getObjectForBean());
 			}
 			return returnArray;
-			
+
 		} catch (Exception e) {
 			Log.e(InfoListingFragment.class.getName(), e.getMessage());
 			e.printStackTrace();
@@ -363,15 +365,16 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		}
 	}
 
-	private class InfoLoader extends AbstractAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<InfoObject>> {
+	private class InfoLoader extends
+			AbstractAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<InfoObject>> {
 
 		public InfoLoader(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		public List<InfoObject> performAction(AbstractLstingFragment.ListingRequest... params) throws SecurityException,
-				Exception {
+		public List<InfoObject> performAction(AbstractLstingFragment.ListingRequest... params)
+				throws SecurityException, Exception {
 			return getInfos(params);
 		}
 
@@ -393,15 +396,13 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 	}
 
 	private void updateList(boolean empty) {
-		if (getView()!=null){
+		if (getView() != null) {
 
-		ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(
-				R.id.poilistcontainer));
-		if (empty) {
-			ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(
-					R.id.poilistcontainer));
-		}
-		hideListItemsMenu(null, false);
+			ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+			if (empty) {
+				ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+			}
+			hideListItemsMenu(null, false);
 		}
 	}
 

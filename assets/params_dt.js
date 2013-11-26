@@ -33,7 +33,7 @@
 			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Passeggiate"
 			              ]
 	},
-	"events_default" : [1],
+	"events_default" : [1,2],
    "center_map":[
                      46.0696727540531,
                      11.1212700605392
