@@ -45,11 +45,11 @@ import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
 
 public class MainActivity extends ActionBarActivity implements  OnChildClickListener {
 
-	private static final String TAG_FRAGMENT_MAP = "fragmap";
-	private static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
-	private static final String TAG_FRAGMENT_EVENT_LIST = "fragewent";
-	private static final Object TAG_FRAGMENT_TRACK_LIST = "fragtrack";
-	private static final Object TAG_FRAGMENT_INFO_LIST = "fraginfo";
+	public static final String TAG_FRAGMENT_MAP = "fragmap";
+	public static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
+	public static final String TAG_FRAGMENT_EVENT_LIST = "fragewent";
+	public static final String TAG_FRAGMENT_TRACK_LIST = "fragtrack";
+	public static final String TAG_FRAGMENT_INFO_LIST = "fraginfo";
 
 	private FragmentManager mFragmentManager;
 	private DrawerLayout mDrawerLayout;

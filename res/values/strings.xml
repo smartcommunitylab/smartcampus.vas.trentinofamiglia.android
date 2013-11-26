@@ -7,6 +7,7 @@
     <!-- MainActivity -->
     <string name="nav_drawer_map">Map</string>
     <string name="action_poi">POIs</string>
+    <string name="action_list">Lista</string>
     <string name="empty" />
     <string name="categories_event_summer_family">Estate giovani e famiglia</string>
     <string name="categories_event_alto_garda">Alto Garda</string>

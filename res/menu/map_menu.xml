@@ -21,4 +21,9 @@
                 android:title="@string/mapmenu_babies"/>
         </menu>
     </item>
+            <item
+        android:id="@+id/action_list"
+        android:icon="@drawable/ic_list"
+        android:title="@string/action_list"
+        eu.trentorise.smartcampus.trentinofamiglia:showAsAction="ifRoom"/>
 </menu>
