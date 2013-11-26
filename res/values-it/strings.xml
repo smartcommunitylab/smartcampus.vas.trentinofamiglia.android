@@ -37,7 +37,7 @@
     <string name="categories_event_my">I miei eventi</string>
     <string name="categories_story_my">Le mie storie</string>
     <string name="search_txt">Cerca</string>
-    <string name="comments">Commenti:</string>
+    <string name="comments">Vedi recensioni</string>
     <string name="source_smartcampus">SmartCampus</string>
     <string name="submenu_related_events">Eventi in programma</string>
     <string name="search_in_category">nella categoria</string>
@@ -63,11 +63,7 @@
     <string name="search_intwoweeks">Nelle prossime due settimane</string>
     <string name="search_inonemonth">Il prossimo mese</string>
     <string name="search_anywhere">Qualsiasi luogo</string>
-    <string name="search_within100m">Entro 100m</string>
-    <string name="search_within200m">Entro 200m</string>
-    <string name="search_within500m">Entro 500m</string>
-    <string name="search_wthin1km">Entro 1km</string>
-    <string name="search_within50km">Entro 50km</string>
+    <string name="search_within">Entro %s</string>
     <string name="dialog_connection_search">La modalità offline supporta solo la ricerca testuale. Per utilizzare le funzionalità avanzate connettiti ad una rete.</string>
     <string name="search_for">Cerca</string>
 
@@ -75,8 +71,8 @@
 
     <string name="map_view">Vai alla mappa</string>
     <!-- Rating -->
-    <string name="ratingtext_average">Giudizio medio: %s</string>
-    <string name="ratingtext_user">Il tuo giudizio:</string>
+    <string name="ratingtext_average">Giudizio medio:</string>
+    <string name="ratingtext_user">Il tuo giudizio: %s</string>
     <string name="ratingtext_raters">Giudizi totali: %s</string>
     <string name="rating_place_dialog_title">Valuta questo luogo:</string>
     <string name="rating_event_dialog_title">Valuta questo evento:</string>
@@ -88,5 +84,9 @@
     <string name="event_subcat">Categoria: %s</string>
     <string name="event_price">Prezzo: %s </string>
     <string name="event_price_free">Prezzo: gratuito</string>
+
+    <string name="auth_required">Si prega di registrarsi con il suo Google account.</string>
+
+    <string name="comment_hint">Commento</string>
     
 </resources>

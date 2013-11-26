@@ -42,11 +42,12 @@ public class SearchHelper {
 			new WhenForSearch(context.getString(R.string.search_inonemonth),0,30 * oneDay)};
 		WHERE_CATEGORIES = new WhereForSearch[] {
 			new WhereForSearch(context.getString(R.string.search_anywhere),0.00),
-			new WhereForSearch(context.getString(R.string.search_within100m),0.001),
-			new WhereForSearch(context.getString(R.string.search_within200m),0.002),
-			new WhereForSearch(context.getString(R.string.search_within500m),0.005),
-			new WhereForSearch(context.getString(R.string.search_wthin1km),0.01),
-			new WhereForSearch(context.getString(R.string.search_within50km),0.5)};
+			new WhereForSearch(context.getString(R.string.search_within,"100m"),0.001),
+			new WhereForSearch(context.getString(R.string.search_within,"200m"),0.002),
+			new WhereForSearch(context.getString(R.string.search_within,"500m"),0.005),
+			new WhereForSearch(context.getString(R.string.search_within,"1km"),0.01),
+			new WhereForSearch(context.getString(R.string.search_within,"10km"),0.1),
+			new WhereForSearch(context.getString(R.string.search_within,"50km"),0.5)};
 	}
 
 	

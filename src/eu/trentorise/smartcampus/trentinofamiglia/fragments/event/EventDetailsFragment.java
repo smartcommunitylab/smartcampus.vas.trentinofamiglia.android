@@ -16,70 +16,48 @@
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.event;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 
-import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
-import eu.trentorise.smartcampus.territoryservice.model.CommunityData;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper.RatingHandler;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TmpComment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
 public class EventDetailsFragment extends Fragment {
 	public static final String ARG_EVENT_ID = "event_id";
 
-	private boolean mFollowByIntent;
-	private boolean mStart = true;
-	private boolean mCanceledFollow = false;
 
-//	private POIObject mPoi = null;
 	private LocalEventObject mEvent = null;
-	private TmpComment tmp_comments[];
 	private String mEventId;
 
-	private CompoundButton followButtonView;
 	private Fragment mFragment = this;
 
+	private CommentsHandler commentsHandler = null;
+	
 	@Override
 	public void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -89,13 +67,6 @@ public class EventDetailsFragment extends Fragment {
 			mEventId = getArguments().getString(ARG_EVENT_ID);
 			mEvent = DTHelper.findEventById(mEventId);
 		}
-
-		tmp_comments = new TmpComment[0];
-		// tmp_comments = new TmpComment[5];
-		for (int i = 0; i < tmp_comments.length; i++)
-			tmp_comments[i] = new TmpComment("This is a very nice, detailed and lengthy comment about the event",
-					"student", new Date());
-		setFollowByIntent();
 	}
 
 	@Override
@@ -314,93 +285,11 @@ public class EventDetailsFragment extends Fragment {
 			} else {
 				tv.setText("");
 			}
-
-			// multimedia
-			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
-					R.id.gallery_btn));
-
-			/*
-			 * ImageButton b = (ImageButton) getView().findViewById(
-			 * R.id.gallery_btn); if (hasMultimediaAttached())
-			 * b.setOnClickListener(new OnClickListener() {
-			 * 
-			 * @Override public void onClick(View v) { FragmentTransaction
-			 * fragmentTransaction = getActivity()
-			 * .getSupportFragmentManager().beginTransaction(); GalleryFragment
-			 * fragment = new GalleryFragment(); Bundle args = new Bundle(); //
-			 * add args args.putString("title", getEvent().getTitle());
-			 * fragment.setArguments(args); fragmentTransaction
-			 * .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			 * fragmentTransaction.replace(android.R.id.content, fragment,
-			 * "gallery");
-			 * fragmentTransaction.addToBackStack(fragment.getTag());
-			 * fragmentTransaction.commit(); } }); else ((LinearLayout)
-			 * this.getView().findViewById(R.id.tablerow)) .removeView(b);
-			 */
-
-			// source
-			tv = (TextView) this.getView().findViewById(R.id.event_details_source);
-			if (mEvent.getSource() != null && mEvent.getSource().length() > 0) {
-				tv.setText(mEvent.getSource());
-			} else if (mEvent.createdByUser()) {
-				tv.setText(getString(R.string.source_smartcampus));
-			} else {
-				((LinearLayout) this.getView().findViewById(R.id.eventdetails)).removeView(tv);
-			}
-
-			// rating
-			/*
-			 * It may be not useful to rate events a posteriori, unless they are
-			 * recurrent (which is a situation we do not handle)
-			 */
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.event_rating);
-			rating.setOnTouchListener(new View.OnTouchListener() {
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if (event.getAction() == MotionEvent.ACTION_UP) {
-						// if (new
-						// AMSCAccessProvider().isUserAnonymous(getActivity()))
-						// {
-						// // show dialog box
-						// UserRegistration.upgradeuser(getActivity());
-						// return false;
-						// } else
-						{
-							ratingDialog();
-						}
-					}
-					return true;
-				}
-			});
-
-			updateRating();
-			// updateAttending();
-
-			if (tmp_comments.length > 0) {
-				// Comments
-				LinearLayout commentsList = (LinearLayout) getView().findViewById(R.id.comments_list);
-				for (int i = 0; i < tmp_comments.length; i++) {
-					View entry = getActivity().getLayoutInflater().inflate(R.layout.comment_row, null);
-
-					TextView tmp = (TextView) entry.findViewById(R.id.comment_text);
-					tmp.setText(tmp_comments[i].getText());
-					tmp = (TextView) entry.findViewById(R.id.comment_author);
-					tmp.setText(tmp_comments[i].getAuthor());
-					tmp = (TextView) entry.findViewById(R.id.comment_date);
-					tmp.setText(tmp_comments[i].getDate());
-					commentsList.addView(entry);
-				}
-			} else {
-				((LinearLayout) getView().findViewById(R.id.eventdetails)).removeView(getView().findViewById(
-						R.id.event_comments));
-				((LinearLayout) getView().findViewById(R.id.eventdetails)).removeView(getView().findViewById(
-						R.id.comments_list));
-				((LinearLayout) getView().findViewById(R.id.eventdetails)).removeView(getView().findViewById(
-						R.id.event_comments_separator));
-			}
+			commentsHandler  = new CommentsHandler(getEvent(), getActivity(), getView(), getLayoutInflater(getArguments())); 
 		}
 
 	}
+
 
 	private boolean isCertified(LocalEventObject event) {
 		if (event.getCustomData() != null && (Boolean) event.getCustomData().get("certified"))
@@ -428,35 +317,6 @@ public class EventDetailsFragment extends Fragment {
 	 * private boolean hasMultimediaAttached() { return true; }
 	 */
 
-	private void updateRating() {
-		if (this.getView() != null) {
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.event_rating);
-			if (mEvent.getCommunityData() != null) {
-				CommunityData cd = mEvent.getCommunityData();
-
-				if (cd.getRating() != null && !cd.getRating().isEmpty()) {
-					Iterator<Map.Entry<String, Integer>> entries = cd.getRating().entrySet().iterator();
-					float rate = 0;
-					while (entries.hasNext()) {
-						Map.Entry<String, Integer> entry = entries.next();
-						rate = entry.getValue();
-					}
-					rating.setRating(rate);
-				}
-
-				// user rating
-
-				// total raters
-				((TextView) getView().findViewById(R.id.event_rating_raters)).setText(getString(
-						R.string.ratingtext_raters, cd.getRatingsCount()));
-
-				// averange rating
-				((TextView) getView().findViewById(R.id.event_rating_average)).setText(getString(
-						R.string.ratingtext_average, cd.getAverageRating()));
-			}
-		}
-
-	}
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
@@ -533,26 +393,6 @@ public class EventDetailsFragment extends Fragment {
 		return;
 	}
 
-	private void setFollowByIntent() {
-		try {
-			ApplicationInfo ai = getActivity().getPackageManager().getApplicationInfo(getActivity().getPackageName(),
-					PackageManager.GET_META_DATA);
-			Bundle aBundle = ai.metaData;
-			mFollowByIntent = aBundle.getBoolean("follow-by-intent");
-		} catch (NameNotFoundException e) {
-			mFollowByIntent = false;
-			Log.e(EventDetailsFragment.class.getName(), "you should set the follow-by-intent metadata in app manifest");
-		}
-
-	}
-
-	private void ratingDialog() {
-		float rating = (getEvent() != null && getEvent().getCommunityData() != null && getEvent().getCommunityData()
-				.getAverageRating() > 0) ? getEvent().getCommunityData().getAverageRating() : 2.5f;
-		RatingHelper.ratingDialog(getActivity(), rating, new RatingProcessor(getActivity()),
-				R.string.rating_event_dialog_title);
-	}
-
 	/**
 	 * 
 	 */
@@ -571,30 +411,5 @@ public class EventDetailsFragment extends Fragment {
 
 	}
 
-	private class RatingProcessor extends AbstractAsyncTaskProcessor<Integer, Integer> implements RatingHandler {
-
-		public RatingProcessor(Activity activity) {
-			super(activity);
-		}
-
-		@Override
-		public Integer performAction(Integer... params) throws SecurityException, Exception {
-			return DTHelper.rate(getEvent(), params[0]);
-		}
-
-		@Override
-		public void handleResult(Integer result) {
-			mEvent = null;
-			getEvent();
-			updateRating();
-			if (getActivity() != null)
-				Toast.makeText(getActivity(), R.string.rating_success, Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onRatingChanged(float rating) {
-			new SCAsyncTask<Integer, Void, Integer>(getActivity(), this).execute((int) rating);
-		}
-	}
 
 }

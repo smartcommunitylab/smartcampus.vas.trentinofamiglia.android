@@ -29,6 +29,17 @@
         android:rating="3.0"
         android:stepSize="1.0" />
 
+    <EditText
+        android:id="@+id/rating_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="3"
+        android:maxLength="1000" 
+        android:hint="@string/comment_hint"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
+
     <LinearLayout
         android:id="@+id/rating_commands"
         android:layout_width="match_parent"

@@ -29,7 +29,7 @@
     <string name="categories_event_my">My Events</string>
     <string name="categories_story_my">My Stories</string>
     <string name="search_txt">Search</string>
-    <string name="comments">Comments:</string>
+    <string name="comments">View reviews</string>
     <string name="source_smartcampus">SmartCampus</string>
     <string name="submenu_related_events">Related events</string>
     <string name="search_in_category">in category</string>
@@ -64,11 +64,7 @@
     <string name="search_intwoweeks">In two weeks</string>
     <string name="search_inonemonth">In one month</string>
     <string name="search_anywhere">Anywhere</string>
-    <string name="search_within100m">Within 100m</string>
-    <string name="search_within200m">Within 200m</string>
-    <string name="search_within500m">Within 500m</string>
-    <string name="search_wthin1km">Within 1km</string>
-    <string name="search_within50km">Within 50km</string>
+    <string name="search_within">Within %s</string>
     <string name="dialog_connection_search">Offline mode supports only basic search. To exploit advanced search please connect to a network.</string>
     <string name="search_for">Search for</string>
     <string name="auth_failed">Application initialization failed.</string>
@@ -83,8 +79,8 @@
 
     <!-- Rating -->
 
-    <string name="ratingtext_average">Average rating: %s</string>
-    <string name="ratingtext_user">Your rating:</string>
+    <string name="ratingtext_average">Average rating:</string>
+    <string name="ratingtext_user">Your rating: %s</string>
     <string name="ratingtext_raters">Total rates: %s</string>
     <string name="rating_place_dialog_title">Rate this place:</string>
     <string name="rating_event_dialog_title">Rate this event:</string>
@@ -96,5 +92,9 @@
     <string name="event_subcat">Category: %s</string>
     <string name="event_price">Price: %s </string>
     <string name="event_price_free">Price: free</string>
+    
+    <string name="auth_required">Please sign in with your Google account. </string>
+    
+    <string name="comment_hint">Comment</string>
     
 </resources>

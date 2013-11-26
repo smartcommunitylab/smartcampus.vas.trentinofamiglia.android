@@ -56,6 +56,7 @@ import eu.trentorise.smartcampus.android.common.LocationHelper;
 import eu.trentorise.smartcampus.android.common.navigation.NavigationHelper;
 import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.SuggestionHelper;
+import eu.trentorise.smartcampus.network.JsonUtils;
 import eu.trentorise.smartcampus.network.RemoteConnector;
 import eu.trentorise.smartcampus.network.RemoteConnector.CLIENT_TYPE;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.ConnectionException;
@@ -69,6 +70,7 @@ import eu.trentorise.smartcampus.storage.sync.Utils;
 import eu.trentorise.smartcampus.territoryservice.TerritoryService;
 import eu.trentorise.smartcampus.territoryservice.TerritoryServiceException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
+import eu.trentorise.smartcampus.territoryservice.model.CommunityData;
 import eu.trentorise.smartcampus.territoryservice.model.EventObject;
 import eu.trentorise.smartcampus.territoryservice.model.ObjectFilter;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
@@ -81,6 +83,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.Review;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ReviewObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.WhenForSearch;
@@ -89,6 +93,10 @@ import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
 public class DTHelper {
 
+	/**
+	 * 
+	 */
+	private static final String SERVICE_TRENTINOFAMIGLIA = "trentinofamiglia";
 	public static final int SYNC_REQUIRED = 2;
 	public static final int SYNC_NOT_REQUIRED = 0;
 	public static final int SYNC_REQUIRED_FIRST_TIME = 3;
@@ -105,29 +113,6 @@ public class DTHelper {
 
 	public static TerritoryService gettService() {
 		return tService;
-	}
-
-	public static enum Tutorial {
-		NOTIF("notifTut"), PLACES("placesTut"), EVENTS("eventsTut"), STORIES("storyTut"), MENU("menuTut"), RATING(
-				"ratingTut");
-		/**
-		 * @param text
-		 */
-		private Tutorial(final String text) {
-			this.text = text;
-		}
-
-		private final String text;
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Enum#toString()
-		 */
-		@Override
-		public String toString() {
-			return text;
-		}
 	}
 
 	private static DTHelper instance = null;
@@ -156,8 +141,7 @@ public class DTHelper {
 	public static void init(final Context mContext) {
 		if (instance == null)
 			instance = new DTHelper(mContext);
-		
-		tService = new TerritoryService(getAppUrl() + "trentinofamiglia");
+		tService = new TerritoryService(getAppUrl() + SERVICE_TRENTINOFAMIGLIA);
 
 //		new AsyncTask<Void, Void, BasicProfile>() {
 //			@Override
@@ -1023,6 +1007,18 @@ public class DTHelper {
 		return returnValue;
 	}
 
+	public static CommunityData review(BaseDTObject object, Review review) throws ConnectionException, ProtocolException, SecurityException, DataException, RemoteException, StorageConfigurationException, TerritoryServiceException, AACException, java.lang.SecurityException, eu.trentorise.smartcampus.network.RemoteException {
+		String string = RemoteConnector.postJSON(getAppUrl(), SERVICE_TRENTINOFAMIGLIA+"/social/review/"+object.getId(), JsonUtils.toJSON(review), getAuthToken());
+		synchronize();
+		
+		return JsonUtils.toObject(string, CommunityData.class);
+	}
+
+	public static List<Review> loadReviews(String id) throws java.lang.SecurityException, eu.trentorise.smartcampus.network.RemoteException {
+		String string = RemoteConnector.getJSON(getAppUrl(), SERVICE_TRENTINOFAMIGLIA+"/social/readReviews/"+id, getAuthToken());
+		return JsonUtils.toObject(string, ReviewObject.class).getReviews();
+	}
+
 	public static BaseDTObject follow(BaseDTObject object) throws ConnectionException, ProtocolException,
 			SecurityException, DataException, RemoteException, StorageConfigurationException, AACException {
 		BaseDTObject returnObj = null;
@@ -1497,8 +1493,8 @@ public class DTHelper {
 			if ((when != null) && (when.getTo() != 0))
 				filter.setToTime(when.getTo());
 
+			GeoPoint mypos = MapManager.requestMyLocation(mContext);
 			if (distance != null) {
-				GeoPoint mypos = MapManager.requestMyLocation(mContext);
 				filter.setCenter(new double[] { (double) mypos.getLatitudeE6() / 1000000,
 						(double) mypos.getLongitudeE6() / 1000000 });
 				filter.setRadius(distance.getFilter());
@@ -1663,30 +1659,6 @@ public class DTHelper {
 		edit.commit();
 	}
 
-	public static boolean isTutorialShowed(Context ctx, Tutorial t) {
-		return getTutorialPreferences(ctx).getBoolean(t.toString(), false);
-	}
-
-	public static void setTutorialAsShowed(Context ctx, Tutorial t) {
-		Editor edit = getTutorialPreferences(ctx).edit();
-		edit.putBoolean(t.toString(), true);
-		edit.commit();
-	}
-
-	/**
-	 * With this method you can get the last tutorial that was not showed
-	 * 
-	 * @param ctx
-	 *            the activity
-	 * @return the last Tutorial not showed to the user otherwise null
-	 */
-	public static Tutorial getLastTutorialNotShowed(Context ctx) {
-		for (Tutorial t : Tutorial.values()) {
-			if (!isTutorialShowed(ctx, t))
-				return t;
-		}
-		return null;
-	}
 	public static void bringmethere(FragmentActivity activity, Address from, Address to) {
 		Intent intent = activity.getPackageManager().getLaunchIntentForPackage("eu.trentorise.smartcampus.viaggiatrento");
 		if (intent == null) {
@@ -1697,5 +1669,6 @@ public class DTHelper {
 			NavigationHelper.bringMeThere(activity, from, to);
 		
 	}
+
 
 }

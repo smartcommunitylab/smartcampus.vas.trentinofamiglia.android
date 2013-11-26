@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -25,7 +24,6 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
-import eu.trentorise.smartcampus.ac.SCAccessProvider;
 import eu.trentorise.smartcampus.android.common.GlobalConfig;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
@@ -133,21 +131,6 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
-			if (resultCode == RESULT_OK) {
-				String token = data.getExtras().getString(AccountManager.KEY_AUTHTOKEN);
-				if (token == null) {
-					Toast.makeText(this, R.string.app_failure_security, Toast.LENGTH_LONG).show();
-					finish();
-				} else {
-					DTHelper.init(getApplicationContext());
-					initData();
-				}
-			} else if (resultCode == RESULT_CANCELED && requestCode == SCAccessProvider.SC_AUTH_ACTIVITY_REQUEST_CODE) {
-				DTHelper.endAppFailure(this, R.string.app_failure_security);
-			}
-		}
 	}
 
 	private boolean initData() {

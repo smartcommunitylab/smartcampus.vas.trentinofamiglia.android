@@ -49,7 +49,7 @@
         android:logo="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         
-<!--         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" /> -->
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
         
         
         <meta-data
@@ -62,10 +62,6 @@
             android:name="eu.trentorise.smartcampus.account.ACCOUNT_NAME"
             android:value="Trentino Famiglia" />
 
-        <!-- if true, it check version at the start -->
-        <meta-data
-            android:name="check-version"
-            android:value="true" />
 
         <!-- Uses feedback metadata -->
         <meta-data
@@ -90,8 +86,7 @@
             android:name="eu.trentorise.smartcampus.account.AUTH_URL"
             android:value="https://vas-dev.smartcampuslab.it/aac" />
         <meta-data
-            android:name="eu.trentorise.smartcampus.account.ACCOUNT_BASED_ACCESS"
-            android:value="true" />
+            android:name="eu.trentorise.smartcampus.account.AUTHORITY_ARRAY" android:value="googlelocal"/>
         <meta-data
             android:name="SHARED_PACKAGE"
             android:value="eu.trentorise.smartcampus.trentinofamiglia" />
@@ -111,24 +106,6 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme" />
         
-        <service
-            android:name="eu.trentorise.smartcampus.ac.account.AuthenticationService"
-            android:exported="true"
-            android:permission="eu.trentorise.smartcampus.ac.AUTHENTICATE" >
-            <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator" />
-        </service>
-
-        <activity
-            android:name="eu.trentorise.smartcampus.ac.account.AuthenticatorActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme" />
-
         <uses-library android:name="com.google.android.maps" />
     </application>
 
