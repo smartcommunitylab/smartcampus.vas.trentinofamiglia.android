@@ -81,7 +81,7 @@
 
     <string name="ratingtext_average">Average rating:</string>
     <string name="ratingtext_user">Your rating: %s</string>
-    <string name="ratingtext_raters">Total rates: %s</string>
+    <string name="ratingtext_raters">Total rates:</string>
     <string name="rating_place_dialog_title">Rate this place:</string>
     <string name="rating_event_dialog_title">Rate this event:</string>
     <string name="rating_success">Your rating has been saved</string>

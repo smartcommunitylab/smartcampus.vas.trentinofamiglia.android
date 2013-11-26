@@ -16,7 +16,6 @@
 
 package eu.trentorise.smartcampus.trentinofamiglia.custom;
 
-import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -116,8 +115,7 @@ public class CommentsHandler {
 				rating.setRating(cd.getAverageRating());
 
 				// total raters
-				((TextView) main.findViewById(R.id.rating_raters)).setText(activity.getString(
-						R.string.ratingtext_raters, cd.getRatingsCount()));
+				((TextView) main.findViewById(R.id.rating_raters)).setText(""+cd.getRatingsCount());
 			}
 		}
 

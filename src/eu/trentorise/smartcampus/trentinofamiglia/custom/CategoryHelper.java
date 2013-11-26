@@ -62,12 +62,6 @@ public class CategoryHelper {
 	public static final String CATEGORY_TODAY = "Today";
 	public static final String CATEGORY_MY = "My";
 
-	public static CategoryDescriptor EVENTS_TODAY = new CategoryDescriptor(R.drawable.ic_marker_e_generic,
-			R.drawable.ic_e_todaysevents, CATEGORY_TODAY, R.string.categories_event_today);
-
-	public static CategoryDescriptor EVENTS_MY = new CategoryDescriptor(R.drawable.ic_marker_e_generic,
-			R.drawable.ic_e_myevents, CATEGORY_MY, R.string.categories_event_my);
-
 	public static CategoryDescriptor[] EVENT_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_e_family, R.drawable.ic_e_family,
 					CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA, R.string.categories_event_summer_family),

@@ -73,7 +73,7 @@
     <!-- Rating -->
     <string name="ratingtext_average">Giudizio medio:</string>
     <string name="ratingtext_user">Il tuo giudizio: %s</string>
-    <string name="ratingtext_raters">Giudizi totali: %s</string>
+    <string name="ratingtext_raters">Giudizi totali:</string>
     <string name="rating_place_dialog_title">Valuta questo luogo:</string>
     <string name="rating_event_dialog_title">Valuta questo evento:</string>
     <string name="rating_success">La tua valutazione è stata salvata</string>
