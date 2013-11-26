@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.content.Context;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
+import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 
 public class InfoObject extends BaseDTObject{
@@ -31,10 +32,12 @@ public class InfoObject extends BaseDTObject{
 			}
 		}
 		if (CategoryHelper.CAT_INFO_CERTIFICATORI_AUDIT.equals(getType()) && !getCustomData().isEmpty()) {
-			d += "<br/>"+getCustomData().get("email");
+			d += "<br/>"+ctx.getString(R.string.audit_person_date,getCustomData().get("date"));
+			d += "<br/><br/>email: "+getCustomData().get("email");
 		}
 		if (CategoryHelper.CAT_INFO_VALUTATORI_AUDIT.equals(getType()) && !getCustomData().isEmpty()) {
-			d += "<br/>"+getCustomData().get("email");
+			d += "<br/>"+ctx.getString(R.string.audit_person_date,getCustomData().get("date"));
+			d += "<br/><br/>email: "+getCustomData().get("email");
 		}
 		if (CategoryHelper.CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI.equals(getType()) && !getCustomData().isEmpty()) {
 			d += "<br/>"+getCustomData().get("district");

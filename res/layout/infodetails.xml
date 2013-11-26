@@ -20,6 +20,7 @@
     android:background="@android:color/white" >
 
     <ScrollView
+        android:id="@+id/details_sv"
         android:layout_width="match_parent"
         android:layout_height="fill_parent" >
 
@@ -46,78 +47,7 @@
                 android:layout_marginTop="8dp"
                 android:autoLink="web|all" />
 
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/darker_gray" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ratingtext_user"
-                android:textColor="@color/dtappcolor"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <RatingBar
-                    android:id="@+id/info_rating"
-                    style="@style/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/info_rating_raters"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ratingtext_raters" />
-
-                    <TextView
-                        android:id="@+id/info_rating_average"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ratingtext_average" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/info_comments_separator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/info_comments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/comments"
-                android:textColor="@color/dtappcolor"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/comments_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </LinearLayout>
+         </LinearLayout>   
     </ScrollView>
 
 </RelativeLayout>

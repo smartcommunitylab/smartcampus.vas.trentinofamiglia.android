@@ -16,12 +16,8 @@
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.track;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 
-import android.app.Activity;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,30 +25,20 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 
-import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
-import eu.trentorise.smartcampus.territoryservice.model.CommunityData;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper.RatingHandler;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TmpComment;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
@@ -62,9 +48,10 @@ public class TrackDetailsFragment extends Fragment {
 
 	TrackObject mTrack = null;
 	String mTrackId;
-	private TmpComment tmp_comments[];
 
 	private Fragment mFragment = this;
+
+	private CommentsHandler commentsHandler;
 
 	@Override
 	public void onCreate(Bundle bundle) {
@@ -75,11 +62,6 @@ public class TrackDetailsFragment extends Fragment {
 			mTrackId = getArguments().getString(ARG_TRACK_ID);
 			mTrack = DTHelper.findTrackById(mTrackId);
 		}
-
-		tmp_comments = new TmpComment[0];
-		// tmp_comments = new TmpComment[5];
-		for (int i = 0; i < tmp_comments.length; i++)
-			tmp_comments[i] = new TmpComment("This is a comment about the track", "student", new Date());
 	}
 
 	private TrackObject getTrack() {
@@ -94,35 +76,6 @@ public class TrackDetailsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.trackdetails, container, false);
-	}
-
-	private void updateRating() {
-		if (getView() != null) {
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.track_rating);
-			if (mTrack.getCommunityData() != null) {
-				CommunityData cd = mTrack.getCommunityData();
-
-				if (cd.getRating() != null && !cd.getRating().isEmpty()) {
-					Iterator<Map.Entry<String, Integer>> entries = cd.getRating().entrySet().iterator();
-					float rate = 0;
-					while (entries.hasNext()) {
-						Map.Entry<String, Integer> entry = entries.next();
-						rate = entry.getValue();
-					}
-					rating.setRating(rate);
-				}
-
-				// user rating
-
-				// total raters
-				((TextView) getView().findViewById(R.id.track_rating_raters)).setText(getString(
-						R.string.ratingtext_raters, cd.getRatingsCount()));
-
-				// averange rating
-				((TextView) getView().findViewById(R.id.track_rating_average)).setText(getString(
-						R.string.ratingtext_average, cd.getAverageRating()));
-			}
-		}
 	}
 
 	@Override
@@ -177,61 +130,8 @@ public class TrackDetailsFragment extends Fragment {
 				((LinearLayout) this.getView().findViewById(R.id.trackdetails)).removeView(tv);
 			}
 
-//			tv = (TextView) this.getView().findViewById(R.id.track_details_notes);
-//			((LinearLayout) this.getView().findViewById(R.id.trackdetails)).removeView(tv);
-//
-//			// multimedia
-//			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
-//					R.id.gallery_btn));
-//			// source
-//			tv = (TextView) this.getView().findViewById(R.id.track_details_source);
-//			if (mTrack.getSource() != null && mTrack.getSource().length() > 0) {
-//				/* Source is "ou" sometimes O_o */
-//				tv.setText(mTrack.getSource());
-//			} else if (Utils.isCreatedByUser(mTrack)) {
-//				tv.setText(getString(R.string.source_smartcampus));
-//			} else {
-//				((LinearLayout) this.getView().findViewById(R.id.trackdetails)).removeView(tv);
-//			}
 
-			// rating
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.track_rating);
-			rating.setOnTouchListener(new View.OnTouchListener() {
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if (event.getAction() == MotionEvent.ACTION_UP) {
-						{
-							ratingDialog();
-						}
-					}
-					return true;
-				}
-			});
-
-			updateRating();
-			if (tmp_comments.length > 0) {
-				// Comments
-				LinearLayout commentsList = (LinearLayout) getView().findViewById(R.id.comments_list);
-				for (int i = 0; i < tmp_comments.length; i++) {
-					View entry = getLayoutInflater(this.getArguments()).inflate(R.layout.comment_row, null);
-
-					TextView tmp = (TextView) entry.findViewById(R.id.comment_text);
-					tmp.setText(tmp_comments[i].getText());
-					tmp = (TextView) entry.findViewById(R.id.comment_author);
-					tmp.setText(tmp_comments[i].getAuthor());
-					tmp = (TextView) entry.findViewById(R.id.comment_date);
-					tmp.setText(tmp_comments[i].getDate());
-					commentsList.addView(entry);
-				}
-			} else {
-				((LinearLayout) getView().findViewById(R.id.trackdetails)).removeView(getView().findViewById(
-						R.id.track_comments));
-				((LinearLayout) getView().findViewById(R.id.trackdetails)).removeView(getView().findViewById(
-						R.id.comments_list));
-				((LinearLayout) getView().findViewById(R.id.trackdetails)).removeView(getView().findViewById(
-						R.id.track_comments_separator));
-			}
-
+			commentsHandler  = new CommentsHandler(getTrack(), getActivity(), getView(), getLayoutInflater(getArguments())); 
 		}
 	}
 
@@ -244,39 +144,5 @@ public class TrackDetailsFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void ratingDialog() {
-		float rating = (mTrack != null && mTrack.getCommunityData() != null && mTrack.getCommunityData().getAverageRating() > 0) ? mTrack
-				.getCommunityData().getAverageRating() : 2.5f;
-		RatingHelper.ratingDialog(getActivity(), rating, new RatingProcessor(getActivity()),
-				R.string.rating_place_dialog_title);
-	}
-
-	/*
-	 * CLASSES
-	 */
-	private class RatingProcessor extends AbstractAsyncTaskProcessor<Integer, Integer> implements RatingHandler {
-		public RatingProcessor(Activity activity) {
-			super(activity);
-		}
-
-		@Override
-		public Integer performAction(Integer... params) throws SecurityException, Exception {
-			return DTHelper.rate(mTrack, params[0]);
-		}
-
-		@Override
-		public void handleResult(Integer result) {
-			mTrack = null;
-			getTrack();
-			updateRating();
-			Toast.makeText(getActivity(), R.string.rating_success, Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onRatingChanged(float rating) {
-			new SCAsyncTask<Integer, Void, Integer>(getActivity(), this).execute((int) rating);
-		}
 	}
 }

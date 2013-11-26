@@ -85,6 +85,8 @@
     <string name="event_price">Prezzo: %s </string>
     <string name="event_price_free">Prezzo: gratuito</string>
 
+    
+    <string name="audit_person_date">Data conseguimento qualifica: %s</string>
     <string name="auth_required">Si prega di registrarsi con il suo Google account.</string>
 
     <string name="comment_hint">Commento</string>

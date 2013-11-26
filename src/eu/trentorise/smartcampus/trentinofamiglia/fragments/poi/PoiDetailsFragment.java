@@ -16,68 +16,47 @@
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.poi;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 
-import android.app.Activity;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 
-import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
-import eu.trentorise.smartcampus.territoryservice.model.CommunityData;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.RatingHelper.RatingHandler;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.POIHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TmpComment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
 public class PoiDetailsFragment extends Fragment {
 
 	public static final String ARG_POI_ID = "poi_id";
-	private boolean mStart = true;
-	private boolean mCanceledFollow = false;
 
 	POIObject mPoi = null;
 	String mPoiId;
-	private TmpComment tmp_comments[];
 
-	private CompoundButton followButtonView;
 	private Fragment mFragment = this;
+
+	private CommentsHandler commentsHandler;
 
 	@Override
 	public void onCreate(Bundle bundle) {
@@ -88,13 +67,6 @@ public class PoiDetailsFragment extends Fragment {
 			mPoiId = getArguments().getString(ARG_POI_ID);
 			mPoi = DTHelper.findPOIById(mPoiId);
 		}
-
-		tmp_comments = new TmpComment[0];
-		// tmp_comments = new TmpComment[5];
-		for (int i = 0; i < tmp_comments.length; i++)
-			tmp_comments[i] = new TmpComment("This is a comment about the POI", "student", new Date());
-
-		setFollowByIntent();
 	}
 
 	private POIObject getPOI() {
@@ -109,35 +81,6 @@ public class PoiDetailsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.poidetails, container, false);
-	}
-
-	private void updateRating() {
-		if (getView() != null) {
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.poi_rating);
-			if (mPoi.getCommunityData() != null) {
-				CommunityData cd = mPoi.getCommunityData();
-
-				if (cd.getRating() != null && !cd.getRating().isEmpty()) {
-					Iterator<Map.Entry<String, Integer>> entries = cd.getRating().entrySet().iterator();
-					float rate = 0;
-					while (entries.hasNext()) {
-						Map.Entry<String, Integer> entry = entries.next();
-						rate = entry.getValue();
-					}
-					rating.setRating(rate);
-				}
-
-				// user rating
-
-				// total raters
-				((TextView) getView().findViewById(R.id.poi_rating_raters)).setText(getString(
-						R.string.ratingtext_raters, cd.getRatingsCount()));
-
-				// averange rating
-				((TextView) getView().findViewById(R.id.poi_rating_average)).setText(getString(
-						R.string.ratingtext_average, cd.getAverageRating()));
-			}
-		}
 	}
 
 	@Override
@@ -252,92 +195,7 @@ public class PoiDetailsFragment extends Fragment {
 				}
 			});
 
-//			// tags
-//			tv = (TextView) this.getView().findViewById(R.id.poi_details_tags);
-//			if (mPoi.getCommunityData() != null && mPoi.getCommunityData().getTags() != null
-//					&& mPoi.getCommunityData().getTags().size() > 0) {
-//				tv.setText(Utils.conceptToSimpleString(mPoi.getCommunityData().getTags()));
-//			} else {
-//				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-//			}
-//
-//			// multimedia
-//			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
-//					R.id.gallery_btn));
-//
-			/*
-			 * ImageButton b = (ImageButton) getView().findViewById(
-			 * R.id.gallery_btn); if (hasMultimediaAttached())
-			 * b.setOnClickListener(new OnClickListener() {
-			 * 
-			 * @Override public void onClick(View v) { FragmentTransaction
-			 * fragmentTransaction = getSherlockActivity()
-			 * .getSupportFragmentManager().beginTransaction(); GalleryFragment
-			 * fragment = new GalleryFragment(); Bundle args = new Bundle(); //
-			 * add args args.putString("title", poi.getTitle());
-			 * fragment.setArguments(args); fragmentTransaction
-			 * .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			 * fragmentTransaction.replace(android.R.id.content, fragment,
-			 * "gallery");
-			 * fragmentTransaction.addToBackStack(fragment.getTag());
-			 * fragmentTransaction.commit(); } }); else ((LinearLayout)
-			 * this.getView().findViewById(R.id.tablerow)) .removeView(b);
-			 */
-			// source
-//			tv = (TextView) this.getView().findViewById(R.id.poi_details_source);
-//			if (mPoi.getSource() != null && mPoi.getSource().length() > 0) {
-//				/* Source is "ou" sometimes O_o */
-//				tv.setText(mPoi.getSource());
-//			} else if (Utils.isCreatedByUser(mPoi)) {
-//				tv.setText(getString(R.string.source_smartcampus));
-//			} else {
-//				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
-//			}
-
-			// rating
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.poi_rating);
-			rating.setOnTouchListener(new View.OnTouchListener() {
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if (event.getAction() == MotionEvent.ACTION_UP) {
-						// if (new
-						// AMSCAccessProvider().isUserAnonymous(getSherlockActivity()))
-						// {
-						// // show dialog box
-						// UserRegistration.upgradeuser(getSherlockActivity());
-						// return false;
-						// } else
-						{
-							ratingDialog();
-						}
-					}
-					return true;
-				}
-			});
-
-			updateRating();
-			if (tmp_comments.length > 0) {
-				// Comments
-				LinearLayout commentsList = (LinearLayout) getView().findViewById(R.id.comments_list);
-				for (int i = 0; i < tmp_comments.length; i++) {
-					View entry = getLayoutInflater(this.getArguments()).inflate(R.layout.comment_row, null);
-
-					TextView tmp = (TextView) entry.findViewById(R.id.comment_text);
-					tmp.setText(tmp_comments[i].getText());
-					tmp = (TextView) entry.findViewById(R.id.comment_author);
-					tmp.setText(tmp_comments[i].getAuthor());
-					tmp = (TextView) entry.findViewById(R.id.comment_date);
-					tmp.setText(tmp_comments[i].getDate());
-					commentsList.addView(entry);
-				}
-			} else {
-				((LinearLayout) getView().findViewById(R.id.poidetails)).removeView(getView().findViewById(
-						R.id.poi_comments));
-				((LinearLayout) getView().findViewById(R.id.poidetails)).removeView(getView().findViewById(
-						R.id.comments_list));
-				((LinearLayout) getView().findViewById(R.id.poidetails)).removeView(getView().findViewById(
-						R.id.poi_comments_separator));
-			}
+			commentsHandler  = new CommentsHandler(getPOI(), getActivity(), getView(), getLayoutInflater(getArguments())); 
 
 		}
 	}
@@ -349,21 +207,6 @@ public class PoiDetailsFragment extends Fragment {
 		} else {
 			return false;
 		}
-	}
-
-	private boolean hasMultimediaAttached() {
-		return true;
-	}
-
-	private void setFollowByIntent() {
-		try {
-			ApplicationInfo ai = getActivity().getPackageManager().getApplicationInfo(
-					getActivity().getPackageName(), PackageManager.GET_META_DATA);
-			Bundle aBundle = ai.metaData;
-		} catch (NameNotFoundException e) {
-			Log.e(PoiDetailsFragment.class.getName(), "you should set the follow-by-intent metadata in app manifest");
-		}
-
 	}
 
 	@Override
@@ -449,61 +292,6 @@ public class PoiDetailsFragment extends Fragment {
 //		super.onActivityResult(requestCode, resultCode, data);
 //	}
 
-	private void ratingDialog() {
-		float rating = (mPoi != null && mPoi.getCommunityData() != null && mPoi.getCommunityData().getAverageRating() > 0) ? mPoi
-				.getCommunityData().getAverageRating() : 2.5f;
-		RatingHelper.ratingDialog(getActivity(), rating, new RatingProcessor(getActivity()),
-				R.string.rating_place_dialog_title);
-	}
-
-	/*
-	 * CLASSES
-	 */
-	private class RatingProcessor extends AbstractAsyncTaskProcessor<Integer, Integer> implements RatingHandler {
-		public RatingProcessor(Activity activity) {
-			super(activity);
-		}
-
-		@Override
-		public Integer performAction(Integer... params) throws SecurityException, Exception {
-			return DTHelper.rate(mPoi, params[0]);
-		}
-
-		@Override
-		public void handleResult(Integer result) {
-			mPoi = null;
-			getPOI();
-			updateRating();
-			Toast.makeText(getActivity(), R.string.rating_success, Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onRatingChanged(float rating) {
-			new SCAsyncTask<Integer, Void, Integer>(getActivity(), this).execute((int) rating);
-		}
-	}
-//
-//	private class POIDeleteProcessor extends AbstractAsyncTaskProcessor<POIObject, Boolean> {
-//		public POIDeleteProcessor(Activity activity) {
-//			super(activity);
-//		}
-//
-//		@Override
-//		public Boolean performAction(POIObject... params) throws SecurityException, Exception {
-//			return DTHelper.deletePOI(params[0]);
-//		}
-//
-//		@Override
-//		public void handleResult(Boolean result) {
-//			if (result) {
-//				getActivity().getSupportFragmentManager().popBackStack();
-//			} else {
-//				Toast.makeText(getActivity(), getActivity().getString(R.string.app_failure_cannot_delete),
-//						Toast.LENGTH_LONG).show();
-//			}
-//		}
-//
-//	}
 
 //	class FollowAsyncTask extends AsyncTask<String, Void, Void> {
 //

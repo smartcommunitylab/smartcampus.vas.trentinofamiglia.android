@@ -184,7 +184,9 @@ public class CommentsHandler {
 		@Override
 		public void handleResult(List<Review> result) {
 			container.removeAllViews();
-			if (result == null) return;
+			if (result == null || result.isEmpty()) {
+				ViewHelper.addEmptyListView(container);
+			}
 			data = result;
 			for (Review r : result) {
 				View entry = inflatter.inflate(R.layout.comment_row, null);
@@ -225,6 +227,7 @@ public class CommentsHandler {
 		public void handleResult(CommunityData result) {
 			object.setCommunityData(result);
 			updateRating();
+			data = null;
 			if (activity != null)
 				Toast.makeText(activity, R.string.rating_success, Toast.LENGTH_SHORT).show();
 		}

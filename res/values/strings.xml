@@ -92,6 +92,8 @@
     <string name="event_subcat">Category: %s</string>
     <string name="event_price">Price: %s </string>
     <string name="event_price_free">Price: free</string>
+
+    <string name="audit_person_date">Qualification achievement date: %s</string>
     
     <string name="auth_required">Please sign in with your Google account. </string>
     
