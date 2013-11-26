@@ -92,7 +92,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 	@Override
 	public void onActivityCreated(Bundle arg0) {
 		super.onActivityCreated(arg0);
-		list = (ListView) getActivity().findViewById(R.id.pois_list);
+		list = (ListView) getActivity().findViewById(R.id.track_list);
 
 		if (arg0 != null) {
 			// Restore last state for checked position.
@@ -101,7 +101,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 
 		}
 		if (trackAdapter == null) {
-			trackAdapter = new TrackAdapter(context, R.layout.pois_row);
+			trackAdapter = new TrackAdapter(context, R.layout.tracks_row);
 		}
 		setAdapter(trackAdapter);
 
@@ -110,7 +110,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		return inflater.inflate(R.layout.poislist, container, false);
+		return inflater.inflate(R.layout.trackslist, container, false);
 	}
 
 	@Override
@@ -140,17 +140,17 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 	/*
 	 * insert in the same adapter the new item
 	 */
-	private void insertTrack(TrackObject poi) {
+	private void insertTrack(TrackObject track) {
 
 		// add in the right place
 		int i = 0;
 		boolean insert = false;
 		while (i < trackAdapter.getCount()) {
 			if (trackAdapter.getItem(i).getTitle() != null) {
-				if (trackAdapter.getItem(i).getTitle().toLowerCase().compareTo(poi.getTitle().toLowerCase()) <= 0) {
+				if (trackAdapter.getItem(i).getTitle().toLowerCase().compareTo(track.getTitle().toLowerCase()) <= 0) {
 					i++;
 				} else {
-					trackAdapter.insert(poi, i);
+					trackAdapter.insert(track, i);
 					insert = true;
 					break;
 				}
@@ -158,7 +158,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 		}
 
 		if (!insert) {
-			trackAdapter.insert(poi, trackAdapter.getCount());
+			trackAdapter.insert(track, trackAdapter.getCount());
 		}
 	}
 
@@ -238,7 +238,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 	@Override
 	public void onStart() {
 		if (reload) {
-			trackAdapter = new TrackAdapter(context, R.layout.pois_row);
+			trackAdapter = new TrackAdapter(context, R.layout.tracks_row);
 			setAdapter(trackAdapter);
 			reload = false;
 		}
@@ -315,15 +315,15 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			// fragmentTransaction.detach(this);
-			fragmentTransaction.replace(R.id.frame_content, fragment, "pois");
+			fragmentTransaction.replace(R.id.frame_content, fragment, "tracks");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
 		}
 	}
 
 	private void setStoredTrackId(View v, int position) {
-		final TrackObject poi = ((TrackPlaceholder) v.getTag()).track;
-		idTrack = poi.getId();
+		final TrackObject track = ((TrackPlaceholder) v.getTag()).track;
+		idTrack = track.getId();
 		indexAdapter = position;
 	}
 
@@ -409,9 +409,9 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 	private void updateList(boolean empty) {
 		if (getView() != null) {
 
-			ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+			ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(R.id.tracklistcontainer));
 			if (empty) {
-				ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+				ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(R.id.tracklistcontainer));
 			}
 			hideListItemsMenu(null, false);
 		}

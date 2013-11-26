@@ -79,7 +79,7 @@ public class TrackDetailsFragment extends Fragment {
 		tmp_comments = new TmpComment[0];
 		// tmp_comments = new TmpComment[5];
 		for (int i = 0; i < tmp_comments.length; i++)
-			tmp_comments[i] = new TmpComment("This is a comment about the POI", "student", new Date());
+			tmp_comments[i] = new TmpComment("This is a comment about the track", "student", new Date());
 	}
 
 	private TrackObject getTrack() {
@@ -93,12 +93,12 @@ public class TrackDetailsFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.poidetails, container, false);
+		return inflater.inflate(R.layout.trackdetails, container, false);
 	}
 
 	private void updateRating() {
 		if (getView() != null) {
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.poi_rating);
+			RatingBar rating = (RatingBar) getView().findViewById(R.id.track_rating);
 			if (mTrack.getCommunityData() != null) {
 				CommunityData cd = mTrack.getCommunityData();
 
@@ -115,11 +115,11 @@ public class TrackDetailsFragment extends Fragment {
 				// user rating
 
 				// total raters
-				((TextView) getView().findViewById(R.id.poi_rating_raters)).setText(getString(
+				((TextView) getView().findViewById(R.id.track_rating_raters)).setText(getString(
 						R.string.ratingtext_raters, cd.getRatingsCount()));
 
 				// averange rating
-				((TextView) getView().findViewById(R.id.poi_rating_average)).setText(getString(
+				((TextView) getView().findViewById(R.id.track_rating_average)).setText(getString(
 						R.string.ratingtext_average, cd.getAverageRating()));
 			}
 		}
@@ -130,7 +130,7 @@ public class TrackDetailsFragment extends Fragment {
 		super.onStart();
 		if (getTrack() != null) {
 			// title
-			TextView tv = (TextView) this.getView().findViewById(R.id.poi_details_title);
+			TextView tv = (TextView) this.getView().findViewById(R.id.track_details_title);
 			tv.setText(mTrack.getTitle());
 
 			/*
@@ -138,7 +138,7 @@ public class TrackDetailsFragment extends Fragment {
 			 */
 
 			// map
-			ImageButton mapBtn = (ImageButton) getView().findViewById(R.id.poidetails_map);
+			ImageButton mapBtn = (ImageButton) getView().findViewById(R.id.trackdetails_map);
 			mapBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -149,7 +149,7 @@ public class TrackDetailsFragment extends Fragment {
 			});
 
 			// directions
-			ImageButton directionsBtn = (ImageButton) getView().findViewById(R.id.poidetails_directions);
+			ImageButton directionsBtn = (ImageButton) getView().findViewById(R.id.trackdetails_directions);
 			directionsBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -169,33 +169,33 @@ public class TrackDetailsFragment extends Fragment {
 			 */
 
 			// description, optional
-			tv = (TextView) this.getView().findViewById(R.id.poi_details_descr);
+			tv = (TextView) this.getView().findViewById(R.id.track_details_descr);
 			String customDescr = mTrack.customDescription(getActivity());
 			if (customDescr != null && customDescr.length() > 0) {
 				tv.setText(Html.fromHtml(customDescr));
 			} else {
-				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+				((LinearLayout) this.getView().findViewById(R.id.trackdetails)).removeView(tv);
 			}
 
-//			tv = (TextView) this.getView().findViewById(R.id.poi_details_notes);
-//			((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//			tv = (TextView) this.getView().findViewById(R.id.track_details_notes);
+//			((LinearLayout) this.getView().findViewById(R.id.trackdetails)).removeView(tv);
 //
 //			// multimedia
 //			((LinearLayout) getView().findViewById(R.id.multimedia_source)).removeView(getView().findViewById(
 //					R.id.gallery_btn));
 //			// source
-//			tv = (TextView) this.getView().findViewById(R.id.poi_details_source);
+//			tv = (TextView) this.getView().findViewById(R.id.track_details_source);
 //			if (mTrack.getSource() != null && mTrack.getSource().length() > 0) {
 //				/* Source is "ou" sometimes O_o */
 //				tv.setText(mTrack.getSource());
 //			} else if (Utils.isCreatedByUser(mTrack)) {
 //				tv.setText(getString(R.string.source_smartcampus));
 //			} else {
-//				((LinearLayout) this.getView().findViewById(R.id.poidetails)).removeView(tv);
+//				((LinearLayout) this.getView().findViewById(R.id.trackdetails)).removeView(tv);
 //			}
 
 			// rating
-			RatingBar rating = (RatingBar) getView().findViewById(R.id.poi_rating);
+			RatingBar rating = (RatingBar) getView().findViewById(R.id.track_rating);
 			rating.setOnTouchListener(new View.OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
@@ -224,12 +224,12 @@ public class TrackDetailsFragment extends Fragment {
 					commentsList.addView(entry);
 				}
 			} else {
-				((LinearLayout) getView().findViewById(R.id.poidetails)).removeView(getView().findViewById(
-						R.id.poi_comments));
-				((LinearLayout) getView().findViewById(R.id.poidetails)).removeView(getView().findViewById(
+				((LinearLayout) getView().findViewById(R.id.trackdetails)).removeView(getView().findViewById(
+						R.id.track_comments));
+				((LinearLayout) getView().findViewById(R.id.trackdetails)).removeView(getView().findViewById(
 						R.id.comments_list));
-				((LinearLayout) getView().findViewById(R.id.poidetails)).removeView(getView().findViewById(
-						R.id.poi_comments_separator));
+				((LinearLayout) getView().findViewById(R.id.trackdetails)).removeView(getView().findViewById(
+						R.id.track_comments_separator));
 			}
 
 		}

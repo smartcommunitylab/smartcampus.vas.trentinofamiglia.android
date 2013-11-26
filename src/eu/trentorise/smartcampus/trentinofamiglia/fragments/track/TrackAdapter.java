@@ -47,12 +47,12 @@ public class TrackAdapter extends ArrayAdapter<TrackObject> {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(layoutResourceId, parent, false);
 			p = new TrackPlaceholder();
-			p.title = (TextView) row.findViewById(R.id.poi_placeholder_title);
+			p.title = (TextView) row.findViewById(R.id.track_placeholder_title);
 			// p.description = (TextView)
-			// row.findViewById(R.id.poi_placeholder_descr);
-			p.icon = (ImageView) row.findViewById(R.id.poi_placeholder_icon);
+			// row.findViewById(R.id.track_placeholder_descr);
+			p.icon = (ImageView) row.findViewById(R.id.track_placeholder_icon);
 
-			p.location = (TextView) row.findViewById(R.id.poi_placeholder_loc);
+			p.location = (TextView) row.findViewById(R.id.track_placeholder_loc);
 			row.setTag(p);
 		} else
 			p = (TrackPlaceholder) row.getTag();

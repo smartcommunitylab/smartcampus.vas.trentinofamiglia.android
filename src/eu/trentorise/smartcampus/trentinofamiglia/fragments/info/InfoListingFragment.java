@@ -89,7 +89,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 	@Override
 	public void onActivityCreated(Bundle arg0) {
 		super.onActivityCreated(arg0);
-		list = (ListView) getActivity().findViewById(R.id.pois_list);
+		list = (ListView) getActivity().findViewById(R.id.infos_list);
 
 		if (arg0 != null) {
 			// Restore last state for checked position.
@@ -98,7 +98,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 
 		}
 		if (infoAdapter == null) {
-			infoAdapter = new InfoAdapter(context, R.layout.pois_row);
+			infoAdapter = new InfoAdapter(context, R.layout.infos_row);
 		}
 		setAdapter(infoAdapter);
 
@@ -107,7 +107,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		return inflater.inflate(R.layout.poislist, container, false);
+		return inflater.inflate(R.layout.infoslist, container, false);
 	}
 
 	@Override
@@ -234,7 +234,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 	@Override
 	public void onStart() {
 		if (reload) {
-			infoAdapter = new InfoAdapter(context, R.layout.pois_row);
+			infoAdapter = new InfoAdapter(context, R.layout.infos_row);
 			setAdapter(infoAdapter);
 			reload = false;
 		}
@@ -312,7 +312,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			// fragmentTransaction.detach(this);
-			fragmentTransaction.replace(R.id.frame_content, fragment, "pois");
+			fragmentTransaction.replace(R.id.frame_content, fragment, "infos");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
 		}
@@ -398,9 +398,9 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 	private void updateList(boolean empty) {
 		if (getView() != null) {
 
-			ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+			ViewHelper.removeEmptyListView((LinearLayout) getView().findViewById(R.id.infolistcontainer));
 			if (empty) {
-				ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(R.id.poilistcontainer));
+				ViewHelper.addEmptyListView((LinearLayout) getView().findViewById(R.id.infolistcontainer));
 			}
 			hideListItemsMenu(null, false);
 		}

@@ -48,12 +48,12 @@ public class InfoAdapter extends ArrayAdapter<InfoObject> {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(layoutResourceId, parent, false);
 			p = new InfoPlaceholder();
-			p.title = (TextView) row.findViewById(R.id.poi_placeholder_title);
+			p.title = (TextView) row.findViewById(R.id.info_placeholder_title);
 			// p.description = (TextView)
-			// row.findViewById(R.id.poi_placeholder_descr);
-			p.icon = (ImageView) row.findViewById(R.id.poi_placeholder_icon);
+			// row.findViewById(R.id.info_placeholder_descr);
+			p.icon = (ImageView) row.findViewById(R.id.info_placeholder_icon);
 
-			p.location = (TextView) row.findViewById(R.id.poi_placeholder_loc);
+			p.location = (TextView) row.findViewById(R.id.info_placeholder_loc);
 			row.setTag(p);
 		} else
 			p = (InfoPlaceholder) row.getTag();
