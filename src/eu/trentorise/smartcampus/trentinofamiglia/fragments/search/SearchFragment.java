@@ -44,6 +44,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.SearchHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.track.TrackListingFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.info.InfoListingFragment;
 
 public class SearchFragment extends Fragment {
 
@@ -135,9 +137,12 @@ public class SearchFragment extends Fragment {
 				} else if (CategoryHelper.CATEGORY_TYPE_POIS.equals(type)) {
 					fragment = new PoisListingFragment();
 				}
-				// else if (CategoryHelper.CATEGORY_TYPE_STORIES.equals(type)) {
-				// fragment = new StoriesListingFragment();
-				// }
+				 else if (CategoryHelper.CATEGORY_TYPE_INFOS.equals(type)) {
+				 fragment = new InfoListingFragment();
+				 }
+				 else if (CategoryHelper.CATEGORY_TYPE_TRACKS.equals(type)) {
+				 fragment = new TrackListingFragment();
+				 }
 
 				Bundle args = new Bundle();
 				if (selectedWhen != null)
