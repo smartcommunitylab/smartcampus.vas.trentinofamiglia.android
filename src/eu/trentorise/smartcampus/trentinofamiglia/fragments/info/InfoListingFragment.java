@@ -213,13 +213,13 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 			fragment = new SearchFragment();
 			Bundle args = new Bundle();
 			args.putString(SearchFragment.ARG_CATEGORY, category);
-			args.putString(CategoryHelper.CATEGORY_TYPE_POIS, CategoryHelper.CATEGORY_TYPE_POIS);
+			args.putString(CategoryHelper.CATEGORY_TYPE_INFOS, CategoryHelper.CATEGORY_TYPE_INFOS);
 			if (getArguments() != null && getArguments().containsKey(SearchFragment.ARG_MY)
 					&& getArguments().getBoolean(SearchFragment.ARG_MY))
 				args.putBoolean(SearchFragment.ARG_MY, getArguments().getBoolean(SearchFragment.ARG_MY));
 			fragment.setArguments(args);
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			fragmentTransaction.replace(R.id.frame_content, fragment, "tracks");
+			fragmentTransaction.replace(R.id.frame_content, fragment, "infos");
 			fragmentTransaction.addToBackStack(fragment.getTag());
 			fragmentTransaction.commit();
 			/* add category to bundle */

@@ -216,7 +216,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 			fragment = new SearchFragment();
 			Bundle args = new Bundle();
 			args.putString(SearchFragment.ARG_CATEGORY, category);
-			args.putString(CategoryHelper.CATEGORY_TYPE_POIS, CategoryHelper.CATEGORY_TYPE_POIS);
+			args.putString(CategoryHelper.CATEGORY_TYPE_TRACKS, CategoryHelper.CATEGORY_TYPE_TRACKS);
 			if (getArguments() != null && getArguments().containsKey(SearchFragment.ARG_MY)
 					&& getArguments().getBoolean(SearchFragment.ARG_MY))
 				args.putBoolean(SearchFragment.ARG_MY, getArguments().getBoolean(SearchFragment.ARG_MY));
