@@ -28,7 +28,8 @@
         <TextView
             android:id="@+id/list_title"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
+            android:minHeight="32dp"
             android:layout_marginTop="4dp"
             android:background="@color/dtappcolor"
             android:gravity="center_vertical"
