@@ -21,6 +21,6 @@ public interface MapItemsHandler {
 
 	public void setPOICategoriesToLoad(final String ... categories);
 	public void setEventCategoriesToLoad(final String ... categories);
-	public void setMiscellaneousToLoad(final String ... categories);
+	public void setMiscellaneousCategoriesToLoad(final String ... categories);
 
 }

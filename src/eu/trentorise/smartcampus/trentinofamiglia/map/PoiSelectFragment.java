@@ -142,7 +142,7 @@ public class PoiSelectFragment extends DialogFragment implements
 				else if(mReqType==REQUEST_TYPE.POI)
 					mCallback.setPOICategoriesToLoad(toLoad.toArray(new String[toLoad.size()]));
 				else
-					mCallback.setMiscellaneousToLoad(toLoad.toArray(new String[toLoad.size()]));
+					mCallback.setMiscellaneousCategoriesToLoad(toLoad.toArray(new String[toLoad.size()]));
 				getDialog().dismiss();
 			}
 		});
