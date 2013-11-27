@@ -34,7 +34,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -521,11 +520,7 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 						categories);
 
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
-				List<PoiObjectForBean> results = (List<PoiObjectForBean>) bundle.get(SearchFragment.ARG_LIST);
-				for (PoiObjectForBean storyBean : results) {
-					returnArray.add(storyBean.getObjectForBean());
-				}
-				return returnArray;
+				return (List<POIObject>) bundle.get(SearchFragment.ARG_LIST);
 			} else {
 				return Collections.emptyList();
 			}

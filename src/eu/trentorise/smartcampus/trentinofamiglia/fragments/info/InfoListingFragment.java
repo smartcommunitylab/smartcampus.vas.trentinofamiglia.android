@@ -344,11 +344,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
 						InfoObjectForBean.class, sort, categories);
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
-				List<InfoObjectForBean> results = (List<InfoObjectForBean>) bundle.get(SearchFragment.ARG_LIST);
-				for (InfoObjectForBean infoBean : results) {
-					returnArray.add(infoBean.getObjectForBean());
-				}
-				return returnArray;
+				return (List<InfoObject>) bundle.get(SearchFragment.ARG_LIST);
 			} else {
 				return Collections.emptyList();
 			}

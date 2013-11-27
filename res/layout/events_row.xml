@@ -35,14 +35,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp" >
+        android:background="@color/sc_light_gray"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="8dp"
             android:orientation="horizontal"
             android:weightSum="1" >
 
@@ -78,26 +81,23 @@
                 android:scaleType="fitCenter" />
         </LinearLayout>
 
-        <!-- <TextView -->
-        <!-- android:id="@+id/event_placeholder_descr" -->
-        <!-- android:layout_width="wrap_content" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:layout_margin="3dp" -->
-        <!-- android:background="@android:color/transparent" -->
-        <!-- android:textColor="@color/sc_light_gray" /> -->
-
         <TextView
             android:id="@+id/event_placeholder_loc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:background="@android:color/white"
+            android:paddingTop="4dp"
+            android:paddingLeft="8dp" />
 
         <TextView
             android:id="@+id/event_placeholder_hour"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:paddingTop="4dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="8dp"
             android:ellipsize="marquee"
+            android:background="@android:color/white"
             android:lines="1"
             android:maxLines="1" />
     </LinearLayout>

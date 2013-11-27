@@ -17,6 +17,6 @@
         android:background="@android:color/white"/>
     
     <View android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:background="@color/silver"/>
 </LinearLayout>

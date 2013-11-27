@@ -29,8 +29,7 @@
             android:id="@+id/list_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="32dp"
-            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
             android:background="@color/ligth_blue"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
@@ -40,7 +39,9 @@
         <ListView
             android:id="@+id/events_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
         <!--
          WORKAROUND for the list
          android:cacheColorHint="@android:color/transparent"
