@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                />
+                android:autoLink="web|all" />
 
             <TextView
                 android:id="@+id/event_details_date"
@@ -126,38 +126,8 @@
                 android:textStyle="italic" />
 
 
-            <View 
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/darker_gray" />
-
             <include layout="@layout/rating_block"/>
 
-            <View
-                android:id="@+id/event_comments_separator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/comments_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/comments"
-                android:textColor="@color/dtappcolor"
-                android:textStyle="bold" 
-                android:gravity="center"
-                android:padding="5dp"/>
-
-            <LinearLayout
-                android:id="@+id/comments_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 
