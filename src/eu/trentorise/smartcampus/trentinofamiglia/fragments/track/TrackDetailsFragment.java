@@ -131,7 +131,7 @@ public class TrackDetailsFragment extends Fragment {
 			}
 
 
-			commentsHandler  = new CommentsHandler(getTrack(), getActivity(), getView(), getLayoutInflater(getArguments())); 
+			commentsHandler  = new CommentsHandler(getTrack(), getActivity(), getView()); 
 		}
 	}
 

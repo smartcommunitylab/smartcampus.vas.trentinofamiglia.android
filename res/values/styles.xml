@@ -20,22 +20,22 @@
     <!-- Rating -->
     <style name="ratingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingstars</item>
-        <item name="android:minHeight">50dip</item>
-        <item name="android:maxHeight">50dip</item>
+        <item name="android:minHeight">30dip</item>
+        <item name="android:maxHeight">30dip</item>
         <item name="android:thumb">@null</item>
         <item name="android:isIndicator">true</item>
     </style>
     <style name="ratingBarItem" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingstars_item</item>
-        <item name="android:minHeight">36dip</item>
-        <item name="android:maxHeight">36dip</item>
+        <item name="android:minHeight">26dip</item>
+        <item name="android:maxHeight">26dip</item>
         <item name="android:thumb">@null</item>
         <item name="android:isIndicator">true</item>
     </style>
     
     <style name="ratingBarDlg" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingstars_dlg</item>
-        <item name="android:minHeight">70dip</item>
-        <item name="android:maxHeight">70dip</item>
+        <item name="android:minHeight">50dip</item>
+        <item name="android:maxHeight">50dip</item>
     </style>
 </resources>

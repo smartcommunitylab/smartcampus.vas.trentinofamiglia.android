@@ -195,7 +195,7 @@ public class PoiDetailsFragment extends Fragment {
 				}
 			});
 
-			commentsHandler  = new CommentsHandler(getPOI(), getActivity(), getView(), getLayoutInflater(getArguments())); 
+			commentsHandler  = new CommentsHandler(getPOI(), getActivity(), getView()); 
 
 		}
 	}

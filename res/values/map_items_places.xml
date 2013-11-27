@@ -3,7 +3,7 @@
     <string-array name="map_items_places_labels">
 
         <!-- this is an header -->
-        <item>"Luoghi"</item>
+        <item>"Posti certificati"</item>
         
         <item>""</item>
         <item>""</item>
