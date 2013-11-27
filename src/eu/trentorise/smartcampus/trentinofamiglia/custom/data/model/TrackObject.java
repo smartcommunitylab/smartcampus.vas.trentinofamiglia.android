@@ -35,6 +35,14 @@ public class TrackObject extends BaseDTObject implements Serializable{
 		}
 		return null;
 	}
+	
+	public double[] getLocation() {
+		if (decodedLine() != null && !decodedLine.isEmpty()) {
+			LatLng ll= decodedLine.get(0);
+			return new double[]{ll.latitude,ll.longitude};
+		}
+		return null;
+	}
 
 	/**
 	 * @return

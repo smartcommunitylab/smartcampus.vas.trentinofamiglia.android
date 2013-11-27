@@ -93,9 +93,8 @@ public class MapManager {
 	public static void fitMapWithOverlays(Collection<? extends BaseDTObject> objects, GoogleMap map) {
 		double[] llrr = null;
 		if (objects != null && !objects.isEmpty()) {
-			
 			for (BaseDTObject o : objects) {
-				if (o instanceof TrackObject) {
+				if (o instanceof TrackObject && objects.size()==1) {
 					double[] point = new double[2];
 					for (LatLng ll : ((TrackObject) o).decodedLine()) {
 						point[0] = ll.latitude;
