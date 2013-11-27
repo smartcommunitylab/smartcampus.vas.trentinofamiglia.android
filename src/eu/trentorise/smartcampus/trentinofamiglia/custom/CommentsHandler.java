@@ -63,6 +63,10 @@ public class CommentsHandler {
 		super();
 		this.activity = activity;
 		this.main = main;
+		if (!CategoryHelper.hasRatingForm(object)) {
+			main.findViewById(R.id.rating_block).setVisibility(View.GONE);
+			return;
+		}
 		TextView toggle = (TextView)main.findViewById(R.id.comments_tv);
 		ImageView toggleButton = (ImageView) main.findViewById(R.id.comments_button);
 		Button rateButton = (Button) main.findViewById(R.id.rate_button);

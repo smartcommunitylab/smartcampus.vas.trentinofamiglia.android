@@ -74,7 +74,7 @@
     <!-- Menu to be translated -->
     <string name="mapmenu_events"> Eventi</string>
     <string name="mapmenu_freetime"> Tempo libero e vacanze</string>
-    <string name="mapmenu_places"> Luoghi</string>
+    <string name="mapmenu_places"> Posti certificati</string>
     <string name="mapmenu_babies"> Neonati</string>
 
     <!-- Rating -->
