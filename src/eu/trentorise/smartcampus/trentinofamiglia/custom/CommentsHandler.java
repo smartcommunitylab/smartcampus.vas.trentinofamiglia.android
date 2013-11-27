@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
@@ -47,7 +48,6 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.Review;
  */
 public class CommentsHandler {
 
-	private TextView toggle = null;
 	private LinearLayout container = null;
 	private boolean commentsVisible = false;
 	
@@ -68,19 +68,26 @@ public class CommentsHandler {
 		this.activity = activity;
 		this.main = main;
 		this.inflatter = inflatter;
-		this.toggle = (TextView)main.findViewById(R.id.comments_tv);
+		TextView toggle = (TextView)main.findViewById(R.id.comments_tv);
+		final ImageView toggleButton = (ImageView) main.findViewById(R.id.comments_button);
 		this.container = (LinearLayout)main.findViewById(R.id.comments_list);
 		this.object = object;
-		this.toggle.setOnClickListener(new OnClickListener() {
+		
+		OnClickListener commentsListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				commentsVisible = !commentsVisible;
 				CommentsHandler.this.container.setVisibility(commentsVisible ? View.VISIBLE : View.GONE);
 				if (commentsVisible) {
+					toggleButton.setImageResource(R.drawable.up);
 					loadComments(CommentsHandler.this.container);
+				} else {
+					toggleButton.setImageResource(R.drawable.down);
 				}
 			}
-		});
+		};
+		toggle.setOnClickListener(commentsListener);
+		toggleButton.setOnClickListener(commentsListener);
 		
 		RatingBar rating = (RatingBar) main.findViewById(R.id.rating);
 		rating.setOnTouchListener(new View.OnTouchListener() {
@@ -195,7 +202,7 @@ public class CommentsHandler {
 				tmp = (TextView) entry.findViewById(R.id.comment_date);
 				tmp.setText(r.formattedDate());
 				RatingBar rb = (RatingBar) entry.findViewById(R.id.rating);
-				rb.setRating(r.getRating());
+				if (r.getRating() != null) rb.setRating(r.getRating());
 				container.addView(entry);
 			}
 			
