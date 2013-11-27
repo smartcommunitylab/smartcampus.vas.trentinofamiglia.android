@@ -30,12 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/dtappcolor"
+            android:background="@color/ligth_blue"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="dp"
-            android:textColor="@android:color/white" />
+            android:paddingRight="16dp"
+            android:textColor="@android:color/black" />
 
         <ListView
             android:id="@+id/infos_list"

@@ -37,9 +37,9 @@
         android:orientation="vertical"
         android:background="@color/sc_light_gray"
         android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
+        android:paddingLeft="4dp"
         android:paddingRight="8dp"
-        android:paddingTop="8dp" >
+        android:paddingTop="4dp" >
 
         <LinearLayout
             android:layout_width="match_parent"

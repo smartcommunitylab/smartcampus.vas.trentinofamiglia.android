@@ -347,14 +347,7 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
 						TrackObjectForBean.class, sort, categories);
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
-				if(((List<Object>)bundle.get(SearchFragment.ARG_LIST)).get(0) instanceof TrackObject){
-					return (List<TrackObject>) bundle.get(SearchFragment.ARG_LIST);
-				}
-				List<TrackObjectForBean> results = (List<TrackObjectForBean>) bundle.get(SearchFragment.ARG_LIST);
-				for (TrackObjectForBean trackBean : results) {
-					returnArray.add(trackBean.getObjectForBean());
-				}
-				return returnArray;
+				return (List<TrackObject>) bundle.get(SearchFragment.ARG_LIST);
 			} else {
 				return Collections.emptyList();
 			}

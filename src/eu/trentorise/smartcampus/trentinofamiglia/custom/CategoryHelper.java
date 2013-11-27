@@ -97,11 +97,11 @@ public class CategoryHelper {
 					CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI, R.string.categories_info_organizations), };
 
 	public static CategoryDescriptor[] TRACK_CATEGORIES = new CategoryDescriptor[] {
-			/* 1 */new CategoryDescriptor(R.drawable.ic_ciclopedonali_map, R.drawable.ic_bici, CAT_TRACK_PISTE_CICLOPEDONALI,
+			/* 1 */new CategoryDescriptor(R.drawable.ic_bici_map, R.drawable.ic_bici, CAT_TRACK_PISTE_CICLOPEDONALI,
 					R.string.categories_track_pedestrian),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_bici, R.drawable.ic_passeggiata, CAT_TRACK_PASSEGGIATE,
+			/* 2 */new CategoryDescriptor(R.drawable.ic_passeggiata_map, R.drawable.ic_passeggiata, CAT_TRACK_PASSEGGIATE,
 					R.string.categories_track_trekking),
-			/* 3 */new CategoryDescriptor(R.drawable.ic_bici, R.drawable.ic_bici,
+			/* 3 */new CategoryDescriptor(R.drawable.ic_bici_map, R.drawable.ic_bici,
 					CAT_TRACK_PISTA_CICLABILE, R.string.categories_track_bicycle), };
 
 	private static Map<String, String> categoryMapping = new HashMap<String, String>();
