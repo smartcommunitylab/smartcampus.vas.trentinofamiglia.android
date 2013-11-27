@@ -16,8 +16,6 @@
 
 package eu.trentorise.smartcampus.trentinofamiglia.custom;
 
-import com.google.android.gms.internal.ac;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,8 +24,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +64,8 @@ public class CommentsHandler {
 		this.activity = activity;
 		this.main = main;
 		TextView toggle = (TextView)main.findViewById(R.id.comments_tv);
-		final ImageView toggleButton = (ImageView) main.findViewById(R.id.comments_button);
+		ImageView toggleButton = (ImageView) main.findViewById(R.id.comments_button);
+		Button rateButton = (Button) main.findViewById(R.id.rate_button);
 		this.object = object;
 		
 		OnClickListener commentsListener = new OnClickListener() {
@@ -89,6 +88,12 @@ public class CommentsHandler {
 					ratingDialog();
 				}
 				return true;
+			}
+		});
+		rateButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ratingDialog();
 			}
 		});
 
