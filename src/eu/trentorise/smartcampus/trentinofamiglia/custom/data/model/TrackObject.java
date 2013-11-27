@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.trentinofamiglia.custom.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import android.content.Context;
@@ -10,7 +11,7 @@ import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 
-public class TrackObject extends BaseDTObject{
+public class TrackObject extends BaseDTObject implements Serializable{
 
 	/**
 	 * 
