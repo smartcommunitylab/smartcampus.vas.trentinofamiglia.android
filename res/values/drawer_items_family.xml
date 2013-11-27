@@ -9,17 +9,17 @@
         <item>"Politiche provinciali"</item>
         <item>"Politiche dei distretti"</item>
         <item>"Tavolo \"Nuovi Media\""</item>
-        <item>"Certificatori \"Audit\""</item>
+        <item>"Consulenti \"Audit\""</item>
         <item>"Valutatori \"Audit\""</item>
         <item>"Distretti e organizzazioni"</item>
     </string-array>
     <string-array name="drawer_items_family_icons">
-        <item>@drawable/ic_politics</item>
+        <item>@drawable/ic_provincia</item>
         <item>@drawable/ic_politics_district</item>
-        <item>@drawable/ic_nuovi_media</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_districts</item>
+        <item>@drawable/ic_media</item>
+        <item>@drawable/ic_consulenti</item>
+        <item>@drawable/ic_valutatori</item>
+        <item>@drawable/ic_district</item>
     </string-array>
 
 </resources>

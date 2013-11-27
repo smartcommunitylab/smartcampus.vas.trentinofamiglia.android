@@ -19,18 +19,18 @@
         android:background="@color/black_background"
         android:orientation="vertical" >
 
-
         <TextView
             android:id="@+id/nav_drawer_map_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@android:color/white"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_map"
             android:gravity="center"
             android:onClick="navDrawerOutItemClick"
             android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/nav_drawer_map"
-            android:textColor="@color/silver" />
+            android:textColor="@@android:color/black" />
 
         <ExpandableListView
             android:id="@+id/drawer_list"
