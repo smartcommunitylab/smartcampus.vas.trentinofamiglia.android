@@ -29,7 +29,6 @@
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:orientation="horizontal" 
         android:baselineAligned="false">
      
@@ -37,14 +36,15 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
             android:orientation="vertical">
             
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ratingtext_average"
-                android:textColor="@color/dtappcolor"
-                android:textStyle="bold" />
+<!--             <TextView -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:text="@string/ratingtext_average" -->
+<!--                 android:textColor="@color/dtappcolor" -->
+<!--                 android:textStyle="bold" /> -->
 
             <RatingBar
                 android:id="@+id/rating"
@@ -52,6 +52,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5" />
+
+            <TextView
+             android:id="@+id/rating_raters"
+             android:paddingLeft="5dp"
+             android:text="@string/ratingtext_raters"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+            
 		</LinearLayout>
 	
         <LinearLayout 
@@ -59,27 +67,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-                android:textColor="@color/dtappcolor"
-             android:text="@string/ratingtext_raters" 
-             android:textStyle="bold"/>
-
-            <TextView
-             android:id="@+id/rating_raters"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/rate_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rate_button" />
             
         </LinearLayout>
 	</LinearLayout>
 	
-	<View
-         android:layout_width="match_parent"
-         android:layout_height="1dp"
-         android:layout_marginBottom="4dp"
-         android:layout_marginTop="4dp"
-         android:background="@android:color/darker_gray" />
+<!-- 	<View -->
+<!--          android:layout_width="match_parent" -->
+<!--          android:layout_height="1dp" -->
+<!--          android:layout_marginBottom="4dp" -->
+<!--          android:layout_marginTop="4dp" -->
+<!--          android:background="@android:color/darker_gray" /> -->
 
      <TextView
          android:id="@+id/comments_tv"
@@ -96,13 +98,4 @@
              android:layout_height="wrap_content"
              android:src="@drawable/down" />
      
-     <LinearLayout
-         android:id="@+id/comments_list"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical" >
-
-
-     </LinearLayout>
-            
 </LinearLayout>

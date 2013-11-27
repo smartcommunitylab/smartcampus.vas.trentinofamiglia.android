@@ -16,19 +16,19 @@
 
 package eu.trentorise.smartcampus.trentinofamiglia.custom;
 
-import java.util.List;
+import com.google.android.gms.internal.ac;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import eu.trentorise.smartcampus.ac.AACException;
@@ -41,6 +41,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.ReviewHelper.ReviewHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.Review;
+import eu.trentorise.smartcampus.trentinofamiglia.fragments.ReviewListFragment;
 
 /**
  * @author raman
@@ -48,14 +49,11 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.Review;
  */
 public class CommentsHandler {
 
-	private LinearLayout container = null;
 	private boolean commentsVisible = false;
 	
-	private Activity activity = null;
-	private LayoutInflater inflatter;
+	private FragmentActivity activity = null;
 	private View main;
 	
-	private List<Review> data = null;
 	private BaseDTObject object = null;
 
 	/**
@@ -63,26 +61,20 @@ public class CommentsHandler {
 	 * @param toggle
 	 * @param container
 	 */
-	public CommentsHandler(BaseDTObject object, Activity activity, View main, LayoutInflater inflatter) {
+	public CommentsHandler(BaseDTObject object, FragmentActivity activity, View main) {
 		super();
 		this.activity = activity;
 		this.main = main;
-		this.inflatter = inflatter;
 		TextView toggle = (TextView)main.findViewById(R.id.comments_tv);
 		final ImageView toggleButton = (ImageView) main.findViewById(R.id.comments_button);
-		this.container = (LinearLayout)main.findViewById(R.id.comments_list);
 		this.object = object;
 		
 		OnClickListener commentsListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				commentsVisible = !commentsVisible;
-				CommentsHandler.this.container.setVisibility(commentsVisible ? View.VISIBLE : View.GONE);
 				if (commentsVisible) {
-					toggleButton.setImageResource(R.drawable.up);
-					loadComments(CommentsHandler.this.container);
-				} else {
-					toggleButton.setImageResource(R.drawable.down);
+					loadComments();
 				}
 			}
 		};
@@ -122,7 +114,7 @@ public class CommentsHandler {
 				rating.setRating(cd.getAverageRating());
 
 				// total raters
-				((TextView) main.findViewById(R.id.rating_raters)).setText(""+cd.getRatingsCount());
+				((TextView) main.findViewById(R.id.rating_raters)).setText(activity.getString(R.string.ratingtext_raters,""+cd.getRatingsCount()));
 			}
 		}
 
@@ -171,52 +163,17 @@ public class CommentsHandler {
 	}
 
 
-	private void loadComments(LinearLayout commentsList) {
-		new SCAsyncTask<Void, Void, List<Review>>(activity, new LoadCommentsProcessor(activity)).execute();
+	private void loadComments() {
+		FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+		ReviewListFragment fragment = new ReviewListFragment();
+		fragment.setArguments(ReviewListFragment.prepareArgs(object));
+
+		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		fragmentTransaction.replace(R.id.frame_content, fragment);
+		fragmentTransaction.addToBackStack(fragment.getTag());
+		fragmentTransaction.commit();
 	}
 
-	private class LoadCommentsProcessor extends AbstractAsyncTaskProcessor<Void, List<Review>> {
-		public LoadCommentsProcessor(Activity activity) {
-			super(activity);
-		}
-
-		@Override
-		public List<Review> performAction(Void... params) throws SecurityException, Exception {
-			if (data != null) return data;
-			return DTHelper.loadReviews(object.getId());
-		}
-
-		@Override
-		public void handleResult(List<Review> result) {
-			container.removeAllViews();
-			if (result == null || result.isEmpty()) {
-				ViewHelper.addEmptyListView(container);
-			}
-			data = result;
-			for (Review r : result) {
-				View entry = inflatter.inflate(R.layout.comment_row, null);
-				TextView tmp = (TextView) entry.findViewById(R.id.comment_text);
-				tmp.setText(r.getComment());
-				tmp = (TextView) entry.findViewById(R.id.comment_author);
-				tmp.setText(r.getAuthor());
-				tmp = (TextView) entry.findViewById(R.id.comment_date);
-				tmp.setText(r.formattedDate());
-				RatingBar rb = (RatingBar) entry.findViewById(R.id.rating);
-				if (r.getRating() != null) rb.setRating(r.getRating());
-				container.addView(entry);
-			}
-			
-			final ScrollView scroll = (ScrollView)main.findViewById(R.id.details_sv); 
-			scroll.post(new Runnable() {
-				@Override
-				public void run() {
-					scroll.fullScroll(View.FOCUS_DOWN);
-				}
-			});
-		}
-	}	
-	
-	
 	private class ReviewProcessor extends AbstractAsyncTaskProcessor<Review, CommunityData> implements ReviewHandler {
 
 		public ReviewProcessor(Activity activity) {
@@ -232,7 +189,6 @@ public class CommentsHandler {
 		public void handleResult(CommunityData result) {
 			object.setCommunityData(result);
 			updateRating();
-			data = null;
 			if (activity != null)
 				Toast.makeText(activity, R.string.rating_success, Toast.LENGTH_SHORT).show();
 		}
