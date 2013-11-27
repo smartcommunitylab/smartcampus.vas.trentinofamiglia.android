@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,10 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
 		TextView tv = (TextView) convertView
 				.findViewById(R.id.drawer_list_textview);
 		DrawerItem item = (DrawerItem) getChild(groupPosition, childPosition);
-		if (item.icon != null)
+		if (item.icon != null){
 			tv.setCompoundDrawablesWithIntrinsicBounds(item.icon, null, null,
 					null);
+		}
 		tv.setText(item.text);
 		return convertView;
 	}
@@ -81,9 +83,9 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.drawer_list_textview);
 		tv.setText((String) getGroup(groupPosition));
 		if (isExpanded) {
-			convertView.setBackgroundResource(R.drawable.selected_poi_list_bg);
+			convertView.setBackgroundResource(R.drawable.selected_drawer_header_bg);
 		} else {
-			convertView.setBackgroundResource(R.drawable.select_poi_list_bg);
+			convertView.setBackgroundResource(R.drawable.drawer_header_bg);
 
 		}
 		return convertView;

@@ -13,8 +13,7 @@
         android:layout_marginTop="6dp"
         android:gravity="center"
         android:padding="6dp"
-        android:background="@color/select_poi_green"
-        android:textColor="@android:color/white"
+        android:background="@color/ligth_blue"
         android:layout_alignParentTop="true"
         android:text="TextView" />
 
@@ -45,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:background="@color/select_poi_blue"
+            android:background="@color/highlight_blue"
             android:text="@string/map_view"
             android:textColor="@android:color/white" />
 
@@ -55,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_weight="0.5"
-            android:background="@color/select_poi_grey"
+            android:background="@color/silver"
             android:text="@android:string/cancel"
             android:textColor="@android:color/white" />
     </LinearLayout>

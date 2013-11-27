@@ -10,5 +10,5 @@
     <color name="path">#cc0000ff</color>
     <color name="ligth_blue">#b7d5e7</color>
     <color name="dark_blue">#2975a7</color>
-    
+    <color name="highlight_blue">#4ecdf9</color>
 </resources>
