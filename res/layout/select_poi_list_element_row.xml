@@ -11,6 +11,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:checked="false"
-        android:checkMark="?android:attr/textCheckMark"
+        android:checkMark="@drawable/checkbuttonmap"
         android:padding="@dimen/activity_horizontal_margin"/>
 </LinearLayout>
