@@ -35,7 +35,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black" />
 
         <ListView
             android:id="@+id/pois_list"
