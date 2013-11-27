@@ -1,41 +1,55 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/TrentinoFamigliaActionBar</item>
     </style>
 
-    <!-- Rating -->
-    <style name="ratingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/ratingstars</item>
-        <item name="android:minHeight">50dip</item>
-        <item name="android:maxHeight">50dip</item>
-        <item name="android:thumb">@null</item>
-        <item name="android:isIndicator">true</item>
+    <style name="TrentinoFamigliaActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/dark_blue</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
     </style>
-    <style name="ratingBarItem" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/ratingstars_item</item>
-        <item name="android:minHeight">36dip</item>
-        <item name="android:maxHeight">36dip</item>
-        <item name="android:thumb">@null</item>
-        <item name="android:isIndicator">true</item>
+
+    <style name="TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
     </style>
-    
-    <style name="ratingBarDlg" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/ratingstars_dlg</item>
-        <item name="android:minHeight">70dip</item>
-        <item name="android:maxHeight">70dip</item>
-    </style>
+
+<style name="ratingBar" parent="@android:style/Widget.RatingBar">
+
+    <item name="android:progressDrawable">@drawable/ratingstars</item>
+    <item name="android:minHeight">50dip</item>
+    <item name="android:maxHeight">50dip</item>
+    <item name="android:thumb">@null</item>
+    <item name="android:isIndicator">true</item>
+
+</style><style name="ratingBarItem" parent="@android:style/Widget.RatingBar">
+
+    <item name="android:progressDrawable">@drawable/ratingstars_item</item>
+    <item name="android:minHeight">36dip</item>
+    <item name="android:maxHeight">36dip</item>
+    <item name="android:thumb">@null</item>
+    <item name="android:isIndicator">true</item>
+
+</style><style name="ratingBarDlg" parent="@android:style/Widget.RatingBar">
+
+    <item name="android:progressDrawable">@drawable/ratingstars_dlg</item>
+    <item name="android:minHeight">70dip</item>
+    <item name="android:maxHeight">70dip</item>
+
+</style>
+
 </resources>
