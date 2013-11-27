@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 
 public class CategoryHelper {
 	
@@ -282,5 +284,8 @@ public class CategoryHelper {
 //
 //		return null;
 	}
-
+	public static boolean hasRatingForm(BaseDTObject obj) {
+		if (CAT_POI_TAVOLO_NUOVI_MEDIA.equals(obj.getType())) return false;
+		return !(obj instanceof InfoObject);
+	}
 }

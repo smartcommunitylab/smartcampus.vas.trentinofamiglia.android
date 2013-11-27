@@ -285,7 +285,7 @@ public class EventDetailsFragment extends Fragment {
 			} else {
 				tv.setText("");
 			}
-			commentsHandler  = new CommentsHandler(getEvent(), getActivity(), getView(), getLayoutInflater(getArguments())); 
+			commentsHandler  = new CommentsHandler(getEvent(), getActivity(), getView()); 
 		}
 
 	}

@@ -49,9 +49,6 @@
         android:logo="@drawable/familyapp_launcher"
         android:theme="@style/AppTheme" >
         
-<!--         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" /> -->
-        
-        
         <meta-data
             android:name="eu.trentorise.smartcampus.account.SHARED_PACKAGE"
             android:value="eu.trentorise.smartcampus.trentinofamiglia" />

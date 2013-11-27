@@ -1,5 +1,6 @@
 package eu.trentorise.smartcampus.trentinofamiglia.custom.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import android.content.Context;
@@ -10,7 +11,7 @@ import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 
-public class TrackObject extends BaseDTObject{
+public class TrackObject extends BaseDTObject implements Serializable{
 
 	/**
 	 * 
@@ -31,6 +32,14 @@ public class TrackObject extends BaseDTObject{
 	public LatLng startingPoint() {
 		if (decodedLine() != null && !decodedLine.isEmpty()) {
 			return decodedLine.get(0);
+		}
+		return null;
+	}
+	
+	public double[] getLocation() {
+		if (decodedLine() != null && !decodedLine.isEmpty()) {
+			LatLng ll= decodedLine.get(0);
+			return new double[]{ll.latitude,ll.longitude};
 		}
 		return null;
 	}
