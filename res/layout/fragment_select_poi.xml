@@ -14,8 +14,7 @@
         android:gravity="center"
         android:padding="6dp"
         android:background="@color/ligth_blue"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:layout_alignParentTop="true" />
 
     <ListView
         android:id="@+id/select_poi_listview"

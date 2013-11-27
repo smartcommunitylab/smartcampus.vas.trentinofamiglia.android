@@ -88,7 +88,7 @@ public class PoiSelectFragment extends DialogFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO externalize string
-		getDialog().setTitle("Pick some:");
+		getDialog().setTitle(getString(R.string.select_poi_title));
 		View v = inflater.inflate(R.layout.fragment_select_poi, container,
 				false);
 		return v;

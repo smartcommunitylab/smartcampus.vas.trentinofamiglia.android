@@ -99,5 +99,6 @@
     <string name="auth_required">Please sign in with your Google account. </string>
     
     <string name="comment_hint">Comment</string>
+    <string name="select_poi_title">Cosa vuoi vedere?</string>
     
 </resources>
