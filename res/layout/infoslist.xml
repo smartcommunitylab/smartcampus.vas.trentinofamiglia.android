@@ -29,18 +29,20 @@
             android:id="@+id/list_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="32dp"
+            android:minHeight="48dp"
             android:layout_marginTop="4dp"
             android:background="@color/dtappcolor"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingRight="dp"
             android:textColor="@android:color/white" />
 
         <ListView
             android:id="@+id/infos_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
         <!--
          WORKAROUND for the list
          android:cacheColorHint="@android:color/transparent"
