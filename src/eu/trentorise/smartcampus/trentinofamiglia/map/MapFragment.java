@@ -402,20 +402,24 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 							 * searchTodayEvents
 							 */
 							Collection<BaseDTObject> list = new ArrayList<BaseDTObject>();
-							list.addAll(DTHelper.getPOIByCategory(0, -1, pcat));
-
+							if(pcat.length>0)
+								list.addAll(DTHelper.getPOIByCategory(0, -1, pcat));
+							if(ecat.length>0)
+								list.addAll(DTHelper.getEventsByCategories(0, -1, ecat));
 							SortedMap<String, Integer> sort = new TreeMap<String, Integer>();
 							sort.put("title", 1);
-
-							Collection<TrackObjectForBean> result = DTHelper.searchInGeneral(
-									0, -1, null, null, null, false,
-									TrackObjectForBean.class, sort,
-									trackCategories
-											.toArray(new String[trackCategories
-													.size()]));
-
-							for (TrackObjectForBean trackBean : result) {
-								list.add(trackBean.getObjectForBean());
+							
+							if(trackCategories.size()>0){
+								Collection<TrackObjectForBean> result = DTHelper.searchInGeneral(
+										0, -1, null, null, null, false,
+										TrackObjectForBean.class, sort,
+										trackCategories
+												.toArray(new String[trackCategories
+														.size()]));
+	
+								for (TrackObjectForBean trackBean : result) {
+									list.add(trackBean.getObjectForBean());
+								}
 							}
 
 							return list;
