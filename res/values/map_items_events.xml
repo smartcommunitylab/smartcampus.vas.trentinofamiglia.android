@@ -9,7 +9,7 @@
         <item>"Alto Garda"</item>
     </string-array>
     <string-array name="map_items_events_icons">
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_summer</item>
+        <item>@drawable/ic_altogarda</item>
     </string-array>
 </resources>

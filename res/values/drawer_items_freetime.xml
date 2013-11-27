@@ -10,8 +10,8 @@
         <item>"Vacanze al mare"</item>
         </string-array>
     <string-array name="drawer_items_freetime_icons">
-        <item>@drawable/ic_piste_ciclopedonali</item>
-        <item>@drawable/ic_passeggiate</item>
-        <item>@drawable/ic_vacanze_al_mare</item>
+        <item>@drawable/ic_bici</item>
+        <item>@drawable/ic_passeggiata</item>
+        <item>@drawable/ic_beach</item>
         </string-array>
 </resources>
