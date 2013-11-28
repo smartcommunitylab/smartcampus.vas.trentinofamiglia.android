@@ -13,6 +13,7 @@
         android:gravity="left"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/app_name"
+        android:textStyle="bold"
         android:textColor="@android:color/white" />
         <TextView
         android:id="@+id/drawer_list_separator"

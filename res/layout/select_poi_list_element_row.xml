@@ -9,7 +9,7 @@
         android:text="@string/app_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="left"
+        android:gravity="center_vertical"
         android:checked="false"
         android:drawablePadding="8dp"
         android:checkMark="@drawable/checkbuttonmap"

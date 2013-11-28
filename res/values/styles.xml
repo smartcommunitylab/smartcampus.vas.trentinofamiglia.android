@@ -55,6 +55,7 @@
 <style name="textandligthgreen" parent="@android:style/Widget.TextView">
     <item name="android:textColor">@android:color/white</item>
      <item name="android:background">@color/ligth_green</item>
+     
 </style>
 
 </resources>
