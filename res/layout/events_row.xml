@@ -28,7 +28,8 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/my_events_row_front"
@@ -45,7 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:padding="8dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:orientation="horizontal"
             android:weightSum="1" >
 
@@ -59,22 +62,15 @@
                 <TextView
                     android:id="@+id/event_placeholder_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Medium" />
 
-                <TextView
-                    android:id="@+id/event_placeholder_place"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
-                    android:textAppearance="@android:style/TextAppearance.Medium" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/event_placeholder_icon"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.25"
                 android:contentDescription="@string/empty"

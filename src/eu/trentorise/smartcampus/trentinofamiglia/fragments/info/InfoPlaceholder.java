@@ -22,7 +22,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 
 public class InfoPlaceholder {
 	public InfoObject info;
-	public TextView title, notes, location, tags, source;
+	public TextView title, subtitle;
 	public ImageView icon;
 	public RatingBar rating;
 

@@ -57,6 +57,11 @@ public class InfoObject extends BaseDTObject{
 		return d;
 	}
 
-	
+	public String subtitle() {
+		if (CategoryHelper.CAT_INFO_POLITICHE_DEI_DISTRETTI.equals(getType()) && getCustomData().containsKey("actions")) {
+			return ""+getCustomData().get("district name");
+		}	
+		return null;
+	}
 	
 }

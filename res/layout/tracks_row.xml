@@ -38,7 +38,7 @@
             <TextView
                 android:id="@+id/track_placeholder_title"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_weight="0.75"
                 android:textAppearance="@android:style/TextAppearance.Medium" />
@@ -46,7 +46,7 @@
             <ImageView
                 android:id="@+id/track_placeholder_icon"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.25"
                 android:contentDescription="@string/empty"
@@ -60,7 +60,8 @@
             android:background="@android:color/white"
             android:paddingTop="4dp"
             android:paddingLeft="8dp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp" 
+            android:visibility="gone"/>
     </LinearLayout>
 
     
