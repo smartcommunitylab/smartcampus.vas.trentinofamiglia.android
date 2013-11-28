@@ -53,13 +53,16 @@ public class InfoAdapter extends ArrayAdapter<InfoObject> {
 			// row.findViewById(R.id.info_placeholder_descr);
 			p.icon = (ImageView) row.findViewById(R.id.info_placeholder_icon);
 
-			p.location = (TextView) row.findViewById(R.id.info_placeholder_loc);
+			p.subtitle = (TextView) row.findViewById(R.id.info_placeholder_subtitle);
 			row.setTag(p);
 		} else
 			p = (InfoPlaceholder) row.getTag();
 
 		p.info = getItem(position);// data[position];
 		p.title.setText(p.info.getTitle());
+		String subtitle = p.info.subtitle();
+		if (subtitle != null) p.subtitle.setText(subtitle);
+		else p.subtitle.setVisibility(View.GONE);
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(p.info.getType()));
 		p.icon.setImageDrawable(drawable);
 

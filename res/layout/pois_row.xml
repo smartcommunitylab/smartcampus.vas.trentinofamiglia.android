@@ -21,10 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/sc_light_gray"
         android:paddingBottom="4dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:background="@color/sc_light_gray"
         android:paddingTop="4dp" >
         
         <LinearLayout
@@ -32,7 +32,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@android:color/white"
-            android:padding="12dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:weightSum="1" >
 
             <TextView
@@ -45,7 +47,7 @@
             <ImageView
                 android:id="@+id/poi_placeholder_icon"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.25"
                 android:contentDescription="@string/empty"

@@ -37,21 +37,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="horizontal" 
-        android:layout_weight="0.3" >
+        android:layout_weight="0.3">
 
         <Button
             android:id="@+id/mapdialog_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/backstring" />
+            android:layout_weight="0.5"
+            android:background="@color/silver"
+            android:textColor="@android:color/white"
+            android:text="@string/backstring" 
+            android:layout_margin="4dp"/>
 
         <Button
             android:id="@+id/mapdialog_ok"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/showdetails" />
+            android:layout_weight="0.5"
+            android:background="@color/highlight_green"
+            android:text="@string/showdetails" 
+			android:textColor="@android:color/black" 
+			android:layout_margin="4dp"/>
     </LinearLayout>
 
 </LinearLayout>

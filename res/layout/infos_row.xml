@@ -26,13 +26,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
         android:background="@color/sc_light_gray" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="8dp"
             android:background="@android:color/white"
             android:weightSum="1" >
 
@@ -46,50 +50,26 @@
                 <TextView
                     android:id="@+id/info_placeholder_title"
                     android:layout_width="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Medium" />
 
                 <TextView
-                    android:id="@+id/info_placeholder_place"
+                    android:id="@+id/info_placeholder_subtitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Medium" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/info_placeholder_icon"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.25"
                 android:contentDescription="@string/empty"
                 android:scaleType="fitCenter" />
         </LinearLayout>
 
-
-
-        <TextView
-            android:id="@+id/info_placeholder_loc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:paddingTop="4dp"
-            android:paddingLeft="8dp" />
-
-        <TextView
-            android:id="@+id/info_placeholder_hour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingLeft="8dp"
-            android:paddingBottom="8dp"
-            android:ellipsize="marquee"
-            android:background="@android:color/white"
-            android:lines="1"
-            android:maxLines="1" />
     </LinearLayout>
 
 </LinearLayout>
