@@ -22,6 +22,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
@@ -61,7 +62,8 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		setSupportProgressBarIndeterminateVisibility(false);
 		setContentView(R.layout.activity_main);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -435,7 +437,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[1] = TAG_FRAGMENT_POI_LIST;
 				break;
 			case 3:
-				cat = CategoryHelper.CAT_INFO_CERTIFICATORI_AUDIT;
+				cat = CategoryHelper.CAT_INFO_CONSULENTI_AUDIT;
 				args.putString(SearchFragment.ARG_CATEGORY, cat);
 				break;
 			case 4:
@@ -476,7 +478,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			Exception res = null;
 
 			try {
-				syncRequired = DTHelper.SYNC_REQUIRED;//DTHelper.syncRequired();
+				syncRequired = DTHelper.syncRequired();
 			} catch (Exception e) {
 				res = e;
 			}

@@ -81,7 +81,7 @@
             android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.AUTH_URL"
-            android:value="https://vas-dev.smartcampuslab.it/aac" />
+            android:value="https://tn.smartcampuslab.it/aac" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.AUTHORITY_ARRAY" android:value="googlelocal"/>
         <meta-data

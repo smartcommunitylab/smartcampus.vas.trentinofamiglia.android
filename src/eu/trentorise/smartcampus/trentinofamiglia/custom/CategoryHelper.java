@@ -35,7 +35,7 @@ public class CategoryHelper {
 	public static final String CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI = "Distretti e organizzazioni";
 	public static final String CAT_INFO_POLITICHE_DEI_DISTRETTI = "Politiche dei distretti";
 	public static final String CAT_INFO_VALUTATORI_AUDIT = "Valutatori \"Audit\"";
-	public static final String CAT_INFO_CERTIFICATORI_AUDIT = "Certificatori \"Audit\"";
+	public static final String CAT_INFO_CONSULENTI_AUDIT = "Consulenti \"Audit\"";
 	public static final String CAT_INFO_POLITICHE_PROVINCIALI = "Politiche provinciali";
 	public static final String CAT_INFO_NOTIZIE = "Notizie";
 
@@ -86,7 +86,7 @@ public class CategoryHelper {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_provincia,
 					CAT_INFO_POLITICHE_PROVINCIALI, R.string.categories_info_provincial_politics),
 			/* 2 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_consulenti,
-					CAT_INFO_CERTIFICATORI_AUDIT, R.string.categories_info_certifiers),
+					CAT_INFO_CONSULENTI_AUDIT, R.string.categories_info_certifiers),
 			/* 3 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_valutatori,
 					CAT_INFO_VALUTATORI_AUDIT, R.string.categories_info_evaluators),
 			/* 4 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_politics_district,

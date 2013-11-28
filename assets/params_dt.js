@@ -29,7 +29,7 @@
 			    "type" : [
 			              "Estate giovani e famiglia", "Alto Garda", "\"Family Audit\"",
 			              "Vacanze al mare","Tavolo \"Nuovi Media\"","Punti allattamento","\"Family in Trentino\"",
-			              "Politiche provinciali","Certificatori \"Audit\"","Valutatori \"Audit\"",
+			              "Politiche provinciali","Consulenti \"Audit\"","Valutatori \"Audit\"",
 			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Passeggiate"
 			              ]
 	},
