@@ -31,7 +31,7 @@ public class InfoObject extends BaseDTObject{
 				d = d.replace("<p>", "").replace("</p>", "");
 			}
 		}
-		if (CategoryHelper.CAT_INFO_CERTIFICATORI_AUDIT.equals(getType()) && !getCustomData().isEmpty()) {
+		if (CategoryHelper.CAT_INFO_CONSULENTI_AUDIT.equals(getType()) && !getCustomData().isEmpty()) {
 			d += "<br/>"+ctx.getString(R.string.audit_person_date,getCustomData().get("date"));
 			d += "<br/><br/>email: "+getCustomData().get("email");
 		}

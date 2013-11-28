@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 
