@@ -19,7 +19,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -160,15 +159,11 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mListView = (ExpandableListView) findViewById(R.id.drawer_list);
 		navMenuTitles = getResources().getStringArray(R.array.fragments_label_array);
-//		setGroupIndicatortoRight();
 		NavDrawerAdapter nda = buildAdapter();
 		mListView.setAdapter(nda);
 		mListView.setOnChildClickListener(this);
 	}
-//	private void setGroupIndicatortoRight() {
-//		Display newDisplay = getWindowManager().getDefaultDisplay(); 
-//		mListView.setIndicatorBounds(mListView.getRight()- 40, mListView.getWidth());		
-//	}
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 	    super.onWindowFocusChanged(hasFocus);
