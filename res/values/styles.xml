@@ -21,7 +21,7 @@
     </style>
 
     <style name="TrentinoFamigliaActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/dark_blue</item>
+        <item name="android:background">@color/dark_green</item>
         <item name="android:titleTextStyle">@style/TitleTextStyle</item>
     </style>
 
@@ -52,6 +52,9 @@
     <item name="android:maxHeight">70dip</item>
 
 </style>
-
+<style name="textandligthgreen" parent="@android:style/Widget.TextView">
+    <item name="android:textColor">@android:color/white</item>
+     <item name="android:background">@color/ligth_green</item>
+</style>
 
 </resources>

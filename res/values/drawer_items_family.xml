@@ -4,7 +4,7 @@
     <string-array name="drawer_items_family_labels">
 
         <!-- this is an header -->
-        <item>"Politiche familiari"</item>
+        <item>"POLITICHE FAMILIARI"</item>
         
         <item>"Politiche provinciali"</item>
         <item>"Politiche dei distretti"</item>

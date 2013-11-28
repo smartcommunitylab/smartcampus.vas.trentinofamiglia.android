@@ -30,11 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:background="@color/ligth_blue"
+            style="@style/textandligthgreen"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:textColor="@android:color/black" />
+            android:paddingRight="16dp"/>
 
         <ListView
             android:id="@+id/events_list"

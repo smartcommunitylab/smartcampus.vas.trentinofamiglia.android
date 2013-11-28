@@ -3,7 +3,7 @@
     <string-array name="drawer_items_freetime_labels">
          
        <!-- this is an header -->
-        <item>"Tempo libero e vacanze"</item>
+        <item>"TEMPO LIBERO E VACANZE"</item>
         
         <item>"Piste ciclopedonali"</item>
         <item>"Passeggiate"</item>

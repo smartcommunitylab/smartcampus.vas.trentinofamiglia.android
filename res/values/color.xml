@@ -5,10 +5,14 @@
     <color name="silver">#ccc</color>
 <!--     <color name="dtappcolor_light">#BB8C81C1</color> -->
 <!--     <color name="dtappcolor">#8C81C1</color> -->
-    <color name="dtappcolor_light">#b7d5e7</color>
-    <color name="dtappcolor">#2975a7</color>
+    <color name="dtappcolor_light">#669966</color>
+    <color name="dtappcolor">#336633</color>
     <color name="path">#cc0000ff</color>
-    <color name="ligth_blue">#b7d5e7</color>
-    <color name="dark_blue">#2975a7</color>
-    <color name="highlight_blue">#4ecdf9</color>
+<!--     <color name="ligth_blue">#b7d5e7</color> -->
+<!--     <color name="dark_blue">#2975a7</color> -->
+<!--     <color name="highlight_blue">#4ecdf9</color> -->
+    
+    <color name="ligth_green">#669966</color>
+    <color name="dark_green">#336633</color>
+    <color name="highlight_green">#99cc33</color>
 </resources>

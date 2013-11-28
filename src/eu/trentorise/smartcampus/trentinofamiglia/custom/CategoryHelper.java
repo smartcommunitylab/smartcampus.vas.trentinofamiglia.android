@@ -171,13 +171,13 @@ public class CategoryHelper {
 	public static int getMapIconByType(String type) {
 		if (categoryMapping.containsKey(type))
 			return descriptorMap.get(categoryMapping.get(type)).map_icon;
-		return R.drawable.ic_marker_e_generic;
+		return R.drawable.ic_p_other;
 	}
 
 	public static int getIconByType(String type) {
 		if (categoryMapping.containsKey(type))
 			return descriptorMap.get(categoryMapping.get(type)).thumbnail;
-		return R.drawable.ic_e_other;
+		return R.drawable.ic_p_other;
 	}
 
 	public static class CategoryDescriptor {

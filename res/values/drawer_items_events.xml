@@ -3,7 +3,7 @@
     <string-array name="drawer_items_events_labels">
          
        <!-- this is an header -->
-        <item>"Events"</item>
+        <item>"EVENTI"</item>
         
         <item>"Estate giovani e famiglia"</item>
         <item>"Alto Garda"</item>

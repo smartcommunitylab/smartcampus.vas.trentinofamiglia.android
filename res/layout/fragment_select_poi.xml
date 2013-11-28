@@ -13,7 +13,7 @@
         android:layout_marginTop="6dp"
         android:gravity="center"
         android:padding="6dp"
-        android:background="@color/ligth_blue"
+        style="@style/textandligthgreen"
         android:layout_alignParentTop="true" />
 
     <ListView
@@ -43,9 +43,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:background="@color/highlight_blue"
+            android:background="@color/highlight_green"
             android:text="@string/map_view"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/select_poi_cancel"

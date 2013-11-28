@@ -6,6 +6,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
+	
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,8 +86,11 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
 		tv.setText((String) getGroup(groupPosition));
 		if (isExpanded) {
 			convertView.setBackgroundResource(R.drawable.selected_drawer_header_bg);
+			tv.setTextColor(context.getResources().getColor(android.R.color.black));
 		} else {
 			convertView.setBackgroundResource(R.drawable.drawer_header_bg);
+			tv.setTextColor(context.getResources().getColor(android.R.color.white));
+
 
 		}
 		return convertView;
