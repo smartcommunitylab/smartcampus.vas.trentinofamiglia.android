@@ -58,7 +58,11 @@ public class TrackObject extends BaseDTObject implements Serializable{
 	public String customDescription(Context ctx) {
 		String d = getDescription();
 		if (CategoryHelper.CAT_TRACK_PASSEGGIATE.equals(getType())) {
-			// TODO
+			String link = (String)getCustomData().get("link");
+			if (link != null && link.length() > 0) {
+				return d +"<br/>"+link;
+			}
+			
 		}
 		if (CategoryHelper.CAT_TRACK_PISTE_CICLOPEDONALI.equals(getType())) {
 			// TODO
