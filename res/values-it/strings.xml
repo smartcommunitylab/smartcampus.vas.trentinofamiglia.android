@@ -77,7 +77,7 @@
     <string name="rating_place_dialog_title">Valuta questo luogo:</string>
     <string name="rating_event_dialog_title">Valuta questo evento:</string>
     <string name="rating_success">La tua valutazione è stata salvata</string>
-    <string name="rate_button">Recensiona!</string>
+    <string name="rate_button">Valuta!</string>
     
     <string name="hotel_level">Livello famiglia: %s</string>
     <string name="hotel_cat">Categoria: %s stelle</string>

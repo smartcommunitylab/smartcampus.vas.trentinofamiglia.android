@@ -61,6 +61,9 @@ public class InfoObject extends BaseDTObject{
 		if (CategoryHelper.CAT_INFO_POLITICHE_DEI_DISTRETTI.equals(getType()) && getCustomData().containsKey("actions")) {
 			return ""+getCustomData().get("district name");
 		}	
+		if (CategoryHelper.CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI.equals(getType()) && !getCustomData().isEmpty()) {
+			return ""+getCustomData().get("district");
+		}	
 		return null;
 	}
 	
