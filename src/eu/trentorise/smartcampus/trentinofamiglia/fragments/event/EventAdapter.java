@@ -25,8 +25,6 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,8 +43,6 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 	private int layoutResourceId;
 	private int elementSelected = -1;
 	private boolean postProcAndHeader = true;
-	private int mLastPosition = -1;
-	
 	public EventAdapter(Context context, int layoutResourceId, boolean postProcAndHeader) {
 		super(context, layoutResourceId);
 		this.context = context;
@@ -105,25 +101,6 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 			e.dateSeparator.setVisibility(View.GONE);
 		}
 
-		// animate the item
-        TranslateAnimation animation = null;
-        if (position != mLastPosition) {
-//            animation = new TranslateAnimation(
-//                Animation.RELATIVE_TO_SELF,
-//                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-//                Animation.RELATIVE_TO_SELF, 1.0f,
-//                Animation.RELATIVE_TO_SELF, 0.0f);
-//
-//            animation.setDuration(600);
-//            row.startAnimation(animation);
-        	TranslateAnimation translateAnim = new TranslateAnimation(0, 0, 200, 0  );
-        	//Use (0, 0, 200, 0 ) if you would like to animate this in a mobile device rather than a tab
-        	row.clearAnimation();
-        	translateAnim.setDuration(500);   
-        	translateAnim.setFillBefore(true);   
-        	row.startAnimation(translateAnim);
-            mLastPosition = position;
-        }
 		return row;
 	}
 
