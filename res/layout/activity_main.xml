@@ -16,7 +16,7 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/black_background"
+        android:background="@android:color/white"
         android:orientation="vertical" >
 
         <TextView
@@ -26,10 +26,12 @@
             android:background="@android:color/white"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_map"
-            android:gravity="center"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:gravity="left|center_vertical"
             android:onClick="navDrawerOutItemClick"
             android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/nav_drawer_map"
+            android:textStyle="bold"
             android:textColor="@@android:color/black" />
 
         <ExpandableListView

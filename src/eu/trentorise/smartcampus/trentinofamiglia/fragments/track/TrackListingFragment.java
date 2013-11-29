@@ -252,14 +252,16 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 		TextView title = (TextView) getView().findViewById(R.id.list_title);
 		if (categoryString != null) {
 			title.setText(categoryString);
-		} else if (bundle != null && bundle.containsKey(SearchFragment.ARG_QUERY)) {
+		} 
+		if (bundle != null && bundle.containsKey(SearchFragment.ARG_QUERY)
+				&& bundle.getString(SearchFragment.ARG_QUERY) != null) {
 			String query = bundle.getString(SearchFragment.ARG_QUERY);
-			title.setText(context.getResources().getString(R.string.search_for) + "'" + query + "'");
-
-			if (bundle.containsKey(SearchFragment.ARG_CATEGORY_SEARCH)) {
-				category = bundle.getString(SearchFragment.ARG_CATEGORY_SEARCH);
+			title.setText(context.getResources().getString(R.string.search_for) + " ' " + query + " '");
+			if (bundle.containsKey(SearchFragment.ARG_CATEGORY)) {
+				category = bundle.getString(SearchFragment.ARG_CATEGORY);
 				if (category != null)
-					title.append(" " + context.getResources().getString(R.string.search_for) + " " + categoryString);
+					title.append(" " + context.getResources().getString(R.string.search_in_category) + " "
+							+ getString(catDescriptor.description));
 			}
 
 		}

@@ -27,27 +27,26 @@
 
         <TextView
             android:id="@+id/list_title"
+            style="@style/textandligthgreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="32dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/dtappcolor"
             android:gravity="center_vertical"
+            android:minHeight="48dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:textColor="@android:color/white" />
+            android:paddingRight="16dp" />
 
         <ListView
             android:id="@id/android:list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        
-         <TextView android:id="@id/android:empty"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:text="@string/content_empty"
-               android:padding="16dp"
-               android:textColor="@color/sc_dark_gray"/>
+
+        <TextView
+            android:id="@id/android:empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:text="@string/content_empty"
+            android:textColor="@color/sc_dark_gray" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -5,7 +5,7 @@
     <string name="app_failure_init">Failed to initialize ViviTrento application</string>
 
     <!-- MainActivity -->
-    <string name="nav_drawer_map">Map</string>
+    <string name="nav_drawer_map">MAP</string>
     <string name="action_poi">POIs</string>
     <string name="action_list">Lista</string>
     <string name="empty" />

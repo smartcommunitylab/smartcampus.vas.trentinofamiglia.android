@@ -437,7 +437,7 @@ public class MapManager {
 		Rect bounds = new Rect();
 		paint.getTextBounds(text, 0, text.length(), bounds);
 		float x = bitmap.getWidth() / 2;
-		float y = bitmap.getHeight() / 2;
+		float y = bitmap.getHeight() / 2 -5;
 		canvas.drawText(text, x, y, paint);
 
 		return bitmap;

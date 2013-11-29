@@ -4,7 +4,7 @@
     <string name="app_name">TrentinoFamiglia</string>
 
     <!-- MainActivity -->
-    <string name="nav_drawer_map">Map</string>
+    <string name="nav_drawer_map">MAP</string>
     <string name="action_poi">POIs</string>
 <!--     <string name="categories_event_concert">Concerti</string> -->
 <!--     <string name="categories_event_happyhour">Happy hour</string> -->
