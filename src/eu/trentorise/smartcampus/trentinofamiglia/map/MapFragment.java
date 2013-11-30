@@ -118,8 +118,8 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 			PoiSelectFragment psf = PoiSelectFragment.istantiate(this,
 					R.array.map_items_places_labels,
 					R.array.map_items_places_icons, REQUEST_TYPE.POI,
-					new String[] { CategoryHelper.POI_CATEGORIES[0].category,
-							CategoryHelper.POI_CATEGORIES[4].category });
+					new String[] { CategoryHelper.POI_CATEGORIES[4].category,
+							CategoryHelper.POI_CATEGORIES[0].category });
 			psf.show(getFragmentManager(), TAG_FRAGMENT_POI_SELECT);
 			return true;
 		} else if (item.getItemId() == R.id.action_poi_events) {
