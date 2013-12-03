@@ -49,6 +49,7 @@ public class CategoryHelper {
 	public static final String CAT_POI_PUNTI_ALLATTAMENTO = "Punti allattamento";
 	public static final String CAT_POI_VACANZE_AL_MARE = "Vacanze al mare";
 	public static final String CAT_POI_FAMILY_AUDIT = "\"Family Audit\"";
+	public static final String CAT_POI_BABY_LITTLE_HOME = "\"Baby little home\"";
 
 	public static final String CAT_EVENT_ALTO_GARDA = "Alto Garda";
 	public static final String CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA = "Estate giovani e famiglia";

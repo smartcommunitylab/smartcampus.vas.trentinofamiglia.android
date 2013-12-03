@@ -41,6 +41,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask.SCAsyncTaskProcessor;
 import eu.trentorise.smartcampus.android.common.listing.AbstractLstingFragment;
@@ -497,6 +498,8 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 
 			SortedMap<String, Integer> sort = new TreeMap<String, Integer>();
 			sort.put("title", 1);
+
+
 			if (bundle.containsKey(SearchFragment.ARG_CATEGORY) && (bundle.getString(SearchFragment.ARG_CATEGORY) != null)) {
 
 				result = DTHelper.searchInGeneral(params[0].position, params[0].size,
@@ -549,13 +552,17 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 		@Override
 		public List<POIObject> performAction(AbstractLstingFragment.ListingRequest... params) throws SecurityException,
 				Exception {
+			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
+				return Collections.emptyList();
+			}
 			return getPOIs(params);
 		}
 
 		@Override
 		public void handleResult(List<POIObject> result) {
-			// list.setAdapter(new PoiAdapter(context, R.layout.pois_row,
-			// result));
+			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
+				Toast.makeText(context, "Presto disponibile", Toast.LENGTH_LONG).show();
+			}
 			updateList(result == null || result.isEmpty());
 		}
 

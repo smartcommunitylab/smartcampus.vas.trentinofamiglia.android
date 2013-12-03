@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:clickable="true"
-            android:drawableLeft="@drawable/ic_map"
+            android:drawableLeft="@drawable/ic_info"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:gravity="left|center_vertical"
             android:onClick="navDrawerOutItemClick"
@@ -55,6 +55,9 @@
             android:text="@string/nav_drawer_info"
             android:textStyle="bold"
             android:textColor="@@android:color/black" />
+             <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ligth_green"/>
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
