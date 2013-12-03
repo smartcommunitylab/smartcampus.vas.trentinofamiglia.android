@@ -101,12 +101,16 @@ public class EventDetailsFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		if (mEvent != null) {
-			ImageView certifiedBanner = (ImageView) this.getView().findViewById(R.id.banner_certified);
-			if (CategoryHelper.FAMILY_CATEGORY_EVENT.equals(mEvent.getType()) && isCertified(mEvent))
-				certifiedBanner.setVisibility(View.VISIBLE);
-			else
-				certifiedBanner.setVisibility(View.GONE);
 
+			ImageView certifiedIcon = (ImageView) this.getView().findViewById(R.id.event_details_icon);
+			ImageView bannerCertifiedIcon = (ImageView) this.getView().findViewById(R.id.banner_certified);
+
+			if (CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA.equals(mEvent.getType()) && mEvent.isCertified())
+			{
+				bannerCertifiedIcon.setVisibility(View.VISIBLE);
+//
+			}
+			certifiedIcon.setImageDrawable(LocalEventObject.getIconsEventCertified(getActivity(), mEvent));
 			// title
 			TextView tv = (TextView) this.getView().findViewById(R.id.event_details_title);
 			tv.setText(mEvent.getTitle());
@@ -114,83 +118,7 @@ public class EventDetailsFragment extends Fragment {
 			/*
 			 * BUTTONS
 			 */
-			// follow/unfollow
-			// if (mStart) {
-			// ToggleButton followTbtn = (ToggleButton)
-			// this.getView().findViewById(R.id.event_details_follow_tbtn);
-			// if
-			// (getEvent().getCommunityData().getFollowing().containsKey(DTHelper.getUserId()))
-			// {
-			// followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-			// followTbtn.setChecked(true);
-			// } else {
-			// followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-			// followTbtn.setChecked(false);
-			// }
-			//
-			// followTbtn.setOnCheckedChangeListener(new
-			// OnCheckedChangeListener() {
-			// @Override
-			// public void onCheckedChanged(CompoundButton buttonView, boolean
-			// isChecked) {
-			// if (!mCanceledFollow) {
-			// if (isChecked) {
-			// // FOLLOW
-			// {
-			// SCAsyncTask<Object, Void, BaseDTObject> followTask = new
-			// SCAsyncTask<Object, Void, BaseDTObject>(
-			// getActivity(), new FollowAsyncTaskProcessor(getActivity(),
-			// buttonView));
-			// followTask.execute(mEvent);
-			// }
-			// } else {
-			// // UNFOLLOW
-			// SCAsyncTask<BaseDTObject, Void, BaseDTObject> unfollowTask = new
-			// SCAsyncTask<BaseDTObject, Void, BaseDTObject>(
-			// getActivity(), new UnfollowAsyncTaskProcessor(getActivity(),
-			// buttonView));
-			// unfollowTask.execute(mEvent);
-			//
-			// }
-			// } else {
-			// mCanceledFollow = false;
-			// }
-			// }
-			// });
-			// }
-			//
-			// // attend
-			// ToggleButton attendTbtn = (ToggleButton)
-			// this.getView().findViewById(R.id.event_details_attend_tbtn);
-			// if (getEvent().getAttending() == null ||
-			// getEvent().getAttending().isEmpty()) {
-			// attendTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-			// attendTbtn.setChecked(false);
-			// } else {
-			// attendTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-			// attendTbtn.setChecked(true);
-			// }
-			//
-			// attendTbtn.setOnCheckedChangeListener(new
-			// OnCheckedChangeListener() {
-			// @Override
-			// public void onCheckedChanged(CompoundButton buttonView, boolean
-			// isChecked) {
-			// // if (new
-			// // AMSCAccessProvider().isUserAnonymous(getActivity()))
-			// // {
-			// // // show dialog box
-			// // UserRegistration.upgradeuser(getActivity());
-			// // } else
-			// {
-			// new SCAsyncTask<Boolean, Void, LocalEventObject>(getActivity(),
-			// new AttendProcessor(
-			// getActivity(), buttonView)).execute(getEvent().getAttending() ==
-			// null
-			// || getEvent().getAttending().isEmpty());
-			// }
-			// }
-			// });
+		
 
 			// map
 			ImageButton mapBtn = (ImageButton) getView().findViewById(R.id.event_details_map);

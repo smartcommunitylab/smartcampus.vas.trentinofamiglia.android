@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
@@ -18,7 +19,7 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 	private POIObject poi = null;
 	boolean poiIdUserDefined = false;
 	private String description = null;
-
+	private static final String CERTIFIED = "certified";
 	public boolean isPoiIdUserDefined() {
 		return poiIdUserDefined;
 	}
@@ -66,6 +67,21 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 	public boolean createdByUser() {
 		return true;
 	}
+	
+	public boolean isCertified(){
+		if (getCustomData()!=null && getCustomData().get(CERTIFIED) !=null)
+				return true;
+		return false;
+	}
+	public  static Drawable getIconsEventCertified(Context context, LocalEventObject o) {
+		
+		if (o.isCertified()) {
+			/* se ceretificato e evento */
+			return context.getResources().getDrawable(R.drawable.ic_e_family_certified);
+		}
+		return context.getResources().getDrawable(CategoryHelper.getIconByType(o.getType()));
+	}
+	
 	
 	public void setEventFromEventObjectForBean(EventObjectForBean event){
 		setAttendees(event.getObjectForBean().getAttendees());

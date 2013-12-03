@@ -1,6 +1,5 @@
 package eu.trentorise.smartcampus.trentinofamiglia.map;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,6 +11,7 @@ import java.util.TreeMap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,10 +38,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import eu.trentorise.smartcampus.android.common.SCAsyncTask;
-import eu.trentorise.smartcampus.protocolcarrier.exceptions.ConnectionException;
-import eu.trentorise.smartcampus.protocolcarrier.exceptions.ProtocolException;
-import eu.trentorise.smartcampus.storage.DataException;
-import eu.trentorise.smartcampus.storage.StorageConfigurationException;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.territoryservice.model.EventObject;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
@@ -57,12 +53,14 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventDetailsFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
-import eu.trentorise.smartcampus.trentinofamiglia.fragments.info.InfoListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoiDetailsFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.track.TrackListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.PoiSelectFragment.REQUEST_TYPE;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.ApkDownloaderTask;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.AppTask;
 
 public class MapFragment extends Fragment implements MapItemsHandler,
 		OnCameraChangeListener, OnMarkerClickListener, MapObjectContainer {
@@ -73,7 +71,8 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 	public static final String ARG_OBJECTS = "objects";
 	public static final String ARG_TRACK_CATEGORY = "track_category";
 	protected GoogleMap mMap;
-
+	private AppTask mAppTask;
+	private ApkDownloaderTask mDownloaderTask;
 	private String[] poiCategories = null;
 	private String[] eventsCategories = null;
 	private String[] tracksCategories = null;
@@ -82,7 +81,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 
 	private boolean loaded = false;
 	private boolean listmenu = false;
-
+	private ApkInstaller apkI= new ApkInstaller();
 	private static View view;
 
 	@Override
@@ -104,6 +103,15 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.map_menu, menu);
+		SharedPreferences settings = getActivity().getSharedPreferences(ApkInstaller.PREFS_NAME, 0);
+//		MenuItem item = menu.getItem(0).setVisible(settings.getBoolean("to_be_updated", false));
+//
+//		if (listmenu) {
+//			menu.getItem(1).setVisible(false);
+//		} else {
+//			menu.getItem(2).setVisible(false);
+//		}
+
 		if (listmenu) {
 			menu.getItem(0).setVisible(false);
 		} else {
@@ -194,7 +202,20 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 
 		ft.commit();
 	}
-
+	
+	private void startNewAppTask() {
+		// Stopping task
+		stopAnyActiveAppTask();
+		// Starting new one
+		mAppTask = apkI.new AppTask(getActivity());
+		mAppTask.execute();
+	}
+	
+	private void stopAnyActiveAppTask() {
+		if (mAppTask != null && !mAppTask.isCancelled()) {
+			mAppTask.cancel(true);
+		}
+	}
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -204,7 +225,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		imm.hideSoftInputFromWindow(
 				getActivity().findViewById(R.id.frame_content).getWindowToken(),
 				0);
-
+		startNewAppTask();
 		if (!loaded) {
 			String key = getString(R.string.view_intent_arg_object_id);
 			if (getActivity().getIntent() != null
@@ -218,6 +239,10 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 			}
 			loaded = true;
 		}
+		else {
+			initView();
+			}
+		 
 	}
 
 	@Override

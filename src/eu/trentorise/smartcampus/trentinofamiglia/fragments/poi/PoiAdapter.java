@@ -15,6 +15,9 @@
  ******************************************************************************/
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.poi;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -28,6 +31,8 @@ import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.POIHelper;
 
 public class PoiAdapter extends ArrayAdapter<POIObject> {
 
@@ -35,6 +40,7 @@ public class PoiAdapter extends ArrayAdapter<POIObject> {
 	private int layoutResourceId;
 	private int elementSelected = -1;
 
+	
 	public PoiAdapter(Context context, int layoutResourceId) {
 		super(context, layoutResourceId);
 		this.context = context;
@@ -62,23 +68,27 @@ public class PoiAdapter extends ArrayAdapter<POIObject> {
 		p.poi = getItem(position);// data[position];
 		p.title.setText(p.poi.getTitle());
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(p.poi.getType()));
-		if (CategoryHelper.FAMILY_CATEGORY_POI.equals(p.poi.getType()))
-			drawable = poiCertified(p.poi);
+		if (CategoryHelper.CAT_POI_FAMILY_IN_TRENTINO.equals(p.poi.getType())){
+			drawable = POIHelper.getDrawablePoiFamilyTrentino(context,p.poi);
+		}
+		else if (CategoryHelper.CAT_POI_FAMILY_AUDIT.equals(p.poi.getType())){
+			drawable = POIHelper.getDrawablePoiFamilyAuditAdapter(context,p.poi);
+		}
 		p.icon.setImageDrawable(drawable);
 		p.location.setText(Utils.getPOIshortAddress(p.poi));
 
 		return row;
 	}
+//	private Drawable eventCertified(LocalEventObject o) {
+//		
+//		if (o.isCertified()) {
+//			/* se ceretificato e evento */
+//			return context.getResources().getDrawable(R.drawable.ic_e_family_certified);
+//		}
+//
+//		return context.getResources().getDrawable(CategoryHelper.getIconByType(o.getType()));
+//	}
 
-	private Drawable poiCertified(POIObject poi) {
-		String status = (String) poi.getCustomData().get("status");
-		if (("Certificato finale").equals(status) || ("Certificato base").equals(status)) {
-			/* se ceretificato e evento */
-			return context.getResources().getDrawable(R.drawable.ic_e_family_certified);
-		}
-
-		return context.getResources().getDrawable(CategoryHelper.getIconByType(poi.getType()));
-	}
 
 	public int getElementSelected() {
 		return elementSelected;

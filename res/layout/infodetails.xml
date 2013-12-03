@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent" >
 
-       <LinearLayout
+        <LinearLayout
             android:id="@+id/infodetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,14 +40,22 @@
                 android:textAppearance="@android:style/TextAppearance.Large"
                 android:textColor="@color/dtappcolor" />
 
+            <ImageView
+                android:id="@+id/info_details_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="4dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/empty" />
+
             <TextView
                 android:id="@+id/info_details_descr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:autoLink="web|all" />
-
-         </LinearLayout>   
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

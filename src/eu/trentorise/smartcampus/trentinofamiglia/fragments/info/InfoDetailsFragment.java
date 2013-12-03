@@ -15,6 +15,7 @@
  ******************************************************************************/
 package eu.trentorise.smartcampus.trentinofamiglia.fragments.info;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -23,9 +24,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 
@@ -66,6 +69,9 @@ public class InfoDetailsFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		if (getInfo() != null) {
+			ImageView certifiedIcon = (ImageView) this.getView().findViewById(R.id.info_details_icon);
+			Drawable icon = null;
+			certifiedIcon.setImageDrawable(getResources().getDrawable(CategoryHelper.getIconByType(mInfo.getType())));
 			// title
 			TextView tv = (TextView) this.getView().findViewById(R.id.info_details_title);
 			tv.setText(mInfo.getTitle());

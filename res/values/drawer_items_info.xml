@@ -4,7 +4,7 @@
     <string-array name="drawer_items_places_labels">
 
         <!-- this is an header -->
-        <item>"POSTI CERTIFICATI"</item>
+        <item>"ORGANIZZAZIONI CERTIFICATE"</item>
         
         <item></item>
         <item></item>

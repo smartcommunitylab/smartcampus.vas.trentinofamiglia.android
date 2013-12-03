@@ -1,6 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:eu.trentorise.smartcampus.trentinofamiglia="http://schemas.android.com/apk/res-auto" >
+<!--      <item -->
+<!--         android:id="@+id/to_be_update" -->
+<!--         android:icon="@drawable/ic_app_update" -->
+<!--         android:menuCategory="system" -->
+<!--         android:orderInCategory="5" -->
+<!--         android:showAsAction="always" -->
+<!--         android:title="@string/to_be_updated"> -->
 
+<!--     </item> -->
     <item
         android:id="@+id/action_poi"
         android:icon="@drawable/ic_location_actionbar"
