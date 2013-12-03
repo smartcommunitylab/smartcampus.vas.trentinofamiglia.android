@@ -77,9 +77,10 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		//e.hour.setText(e.event.getTimingFormatted());
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(e.event.getType()));
 
-		if (CategoryHelper.FAMILY_CATEGORY_EVENT.equals(e.event.getType()))
-			drawable = eventCertified(e.event);
+		if (CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA.equals(e.event.getType()))
+			drawable = LocalEventObject.getIconsEventCertified(context,e.event);
 		e.icon.setImageDrawable(drawable);
+		
 		// Choose if show the separator or not
 		LocalEventObject event = getItem(position);
 
@@ -104,15 +105,7 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		return row;
 	}
 
-	private Drawable eventCertified(LocalEventObject o) {
-		
-		if (o.getCustomData()!=null && ((Boolean) o.getCustomData().get("certified"))) {
-			/* se ceretificato e evento */
-			return context.getResources().getDrawable(R.drawable.ic_e_family_certified);
-		}
 
-		return context.getResources().getDrawable(CategoryHelper.getIconByType(o.getType()));
-	}
 
 	private String setDateString(EventPlaceholder e) {
 		String newdateformatted = new String("");

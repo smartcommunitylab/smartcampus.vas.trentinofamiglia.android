@@ -18,6 +18,7 @@ package eu.trentorise.smartcampus.trentinofamiglia.fragments.poi;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.POIHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventsListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
@@ -87,12 +89,21 @@ public class PoiDetailsFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		if (getPOI() != null) {
-			ImageView certifiedBanner = (ImageView) this.getView().findViewById(R.id.banner_certified);
-			if (CategoryHelper.FAMILY_CATEGORY_POI.equals(mPoi.getType()) && isCertified(mPoi)) {
-				certifiedBanner.setVisibility(View.VISIBLE);
-			} else {
-				certifiedBanner.setVisibility(View.GONE);
+			ImageView certifiedIcon = (ImageView) this.getView().findViewById(R.id.poi_details_icon);
+			ImageView bannerCertifiedIcon = (ImageView) this.getView().findViewById(R.id.banner_certified);
+
+			Drawable icon = null;
+			if (CategoryHelper.CAT_POI_FAMILY_IN_TRENTINO.equals(mPoi.getType())){
+				icon = POIHelper.getDrawablePoiFamilyTrentinoDetail(getActivity(),mPoi);
+				bannerCertifiedIcon.setVisibility(View.VISIBLE);
 			}
+			else if (CategoryHelper.CAT_POI_FAMILY_AUDIT.equals(mPoi.getType())){
+				icon = POIHelper.getDrawablePoiFamilyAuditDetail(getActivity(),mPoi);
+				bannerCertifiedIcon.setVisibility(View.VISIBLE);
+
+			}
+			certifiedIcon.setImageDrawable(icon);
+
 			// title
 			TextView tv = (TextView) this.getView().findViewById(R.id.poi_details_title);
 			tv.setText(mPoi.getTitle());
@@ -100,43 +111,7 @@ public class PoiDetailsFragment extends Fragment {
 			/*
 			 * BUTTONS
 			 */
-//			// follow/unfollow
-//			if (mStart) {
-//				ToggleButton followTbtn = (ToggleButton) this.getView().findViewById(R.id.poidetails_follow_tbtn);
-//				if (mPoi.getCommunityData().getFollowing().containsKey(DTHelper.getUserId())) {
-//					followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_on);
-//					followTbtn.setChecked(true);
-//				} else {
-//					followTbtn.setBackgroundResource(R.drawable.ic_btn_monitor_off);
-//					followTbtn.setChecked(false);
-//				}
-//
-//				followTbtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//						if (!mCanceledFollow) {
-//							if (isChecked) {
-//								// FOLLOW
-//								{
-//									SCAsyncTask<Object, Void, BaseDTObject> followTask = new SCAsyncTask<Object, Void, BaseDTObject>(
-//											getSherlockActivity(), new FollowAsyncTaskProcessor(getSherlockActivity(),
-//													buttonView));
-//									followTask.execute(mPoi);
-//								}
-//							} else {
-//								// UNFOLLOW
-//								SCAsyncTask<BaseDTObject, Void, BaseDTObject> unfollowTask = new SCAsyncTask<BaseDTObject, Void, BaseDTObject>(
-//										getSherlockActivity(), new UnfollowAsyncTaskProcessor(getSherlockActivity(),
-//												buttonView));
-//								unfollowTask.execute(mPoi);
-//
-//							}
-//						} else {
-//							mCanceledFollow = false;
-//						}
-//					}
-//				});
-//			}
+
 
 			// map
 			ImageButton mapBtn = (ImageButton) getView().findViewById(R.id.poidetails_map);

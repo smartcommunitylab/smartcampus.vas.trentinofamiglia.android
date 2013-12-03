@@ -1,0 +1,68 @@
+<!--
+  Copyright 2012-2013 Trento RISE
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either   express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources>
+
+  
+
+
+<!--     <string name="smartcampus_auth_url">https://ac.smartcampuslab.it/ac-service-provider-web/ac/</string> -->
+<!--     <string name="smartcampus_app_url">https://vas.smartcampuslab.it</string>     -->
+<!--     <string name="smartcampus_auth_url"> https://tn.smartcampuslab.it/accesstoken-provider/ac</string> -->
+<!--     <string name="smartcampus_app_url">https://tn.smartcampuslab.it</string> -->
+    <string name="smartcampus_auth_url"> https://vas-dev.smartcampuslab.it/accesstoken-provider/ac</string>
+    <string name="smartcampus_app_url">https://vas-dev.smartcampuslab.it</string>
+
+    
+    <string name="smartcampus_url_apk">http://www.smartcampuslab.it/download/VAS/apk/</string>
+    
+    <string-array name="apk_filename">
+        <item>eu.trentorise.smartcampus.trentinofamiglia.apk</item>        
+    </string-array>
+    
+    <string-array name="app_labels">
+        <item>TrentinoFamiglia</item>
+        
+    </string-array>
+    
+    <string-array name="app_packages">
+        <item>eu.trentorise.smartcampus.trentinofamiglia</item>
+    </string-array>
+    
+    
+    
+    <string-array name="app_urls">
+        <item>http://www.smartcampuslab.it/download/VAS/apk/smartcampus.vas.trentinofamiglia.apk</item>        
+    </string-array>
+    
+    <integer-array name="app_version">
+        <item>1</item>  		<!-- TrentinoFamiglia -->
+    
+    </integer-array>
+    
+    <string-array name="app_backgrounds">
+        <item>#FFFFFF</item>       
+    </string-array>
+
+    <array name="app_icons">
+        <item>@drawable/familyapp_launcher</item>
+      
+    </array>
+    
+    <array name="app_gray_icons">
+        <item>@drawable/familyapp_launcher</item>     
+    </array>
+
+</resources>

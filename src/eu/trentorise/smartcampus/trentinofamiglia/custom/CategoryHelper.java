@@ -22,9 +22,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
+import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 
 public class CategoryHelper {
 	
@@ -63,6 +68,7 @@ public class CategoryHelper {
 
 	public static final String CATEGORY_TODAY = "Today";
 	public static final String CATEGORY_MY = "My";
+
 
 	public static CategoryDescriptor[] EVENT_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_estate_map, R.drawable.ic_summer,
@@ -127,26 +133,25 @@ public class CategoryHelper {
 		for (String s : descriptorMap.keySet()) {
 			categoryMapping.put(s, s);
 		}
-//		// custom categories for events
-//		categoryMapping.put("Dances", "Theaters");
-//		// custom categories for POIs
-//		categoryMapping.put("biblioteca", "Libraries");
-//		categoryMapping.put("museo", "Museums");
-//		categoryMapping.put("esposizione", "Museums");
-//		categoryMapping.put("arte", "Museums");
-//		// categoryMapping.put("luogo", POI_NONCATEGORIZED);
-//		categoryMapping.put("ufficio", "Offices");
-//		// categoryMapping.put("sala", POI_NONCATEGORIZED);
-//		categoryMapping.put("teatro", "Theater");
-//		categoryMapping.put("musica", "Theater");
-//		categoryMapping.put("universita", "University");
-//		categoryMapping.put("bar", "Drink");
-//		categoryMapping.put("ristorante", "Food");
-//		categoryMapping.put("Lodging", "Accomodation");
-//		// categoryMapping.put("Other", POI_NONCATEGORIZED);
-//		// categoryMapping.put("ou", POI_NONCATEGORIZED);
-	}
 
+	}
+	public static Map<String, Integer> poiSubtypeCertifiedDrawableMap = new HashMap<String, Integer>(){{
+		put("Comuni",R.drawable.familytn_comune);
+		put("Musei",R.drawable.familytn_musei);
+		put("Strutture alberghiere",R.drawable.familytn_strutturealberghiere);
+		put("Pubblici esercizi",R.drawable.familytn_pubblici_esercizi);
+		put("Servizi per bambini e ragazzi",R.drawable.familytn_servizi_bambini);
+		put("Associazioni sportive",R.drawable.familytn_asso_sportive);
+	}};
+	public static Map<String, Integer> poiSubtypeCertifiedDrawableMapHor = new HashMap<String, Integer>(){{
+		put("Comuni",R.drawable.familytn_comune_hor);
+		put("Musei",R.drawable.familytn_musei_hor);
+		put("Strutture alberghiere",R.drawable.familytn_strutturealberghiere_hor);
+		put("Pubblici esercizi",R.drawable.familytn_pubblici_esercizi_hor);
+		put("Servizi per bambini e ragazzi",R.drawable.familytn_servizi_bambini_hor);
+		put("Associazioni sportive",R.drawable.familytn_asso_sportive_hor);
+	}};
+	
 	public static String[] getAllCategories(Set<String> set) {
 		List<String> result = new ArrayList<String>();
 		for (String key : categoryMapping.keySet()) {
@@ -261,29 +266,9 @@ public class CategoryHelper {
 	public static CategoryDescriptor getCategoryDescriptorByCategoryFiltered(String type, String cat) {
 		return descriptorMap.get(cat);
 		
-//		CategoryDescriptor[] cdarray = null;
-//
-//		if (type.equalsIgnoreCase(CATEGORY_TYPE_POIS)) {
-//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(POI_CATEGORIES, type);
-//		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_EVENTS)) {
-//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(EVENT_CATEGORIES, type);
-//		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_INFOS)) {
-//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(INFO_CATEGORIES, type);
-//		} else if (type.equalsIgnoreCase(CATEGORY_TYPE_TRACKS)) {
-//			cdarray = DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, type);
-//		}
-//
-//		if (cdarray != null) {
-//			for (int i = 0; i < cdarray.length; i++) {
-//				CategoryDescriptor cd = cdarray[i];
-//				if (cd.category.equalsIgnoreCase(cat)) {
-//					return cd;
-//				}
-//			}
-//		}
-//
-//		return null;
 	}
+	
+	
 	public static boolean hasRatingForm(BaseDTObject obj) {
 		if (CAT_POI_TAVOLO_NUOVI_MEDIA.equals(obj.getType())) return false;
 		return !(obj instanceof InfoObject);

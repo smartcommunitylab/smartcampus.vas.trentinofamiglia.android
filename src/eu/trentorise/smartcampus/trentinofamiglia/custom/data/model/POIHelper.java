@@ -17,6 +17,8 @@
 package eu.trentorise.smartcampus.trentinofamiglia.custom.data.model;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
@@ -26,7 +28,9 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
  *
  */
 public class POIHelper {
-
+	private static final String SUBTYPE = "subtype";
+	private static final String CERTIFIED = "certified";
+	private static final String STATUS = "status";
 	public static String customDescription(POIObject poi, Context ctx) {
 		String d = poi.getDescription();
 		if (CategoryHelper.CAT_POI_VACANZE_AL_MARE.equals(poi.getType())) {
@@ -45,7 +49,7 @@ public class POIHelper {
 			d +=poi.getCustomData().get("link")+"<br/>";
 		}	
 		if (CategoryHelper.CAT_POI_FAMILY_IN_TRENTINO.equals(poi.getType())) {
-			d +=poi.getCustomData().get("subtype")+"<br/>";
+//			d +=poi.getCustomData().get("subtype")+"<br/>";
 			if (poi.getCustomData().containsKey("email")) {
 				d +=poi.getCustomData().get("email")+"<br/>";
 			}
@@ -80,5 +84,45 @@ public class POIHelper {
 		}	
 		
 		return d;
+	}
+public  static Drawable getDrawablePoiFamilyAuditAdapter(Context context, POIObject o) {
+		
+		if (poiIsCertified(o)) {
+			return context.getResources().getDrawable(R.drawable.ic_e_family_certified_finale);
+		}
+		return context.getResources().getDrawable(R.drawable.ic_e_family_certified_base);
+	}
+	public  static Drawable getDrawablePoiFamilyAuditDetail(Context context, POIObject o) {
+		
+		if (poiIsCertified(o)) {
+			return context.getResources().getDrawable(R.drawable.label_certificato_finale_hor);
+		}
+		return context.getResources().getDrawable(R.drawable.label_certificato_base_hor);
+	}
+
+	private static boolean poiIsCertified(POIObject poi) {
+		if (poi.getCustomData()!=null && poi.getCustomData().get(STATUS) !=null)
+			return true;
+		return false;	
+	}
+
+	public static Drawable getDrawablePoiFamilyTrentino(Context context, POIObject poi) {
+		if (poiIsSubTypePresent(poi)){
+			return context.getResources().getDrawable(CategoryHelper.poiSubtypeCertifiedDrawableMap.get(poi.getCustomData().get(SUBTYPE)));
+		}
+		return context.getResources().getDrawable(CategoryHelper.getIconByType(poi.getType()));
+	}
+
+	private static boolean poiIsSubTypePresent(POIObject poi) {
+		if (poi.getCustomData()!=null && poi.getCustomData().get(SUBTYPE) !=null)
+			return true;
+	return false;	
+	}
+	
+	public static Drawable getDrawablePoiFamilyTrentinoDetail(Context context, POIObject mPoi) {
+		if (poiIsSubTypePresent(mPoi)){
+			return context.getResources().getDrawable(CategoryHelper.poiSubtypeCertifiedDrawableMapHor.get(mPoi.getCustomData().get(SUBTYPE)));
+		}
+		return context.getResources().getDrawable(CategoryHelper.getIconByType(mPoi.getType()));
 	}
 }

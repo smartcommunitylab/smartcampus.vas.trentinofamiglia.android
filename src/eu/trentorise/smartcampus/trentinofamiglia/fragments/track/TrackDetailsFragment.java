@@ -18,6 +18,7 @@ package eu.trentorise.smartcampus.trentinofamiglia.fragments.track;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,9 +38,11 @@ import com.google.android.maps.GeoPoint;
 
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
@@ -82,6 +86,10 @@ public class TrackDetailsFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		if (getTrack() != null) {
+			ImageView certifiedIcon = (ImageView) this.getView().findViewById(R.id.track_details_icon);
+			Drawable icon = null;
+			certifiedIcon.setImageDrawable(getResources().getDrawable(CategoryHelper.getIconByType(mTrack.getType())));
+
 			// title
 			TextView tv = (TextView) this.getView().findViewById(R.id.track_details_title);
 			tv.setText(mTrack.getTitle());

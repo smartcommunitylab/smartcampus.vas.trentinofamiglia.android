@@ -52,11 +52,11 @@
                 android:textColor="@color/dtappcolor" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" 
-                android:layout_gravity="right">
+                android:orientation="horizontal" >
 
 <!--                 <TextView -->
 <!--                     android:layout_width="match_parent" -->
@@ -72,7 +72,19 @@
 <!--                     android:text="@string/empty" -->
 <!--                     android:textOff="@string/empty" -->
 <!--                     android:textOn="@string/empty" /> -->
-
+                <ImageView
+                    android:id="@+id/track_details_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/empty"/>
+                <TextView
+                    android:id="@+id/track_details_filler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
                 <ImageButton
                     android:id="@+id/trackdetails_map"
                     android:layout_width="wrap_content"

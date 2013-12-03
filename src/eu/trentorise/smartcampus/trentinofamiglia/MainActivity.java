@@ -11,6 +11,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +44,9 @@ import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoisListingFragm
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.track.TrackListingFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.ApkDownloaderTask;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ConnectionUtil;
 
 public class MainActivity extends ActionBarActivity implements  OnChildClickListener {
 
@@ -76,13 +82,43 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	}
 	public void navDrawerOutItemClick(View v) {
 		if (v.getId() == R.id.nav_drawer_map_tv) {
-			if (! (mFragmentManager.findFragmentById(R.id.frame_content) instanceof MapFragment))
 				onChildClick(null, null, -1, -1, -1);
-			else
-				mDrawerLayout.closeDrawers();
-		}
+		} 
+		if (v.getId() == R.id.nav_drawer_info) {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(getString(R.string.trentinofamiglia_url_credits)));
+			startActivity(browserIntent);	} 
+
 	}
-	
+	// getting the notification intent update the launcher
+		@Override
+		public void onNewIntent(Intent arg0) {
+			super.onNewIntent(arg0);
+			Bundle extras = arg0.getExtras();
+
+			if (extras != null) {
+				ApkDownloaderTask mDownloaderTask = new ApkDownloaderTask(this, extras.getString("url"));
+
+				if (ConnectionUtil.isConnected(ConnectionUtil.getConnectivityManager(this))) {
+					// Checking url
+					if (!TextUtils.isEmpty(extras.getString("url"))) {
+						if (mDownloaderTask != null && !mDownloaderTask.isCancelled()) {
+							mDownloaderTask.cancel(true);
+						}
+						mDownloaderTask = new ApkDownloaderTask(this, extras.getString(ApkInstaller.PARAM_URL));
+						mDownloaderTask.execute();
+					} else {
+						Log.d(MainActivity.class.getName(), "Empty url for download: " + extras.getString(ApkInstaller.PARAM_NAME));
+						Toast.makeText(this, R.string.error_occurs, Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					Toast.makeText(this, R.string.enable_connection, Toast.LENGTH_SHORT).show();
+					Intent intent = ConnectionUtil.getWifiSettingsIntent();
+					startActivity(intent);
+				}
+			}
+
+		}
 	private void initDataManagement(Bundle savedInstanceState) {
 		try {
 			initGlobalConstants();
@@ -256,6 +292,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
 			ft.replace(R.id.frame_content, (Fragment) objects[0],
 					objects[1].toString());
+			clearStack();
 			ft.addToBackStack(objects[1].toString());
 
 			ft.commit();
@@ -265,6 +302,13 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 
 	}
 
+	private void clearStack() {
+		FragmentManager fm = getSupportFragmentManager();
+		for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {    
+		    fm.popBackStack();
+		}
+		
+	}
 	private Object[] getFragmentAndTag(int groupPos, int childPos) {
 		Object[] out = new Object[2];
 		String cat = null;
