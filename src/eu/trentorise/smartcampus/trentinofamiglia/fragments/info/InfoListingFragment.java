@@ -18,6 +18,7 @@ package eu.trentorise.smartcampus.trentinofamiglia.fragments.info;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -341,10 +342,30 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 			sort.put("title", 1);
 
 			if (categories != null || my || query != null) {
-				result = DTHelper.searchInGeneral(params[0].position, params[0].size, query,
-						(WhereForSearch) bundle.getParcelable(SearchFragment.ARG_WHERE_SEARCH),
-						(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
-						InfoObjectForBean.class, sort, categories);
+				// workaround for 'politiche dei distretti'
+				// where ordering should be performed based on the districts,
+				// which are the elements of custom data
+				if (categories != null && CategoryHelper.CAT_INFO_POLITICHE_DEI_DISTRETTI.equals(categories)) {
+					result = DTHelper.searchInGeneral(0, -1, query,
+							(WhereForSearch) bundle.getParcelable(SearchFragment.ARG_WHERE_SEARCH),
+							(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
+							InfoObjectForBean.class, sort, categories);
+					List<InfoObjectForBean> list = new ArrayList<InfoObjectForBean>(result);
+					Collections.sort(list, new Comparator<InfoObjectForBean>() {
+						@Override
+						public int compare(InfoObjectForBean lhs, InfoObjectForBean rhs) {
+							return lhs.getObjectForBean().getCustomData().get("district name").toString().compareTo(rhs.getObjectForBean().getCustomData().get("district name").toString());
+						}
+					});
+					this.lastSize = list.size();
+					this.position = list.size();
+					result = list;
+				} else {
+					result = DTHelper.searchInGeneral(params[0].position, params[0].size, query,
+							(WhereForSearch) bundle.getParcelable(SearchFragment.ARG_WHERE_SEARCH),
+							(WhenForSearch) bundle.getParcelable(SearchFragment.ARG_WHEN_SEARCH), my,
+							InfoObjectForBean.class, sort, categories);
+				}
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
 				return (List<InfoObject>) bundle.get(SearchFragment.ARG_LIST);
 			} else {
