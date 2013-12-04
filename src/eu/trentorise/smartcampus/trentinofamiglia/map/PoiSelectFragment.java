@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.SelectPoiAdapter;
 
@@ -155,6 +156,13 @@ public class PoiSelectFragment extends DialogFragment implements
 		ctv.setChecked(!ctv.isChecked());
 		ctv.setTag(ctv.isChecked());
 		mItemStatus[arg2]= ctv.isChecked();
+		
+		//HACK Because this category lacks of datas
+		String s=ctv.getText().toString();
+		if(s.equals("\"Baby little home\"")){
+			ctv.setChecked(false);
+			Toast.makeText(getActivity(), getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
+		}
 	}
 }
 
