@@ -115,6 +115,7 @@ public class PoiDetailsFragment extends Fragment {
 
 			// map
 			ImageButton mapBtn = (ImageButton) getView().findViewById(R.id.poidetails_map);
+			
 			mapBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -140,6 +141,12 @@ public class PoiDetailsFragment extends Fragment {
 					DTHelper.bringmethere(getActivity(), from, to);
 				}
 			});
+			
+			if(mPoi.getLocation()[0]==0 && mPoi.getLocation()[1]==0){
+				mapBtn.setVisibility(View.INVISIBLE);
+				directionsBtn.setVisibility(View.GONE);
+			}
+			
 			/*
 			 * END BUTTONS
 			 */

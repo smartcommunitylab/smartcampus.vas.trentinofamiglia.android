@@ -149,6 +149,12 @@ public class EventDetailsFragment extends Fragment {
 					}
 				}
 			});
+			
+			if(mEvent.getLocation()[0]==0 && mEvent.getLocation()[1]==0){
+				mapBtn.setVisibility(View.INVISIBLE);
+				directionsBtn.setVisibility(View.GONE);
+			}
+			
 			/*
 			 * END BUTTONS
 			 */

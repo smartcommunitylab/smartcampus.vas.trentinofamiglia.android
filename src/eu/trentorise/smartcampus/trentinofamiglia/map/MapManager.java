@@ -60,6 +60,8 @@ public class MapManager {
 	private static MapView mapView;
 
 	public static int ZOOM_DEFAULT = 15;
+	private static final int MAX_ZOOM = 18;
+	public static final int MAX_VISIBLE_DISTANCE = 20;
 	public static LatLng DEFAULT_POINT = new LatLng(46.0696727540531, 11.1212700605392); // Trento
 
 	public static void initWithParam() {
@@ -136,12 +138,24 @@ public class MapManager {
 	}
 
 	private static void fit(GoogleMap map, double[] ll, double[] rr, boolean zoomIn) {
+//		if (ll != null && rr != null) {
+//			LatLngBounds bounds = LatLngBounds.builder().include(new LatLng(rr[0], rr[1]))
+//					.include(new LatLng(ll[0], ll[1])).build();
+//			map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 12));
+//		}
 		if (ll != null && rr != null) {
-			LatLngBounds bounds = LatLngBounds.builder().include(new LatLng(rr[0], rr[1]))
-					.include(new LatLng(ll[0], ll[1])).build();
-			map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64));
+			float[] dist = new float[3];
+			Location.distanceBetween(ll[0], ll[1], rr[0], rr[1], dist);
+			if (dist[0] > MAX_VISIBLE_DISTANCE) {
+				LatLngBounds bounds = LatLngBounds.builder().include(new LatLng(rr[0], rr[1]))
+						.include(new LatLng(ll[0], ll[1])).build();
+				map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64));
+			} else {
+				map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ll[0], ll[1]), MAX_ZOOM));
+			}
 		}
 	}
+	
 
 //	public static MarkerOptions createStoryStepMarker(Context ctx, BaseDTObject obj, int pos, boolean selected) {
 //		LatLng latLng = getLatLngFromBasicObject(obj);
