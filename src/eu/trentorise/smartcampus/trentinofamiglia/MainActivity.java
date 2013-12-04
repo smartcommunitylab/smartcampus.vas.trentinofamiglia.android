@@ -196,8 +196,13 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		mListView = (ExpandableListView) findViewById(R.id.drawer_list);
 		navMenuTitles = getResources().getStringArray(R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
+		
+		View infoBtn = getLayoutInflater().inflate(R.layout.info_drawer_item, null);
+		mListView.addFooterView(infoBtn);
+		
 		mListView.setAdapter(nda);
 		mListView.setOnChildClickListener(this);
+		
 	}
 
 	@Override

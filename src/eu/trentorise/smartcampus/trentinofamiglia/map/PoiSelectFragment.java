@@ -157,7 +157,8 @@ public class PoiSelectFragment extends DialogFragment implements
 		ctv.setTag(ctv.isChecked());
 		mItemStatus[arg2]= ctv.isChecked();
 		
-		//HACK Because this category lacks of datas
+		//HACK Because this category lacks of data
+		//TODO remove it whenever is possible
 		String s=ctv.getText().toString();
 		if(s.equals("\"Baby little home\"")){
 			ctv.setChecked(false);

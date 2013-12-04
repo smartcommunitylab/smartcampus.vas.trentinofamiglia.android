@@ -90,8 +90,6 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
 		} else {
 			convertView.setBackgroundResource(R.drawable.drawer_header_bg);
 			tv.setTextColor(context.getResources().getColor(android.R.color.white));
-
-
 		}
 		return convertView;
 	}
