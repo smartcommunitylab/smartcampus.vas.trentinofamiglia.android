@@ -51,6 +51,8 @@
     <string name="app_failure_obj_not_found">Oggetto non trovato!</string>
     <string name="trentinofamiglia_url_credits">http://www.smartcampuslab.it/trentinofamigliaabout</string>
     <string name="nav_drawer_info">INFO</string>
+    <string name="coming_soon">Presto disponibile!</string>
+    
     <!-- <string name="smartcampus_auth_url"> https://vas-dev.smartcampuslab.it/accesstoken-provider/ac</string> -->
     <!-- <string name="smartcampus_app_url">https://vas.smartcampuslab.it</string> -->
     <string name="smartcampus_app_url">https://tn.smartcampuslab.it</string>
@@ -75,7 +77,7 @@
     <!-- Menu to be translated -->
     <string name="mapmenu_events"> Eventi</string>
     <string name="mapmenu_freetime"> Tempo libero e vacanze</string>
-    <string name="mapmenu_places"> Posti certificati</string>
+    <string name="mapmenu_places"> Organizzazioni certificate</string>
     <string name="mapmenu_babies"> Neonati</string>
 
     <!-- Rating -->

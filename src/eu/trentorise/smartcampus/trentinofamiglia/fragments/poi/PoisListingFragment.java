@@ -561,7 +561,7 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 		@Override
 		public void handleResult(List<POIObject> result) {
 			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
-				Toast.makeText(context, "Presto disponibile", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
 			}
 			updateList(result == null || result.isEmpty());
 		}
