@@ -24,12 +24,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-/**
- * Utility class that allows you to inspect application presence and interactions. 
- * 
- * @author Simone Casagranda
- *
- */
 public final class AppInspector {
 	
 	// Context reference to avoid huge method signature

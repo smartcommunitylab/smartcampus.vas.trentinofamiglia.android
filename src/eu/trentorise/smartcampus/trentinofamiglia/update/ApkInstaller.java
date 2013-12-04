@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -38,9 +39,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -54,13 +57,6 @@ import eu.trentorise.smartcampus.protocolcarrier.custom.MessageResponse;
 import eu.trentorise.smartcampus.trentinofamiglia.MainActivity;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 
-/**
- * 
- * Utility that allows to build an intent that prompt to user permissions panel.
- * 
- * @author Simone Casagranda
- * 
- */
 public class ApkInstaller {
 
 	private static final String DATA_TYPE = "application/vnd.android.package-archive";
@@ -86,8 +82,10 @@ public class ApkInstaller {
 	public static final String PARAM_NAME = "name";
 	public static final String PARAM_URL = "url";
 	public static final String PREFS_NAME = "LauncherPreferences";
-
-	private Context context;
+	public static  String APP_URL = "";
+	public static  String APP_NAME = "";
+	static ApkDownloaderTask mDownloaderTask = null;
+	private static Context context;
 
 	/**
 	 * We have to ask to system certificate signed application for installation.
@@ -218,7 +216,7 @@ public class ApkInstaller {
 			req.setMethod(Method.GET);
 			ProtocolCarrier pc = new ProtocolCarrier(context, LAUNCHER);
 			try {
-				MessageResponse mres = pc.invokeSync(req, LAUNCHER,null);
+				MessageResponse mres = pc.invokeSync(req, LAUNCHER, null);
 				if (mres != null && mres.getBody() != null) {
 
 					// Update from variable sec
@@ -256,9 +254,9 @@ public class ApkInstaller {
 		private Activity activity;
 
 		public AppTask(Activity activity) {
-			context =  activity;
+			context = activity;
 			this.activity = activity;
-		}	
+		}
 
 		@Override
 		protected void onPreExecute() {
@@ -279,10 +277,10 @@ public class ApkInstaller {
 
 		@Override
 		protected List<AppItem> doInBackground(Void... params) {
-//			if (context == null) {
-//				context = params[0];
-//				activity = params[0];
-//			}
+			// if (context == null) {
+			// context = params[0];
+			// activity = params[0];
+			// }
 			List<AppItem> items = new ArrayList<AppItem>();
 			List<AppItem> notInstalledItems = new ArrayList<AppItem>();
 			// Getting applications names, packages, ...
@@ -310,6 +308,8 @@ public class ApkInstaller {
 				item.app.fillApp(labels[i], packages[i],
 						buildUrlDownloadApp(url, packages[i], versions[i], filenames[i]), icons.getDrawable(i),
 						grayIcons.getDrawable(i), backgrounds[i], versions[i], filenames[i]);
+				APP_NAME=item.app.name;
+				APP_URL=item.app.url;
 				try {
 					mInspector.isAppInstalled(item.app.appPackage);
 					item.status = eu.trentorise.smartcampus.trentinofamiglia.update.Status.OK;
@@ -410,12 +410,6 @@ public class ApkInstaller {
 			/* check if the version is new respect to the last checked */
 			SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
 			SharedPreferences.Editor editor = settings.edit();
-			// if (!settings.contains(launcher.app.name + "-last")) {
-			// editor.putInt(launcher.app.name + "-last", launcher.app.version);
-			// editor.commit();
-			// return false;
-			// }
-
 			if (settings.getInt(launcher.app.name + "-last", 1) < launcher.app.version) {
 				editor.putInt(launcher.app.name + "-last", launcher.app.version);
 				editor.commit();
@@ -431,7 +425,9 @@ public class ApkInstaller {
 					context.getString(R.string.update_application_notification), System.currentTimeMillis());
 			Intent notificationIntent = new Intent(context, MainActivity.class);
 			notificationIntent.putExtra(PARAM_NAME, launcher.app.name);
+			APP_NAME = launcher.app.name;
 			notificationIntent.putExtra(PARAM_URL, launcher.app.url);
+			APP_URL =  launcher.app.url;
 			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 			notification.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP | Notification.FLAG_SHOW_LIGHTS;
 			notification.contentView = new RemoteViews(context.getPackageName(), R.layout.update_notification);
@@ -445,8 +441,56 @@ public class ApkInstaller {
 	}
 
 	// Item wrapper of a smartApp
-	class AppItem {
+	public class AppItem {
 		SmartApp app;
 		Status status = Status.NOT_FOUND;
+	}
+
+	public static void update_launcher(final String paramUrl, final String paramName) {
+		DialogInterface.OnClickListener updateDialogClickListener;
+		final ConnectivityManager mConnectivityManager = ConnectionUtil.getConnectivityManager(context);
+
+		updateDialogClickListener = new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case DialogInterface.BUTTON_POSITIVE:
+					// If yes is pressed download the new app
+					if (ConnectionUtil.isConnected(mConnectivityManager)) {
+						// Checking url
+						if (!TextUtils.isEmpty(paramUrl)) {
+							if (mDownloaderTask != null && !mDownloaderTask.isCancelled()) {
+								mDownloaderTask.cancel(true);
+							}
+							mDownloaderTask = new ApkDownloaderTask(context, paramUrl);
+							mDownloaderTask.execute();
+						} else {
+							Log.d(getClass().getName(), "Empty url for download: " + paramName);
+							Toast.makeText(context, R.string.error_occurs, Toast.LENGTH_SHORT).show();
+						}
+					} else {
+						Toast.makeText(context, R.string.enable_connection, Toast.LENGTH_SHORT).show();
+						Intent intent = ConnectionUtil.getWifiSettingsIntent();
+						context.startActivity(intent);
+					}
+
+					break;
+
+				case DialogInterface.BUTTON_NEGATIVE:
+
+					break;
+				}
+			}
+		};
+		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+		settings.toString();
+
+		// update
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setCancelable(false);
+		builder.setMessage(context.getString(R.string.update_application_question))
+				.setPositiveButton("Yes", updateDialogClickListener).setNegativeButton("No", updateDialogClickListener)
+				.show();
+
 	}
 }
