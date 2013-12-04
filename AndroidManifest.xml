@@ -72,13 +72,13 @@
             android:value="false" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="" />
+            android:value="AIzaSyAYMob8Ipl_ykdVq9hkQTvFVSQMNSXn3aA" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_ID"
             android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.CLIENT_SECRET"
-            android:value="cdd4fd9c-69d5-459e-8583-9e36ffe6b0c9" />
+            android:value="" />
         <meta-data
             android:name="eu.trentorise.smartcampus.account.AUTH_URL"
             android:value="https://tn.smartcampuslab.it/aac" />

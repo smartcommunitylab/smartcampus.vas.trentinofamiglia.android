@@ -83,7 +83,7 @@ public class POIHelper {
 			
 		}	
 		if (CategoryHelper.CAT_POI_BABY_LITTLE_HOME.equals(poi.getType())) {
-			d +=poi.getCustomData().get("place");
+			d +="<p>"+poi.getCustomData().get("place")+"</p>";
 		}
 		
 		return d;
