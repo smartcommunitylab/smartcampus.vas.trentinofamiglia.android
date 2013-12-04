@@ -17,12 +17,7 @@ package eu.trentorise.smartcampus.trentinofamiglia.update;
 
 import android.graphics.drawable.Drawable;
 
-/**
- * How a SmartApp has to be represented (extended in future)
- * 
- * @author s.casagranda
- * 
- */
+
 public class SmartApp {
 
 	public String appPackage;

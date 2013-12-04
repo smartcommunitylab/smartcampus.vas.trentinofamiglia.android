@@ -21,12 +21,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 
-/**
- * Utility class that allows you to receive about phone connection
- * 
- * @author Simone Casagranda
- *
- */
 public class ConnectionUtil {
 
 	private ConnectionUtil(){

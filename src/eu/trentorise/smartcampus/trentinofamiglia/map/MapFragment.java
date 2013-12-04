@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +59,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.fragments.track.TrackListingFr
 import eu.trentorise.smartcampus.trentinofamiglia.map.PoiSelectFragment.REQUEST_TYPE;
 import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller;
 import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.ApkDownloaderTask;
+import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.AppItem;
 import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.AppTask;
 
 public class MapFragment extends Fragment implements MapItemsHandler,
@@ -71,6 +71,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 	public static final String ARG_OBJECTS = "objects";
 	public static final String ARG_TRACK_CATEGORY = "track_category";
 	protected GoogleMap mMap;
+	private AppItem launcher;
 	private AppTask mAppTask;
 	private ApkDownloaderTask mDownloaderTask;
 	private String[] poiCategories = null;
@@ -100,25 +101,6 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 		return view;
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.map_menu, menu);
-		SharedPreferences settings = getActivity().getSharedPreferences(ApkInstaller.PREFS_NAME, 0);
-//		MenuItem item = menu.getItem(0).setVisible(settings.getBoolean("to_be_updated", false));
-//
-//		if (listmenu) {
-//			menu.getItem(1).setVisible(false);
-//		} else {
-//			menu.getItem(2).setVisible(false);
-//		}
-
-		if (listmenu) {
-			menu.getItem(0).setVisible(false);
-		} else {
-			menu.getItem(1).setVisible(false);
-		}
-		super.onCreateOptionsMenu(menu, inflater);
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -159,6 +141,9 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 					|| getArguments().containsKey(ARG_POI_CATEGORY)) {
 				switchToList();
 			}
+			return true;
+		} else if (item.getItemId() == R.id.to_be_update){
+			ApkInstaller.update_launcher(ApkInstaller.APP_URL,ApkInstaller.APP_NAME);
 			return true;
 		}
 		// this is needed because the activity manage the navigation drawer
@@ -367,6 +352,19 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
+		
+		menu.clear();
+		SharedPreferences settings = getActivity().getSharedPreferences(ApkInstaller.PREFS_NAME, 0);
+		getActivity().getMenuInflater().inflate(R.menu.map_menu, menu);
+
+		MenuItem item = menu.getItem(0).setVisible(settings.getBoolean("to_be_updated", false));
+
+
+		if (listmenu) {
+			menu.getItem(1).setVisible(false);
+		} else {
+			menu.getItem(2).setVisible(false);
+		}
 		super.onPrepareOptionsMenu(menu);
 	}
 
@@ -672,9 +670,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 				else if ("location".equals(type))
 					return DTHelper.findPOIByEntityId(entityId)
 							.getObjectForBean();
-				// else if ("narrative".equals(type))
-				// return
-				// DTHelper.findStoryByEntityId(entityId).getObjectForBean();
+
 			}
 			return null;
 		}
@@ -705,11 +701,7 @@ public class MapFragment extends Fragment implements MapItemsHandler,
 					args.putString(EventDetailsFragment.ARG_EVENT_ID,
 							(result.getId()));
 				}
-				// else if (result instanceof StoryObject) {
-				// fragment = new StoryDetailsFragment();
-				// args.putString(StoryDetailsFragment.ARG_STORY_ID,
-				// result.getId());
-				// }
+
 				if (fragment != null) {
 					FragmentTransaction fragmentTransaction = getActivity()
 							.getSupportFragmentManager().beginTransaction();

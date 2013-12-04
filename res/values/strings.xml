@@ -111,4 +111,6 @@
     <string name="not_secure_app">Not secure app!</string> <!-- ?! -->
     <string name="enable_connection">Connessione non disponibile. Verifica le impostazioni dello smartphone e riprova.</string>
     <string name="to_be_updated">Aggiornamento</string>
+        <string name="update_application_question">E\' disponibile una nuova versione. Desideri aggiornare l\'applicazione adesso?</string>
+    
 </resources>

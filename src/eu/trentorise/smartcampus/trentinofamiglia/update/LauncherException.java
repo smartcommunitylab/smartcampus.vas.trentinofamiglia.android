@@ -16,12 +16,6 @@
 package eu.trentorise.smartcampus.trentinofamiglia.update;
 
 
-/**
- * Exception that should be risen when an error occurs
- * 
- * @author Simone Casagranda
- *
- */
 public final class LauncherException extends Exception {
 
 	private static final long serialVersionUID = 1L;
