@@ -82,6 +82,9 @@ public class POIHelper {
 			}
 			
 		}	
+		if (CategoryHelper.CAT_POI_BABY_LITTLE_HOME.equals(poi.getType())) {
+			d +=poi.getCustomData().get("place");
+		}
 		
 		return d;
 	}

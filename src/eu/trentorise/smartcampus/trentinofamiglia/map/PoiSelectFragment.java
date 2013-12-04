@@ -160,10 +160,10 @@ public class PoiSelectFragment extends DialogFragment implements
 		//HACK Because this category lacks of data
 		//TODO remove it whenever is possible
 		String s=ctv.getText().toString();
-		if(s.equals("\"Baby little home\"")){
-			ctv.setChecked(false);
-			Toast.makeText(getActivity(), getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
-		}
+//		if(s.equals("\"Baby little home\"")){
+//			ctv.setChecked(false);
+//			Toast.makeText(getActivity(), getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
+//		}
 	}
 }
 

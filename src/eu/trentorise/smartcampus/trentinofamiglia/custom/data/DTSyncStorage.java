@@ -51,8 +51,9 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectF
 
 /**
  * Specific storage that deletes the old data upon sync complete
+ * 
  * @author raman
- *
+ * 
  */
 public class DTSyncStorage extends SyncStorageWithPaging {
 
@@ -63,26 +64,29 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 		super(context, appToken, dbName, dbVersion, config);
 		Map<String, Object> map = null;
 		map = DTParamsHelper.getExcludeArray();
-		if (map !=null) exclude.putAll(map);
+		if (map != null)
+			exclude.putAll(map);
 
 		map = DTParamsHelper.getIncludeArray();
-		if (map !=null) include.putAll(map);
+		if (map != null)
+			include.putAll(map);
 	}
 
-	
 	@Override
-	protected SyncStorageHelper createHelper(Context context, String dbName,
-			int dbVersion, StorageConfiguration config) {
+	protected SyncStorageHelper createHelper(Context context, String dbName, int dbVersion, StorageConfiguration config) {
 		return new DTSyncStorageHelper(context, dbName, dbVersion, config);
 	}
 
-	public void synchronize(final String token, final TerritoryService tService) throws StorageConfigurationException, DataException, SecurityException, ConnectionException, ProtocolException {
+	public void synchronize(final String token, final TerritoryService tService) throws StorageConfigurationException,
+			DataException, SecurityException, ConnectionException, ProtocolException {
 		synchronize(new ISynchronizer() {
-			
+
 			@Override
-			public SyncData fetchSyncData(Long version, SyncData in) throws SecurityException, ConnectionException, ProtocolException {
+			public SyncData fetchSyncData(Long version, SyncData in) throws SecurityException, ConnectionException,
+					ProtocolException {
 				try {
-					eu.trentorise.smartcampus.territoryservice.model.SyncData data = tService.synchronize(version, include, exclude, token);
+					eu.trentorise.smartcampus.territoryservice.model.SyncData data = tService.synchronize(version,
+							include, exclude, token);
 
 					SyncData dbData = new SyncData();
 					dbData.setVersion(data.getVersion());
@@ -95,120 +99,112 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 
 					dbData.setUpdated(convertToBasicObject(data.getUpdated()));
 
-					((DTSyncStorageHelper)helper).removeOld();
+					((DTSyncStorageHelper) helper).removeOld();
 					return dbData;
 				} catch (TerritoryServiceException e) {
 					throw new ProtocolException(e.getMessage());
 				}
 			}
-		}) ;
-			
+		});
+
 	}
 
 	protected Map<String, List<String>> convertToBasicObjectDeleted(Map<String, List<String>> deleted) {
-		Map<String,List<String>> returnDTOObjects = new HashMap<String, List<String>>();
-		   Iterator it = deleted.entrySet().iterator();
-		    while (it.hasNext()) {
-		    	//for every map element iterate the entire list
-		    	{
-		    		 Map.Entry pairs = (Map.Entry)it.next();
-		    		String key = (String) pairs.getKey();
-		    		Class<? extends GenericObjectForBean> cls = null;
-	    			if ("eu.trentorise.smartcampus.dt.model.POIObject".equals(key)){
-	    				cls = PoiObjectForBean.class;
-	    			} else if ("eu.trentorise.smartcampus.dt.model.EventObject".equals(key)) {
-	    				cls = EventObjectForBean.class;
-	    				
-	    			}
-//	    			else if ("eu.trentorise.smartcampus.dt.model.StoryObject".equals(key)){ 
-//	    				cls = StoryObjectForBean.class;
-//	    			}
-		    		
-		    		List<String> dtoObjects = (List<String>) pairs.getValue();
-//		    		List<Object> basicobjects = new ArrayList<Object>();
-//		    		for (Object object: dtoObjects)
-//		    		{
-//		    			GenericObjectForBean newObject = null;
-//		    			if (PoiObjectForBean.class.equals(cls)){
-//			    			newObject = new PoiObjectForBean();
-//		    				newObject.setObjectForBean(Utils.convertObjectToData(POIObject.class, object));
-//		    			} else if (EventObjectForBean.class.equals(key)) {
-//			    			newObject = new EventObjectForBean();
-//		    				newObject.setObjectForBean(Utils.convertObjectToData(EventObject.class, object));
-//		    			} else if (StoryObjectForBean.class.equals(key)) {
-//			    			newObject = new StoryObjectForBean();
-//		    				newObject.setObjectForBean( Utils.convertObjectToData(StoryObject.class, object));
-//		    			}
-//		    			//convert the single element
-//		    			basicobjects.add(newObject);
-//		    			//add the element to the return list
-//		    		}
-		    		//add the list to the return map
-		    		//key or the new one???
-		    		returnDTOObjects.put(cls.getCanonicalName(), dtoObjects);
-		    	}
-//		        System.out.println(pairs.getKey() + " = " + pairs.getValue());
-		    }
+		Map<String, List<String>> returnDTOObjects = new HashMap<String, List<String>>();
+		Iterator it = deleted.entrySet().iterator();
+		while (it.hasNext()) {
+			// for every map element iterate the entire list
+			{
+				Map.Entry pairs = (Map.Entry) it.next();
+				String key = (String) pairs.getKey();
+				Class<? extends GenericObjectForBean> cls = getClassFromName(key);
+
+				List<String> dtoObjects = (List<String>) pairs.getValue();
+				// List<Object> basicobjects = new ArrayList<Object>();
+				// for (Object object: dtoObjects)
+				// {
+				// GenericObjectForBean newObject = null;
+				// if (PoiObjectForBean.class.equals(cls)){
+				// newObject = new PoiObjectForBean();
+				// newObject.setObjectForBean(Utils.convertObjectToData(POIObject.class,
+				// object));
+				// } else if (EventObjectForBean.class.equals(key)) {
+				// newObject = new EventObjectForBean();
+				// newObject.setObjectForBean(Utils.convertObjectToData(EventObject.class,
+				// object));
+				// } else if (StoryObjectForBean.class.equals(key)) {
+				// newObject = new StoryObjectForBean();
+				// newObject.setObjectForBean(
+				// Utils.convertObjectToData(StoryObject.class, object));
+				// }
+				// //convert the single element
+				// basicobjects.add(newObject);
+				// //add the element to the return list
+				// }
+				// add the list to the return map
+				// key or the new one???
+				returnDTOObjects.put(cls.getCanonicalName(), dtoObjects);
+			}
+			// System.out.println(pairs.getKey() + " = " + pairs.getValue());
+		}
 		return returnDTOObjects;
 	}
 
+	private Class<? extends GenericObjectForBean> getClassFromName(String key) {
+		Class<? extends GenericObjectForBean> cls = null;
+		if ("eu.trentorise.smartcampus.dt.model.POIObject".equals(key)) {
+			cls = PoiObjectForBean.class;
+		} else if ("eu.trentorise.smartcampus.dt.model.EventObject".equals(key)) {
+			cls = EventObjectForBean.class;
+
+		} else if ("eu.trentorise.smartcampus.dt.model.InfoObject".equals(key)) {
+			cls = InfoObjectForBean.class;
+
+		} else if ("eu.trentorise.smartcampus.dt.model.TrackObject".equals(key)) {
+			cls = TrackObjectForBean.class;
+
+		}
+		return cls;
+	}
 
 	protected Map<String, List<Object>> convertToBasicObject(Map<String, List<Object>> map) {
-		Map<String,List<Object>> returnDTOObjects = new HashMap<String, List<Object>>();
-		   Iterator it = map.entrySet().iterator();
-		    while (it.hasNext()) {
-		    	//for every map element iterate the entire list
-		    	{
-		    		 Map.Entry pairs = (Map.Entry)it.next();
-		    		String key = (String) pairs.getKey();
-		    		Class<? extends GenericObjectForBean> cls = null;
-	    			if ("eu.trentorise.smartcampus.dt.model.POIObject".equals(key)){
-	    				cls = PoiObjectForBean.class;
-	    			} else if ("eu.trentorise.smartcampus.dt.model.EventObject".equals(key)) {
-	    				cls = EventObjectForBean.class;
-	    				
-	    			} 
-	    			 else if ("eu.trentorise.smartcampus.dt.model.InfoObject".equals(key)) {
-		    				cls = InfoObjectForBean.class;
-		    				
-		    			}
-	    			 else if ("eu.trentorise.smartcampus.dt.model.TrackObject".equals(key)) {
-		    				cls = TrackObjectForBean.class;
-		    				
-		    			}
-//	    			else if ("eu.trentorise.smartcampus.dt.model.StoryObject".equals(key)){ 
-//	    				cls = StoryObjectForBean.class;
-//	    			}
-		    		
-		    		List<Object> dtoObjects = (List<Object>) pairs.getValue();
-		    		List<Object> basicobjects = new ArrayList<Object>();
-		    		for (Object object: dtoObjects)
-		    		{
-		    			GenericObjectForBean newObject = null;
-		    			if (PoiObjectForBean.class.equals(cls)){
-			    			newObject = new PoiObjectForBean();
-		    				newObject.setObjectForBean(Utils.convertObjectToData(POIObject.class, object));
-		    			} else if (EventObjectForBean.class.equals(cls)) {
-			    			newObject = new EventObjectForBean();
-		    				newObject.setObjectForBean(Utils.convertObjectToData(EventObject.class, object));
-		    			} else if (InfoObjectForBean.class.equals(cls)) {
-			    			newObject = new InfoObjectForBean();
-		    				newObject.setObjectForBean(Utils.convertObjectToData(InfoObject.class, object));
-		    			} else if (TrackObjectForBean.class.equals(cls)) {
-			    			newObject = new TrackObjectForBean();
-		    				newObject.setObjectForBean(Utils.convertObjectToData(TrackObject.class, object));
-		    			}
+		Map<String, List<Object>> returnDTOObjects = new HashMap<String, List<Object>>();
+		Iterator it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			// for every map element iterate the entire list
+			{
+				Map.Entry pairs = (Map.Entry) it.next();
+				String key = (String) pairs.getKey();
+				Class<? extends GenericObjectForBean> cls = getClassFromName(key);
 
-		    			//convert the single element
-		    			basicobjects.add(newObject);
-		    			//add the element to the return list
-		    		}
-		    		//add the list to the return map
-		    		//key or the new one???
-		    		returnDTOObjects.put(cls.getCanonicalName(), basicobjects);
-		    	}
-//		        System.out.println(pairs.getKey() + " = " + pairs.getValue());
-		    }
+				List<Object> dtoObjects = (List<Object>) pairs.getValue();
+				List<Object> basicobjects = new ArrayList<Object>();
+				for (Object object : dtoObjects) {
+					GenericObjectForBean newObject = null;
+					if (PoiObjectForBean.class.equals(cls)) {
+						newObject = new PoiObjectForBean();
+						newObject.setObjectForBean(Utils.convertObjectToData(POIObject.class, object));
+					} else if (EventObjectForBean.class.equals(cls)) {
+						newObject = new EventObjectForBean();
+						newObject.setObjectForBean(Utils.convertObjectToData(EventObject.class, object));
+					} else if (InfoObjectForBean.class.equals(cls)) {
+						newObject = new InfoObjectForBean();
+						newObject.setObjectForBean(Utils.convertObjectToData(InfoObject.class, object));
+					} else if (TrackObjectForBean.class.equals(cls)) {
+						newObject = new TrackObjectForBean();
+						newObject.setObjectForBean(Utils.convertObjectToData(TrackObject.class, object));
+					}
+
+					// convert the single element
+					basicobjects.add(newObject);
+					// add the element to the return list
+				}
+				// add the list to the return map
+				// key or the new one???
+				returnDTOObjects.put(cls.getCanonicalName(), basicobjects);
+			}
+			// System.out.println(pairs.getKey() + " = " + pairs.getValue());
+		}
 		return returnDTOObjects;
 	}
 
@@ -216,14 +212,14 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 
 		// sync filtering: exclude transit stops
 
-//		static {
-//			exclude.put("source", "smartplanner-transitstops");
-//		}
-		
+		// static {
+		// exclude.put("source", "smartplanner-transitstops");
+		// }
+
 		public DTSyncStorageHelper(Context context, String dbName, int version, StorageConfiguration config) {
 			super(context, dbName, version, config);
 		}
-		
+
 		@Override
 		public SyncData getDataToSync(long version) throws StorageConfigurationException {
 			SyncData data = super.getDataToSync(version);
@@ -241,25 +237,27 @@ public class DTSyncStorage extends SyncStorageWithPaging {
 			calendar.set(Calendar.MINUTE, 59);
 			calendar.set(Calendar.SECOND, 0);
 			try {
-				db.delete("events", "attending IS NULL AND toTime < "+calendar.getTimeInMillis(), null);
-//				c.moveToNext();
-//				int total = c.getInt(0);
-//				if (total > num) {
-//					int toDelete = total - num;
-//					c = db.rawQuery("SELECT id FROM notifications WHERE starred = 0 ORDER BY timestamp ASC", null);
-//					c.moveToFirst();
-//					for (int i = 0; i < toDelete; i++) {
-//						db.delete("notifications", "id = '" + c.getString(0) + "'", null);
-//						c.moveToNext();
-//					}
-//				}
+				db.delete("events", "attending IS NULL AND toTime < " + calendar.getTimeInMillis(), null);
+				// c.moveToNext();
+				// int total = c.getInt(0);
+				// if (total > num) {
+				// int toDelete = total - num;
+				// c =
+				// db.rawQuery("SELECT id FROM notifications WHERE starred = 0 ORDER BY timestamp ASC",
+				// null);
+				// c.moveToFirst();
+				// for (int i = 0; i < toDelete; i++) {
+				// db.delete("notifications", "id = '" + c.getString(0) + "'",
+				// null);
+				// c.moveToNext();
+				// }
+				// }
 				db.setTransactionSuccessful();
 			} finally {
 				db.endTransaction();
 			}
 		}
 
-		
 	}
-	
+
 }

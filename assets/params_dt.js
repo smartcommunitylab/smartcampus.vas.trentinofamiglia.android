@@ -6,7 +6,8 @@
 	    2,
 	    3,
 	    4,
-	    5
+	    5,
+	    6
 	],
 	"events_categories" : [
 	    1,
@@ -30,7 +31,7 @@
 			              "Estate giovani e famiglia", "Alto Garda", "\"Family Audit\"",
 			              "Vacanze al mare","Tavolo \"Nuovi Media\"","Punti allattamento","\"Family in Trentino\"",
 			              "Politiche provinciali","Consulenti \"Audit\"","Valutatori \"Audit\"",
-			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","Passeggiate"
+			              "Politiche dei distretti","Notizie","Distretti e organizzazioni","Piste ciclopedonali","\"Baby little home\"","Passeggiate"
 			              ]
 	},
 	"events_default" : [1,2],

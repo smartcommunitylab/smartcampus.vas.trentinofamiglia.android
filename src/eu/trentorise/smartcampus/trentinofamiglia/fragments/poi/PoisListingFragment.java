@@ -552,17 +552,17 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 		@Override
 		public List<POIObject> performAction(AbstractLstingFragment.ListingRequest... params) throws SecurityException,
 				Exception {
-			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
-				return Collections.emptyList();
-			}
+//			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
+//				return Collections.emptyList();
+//			}
 			return getPOIs(params);
 		}
 
 		@Override
 		public void handleResult(List<POIObject> result) {
-			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
-				Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
-			}
+//			if (getArguments().containsKey(SearchFragment.ARG_CATEGORY) && (getArguments().getString(SearchFragment.ARG_CATEGORY) != null && (getArguments().getString(SearchFragment.ARG_CATEGORY).compareTo(CategoryHelper.CAT_POI_BABY_LITTLE_HOME)==0))) {
+//				Toast.makeText(context, getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
+//			}
 			updateList(result == null || result.isEmpty());
 		}
 

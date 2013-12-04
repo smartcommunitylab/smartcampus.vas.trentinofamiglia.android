@@ -32,11 +32,11 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
 
 public class CategoryHelper {
-	
+
 	public static final String CAT_TRACK_PISTA_CICLABILE = "Pista ciclabile";
 	public static final String CAT_TRACK_PASSEGGIATE = "Passeggiate";
 	public static final String CAT_TRACK_PISTE_CICLOPEDONALI = "Piste ciclopedonali";
-	
+
 	public static final String CAT_INFO_DISTRETTI_E_ORGANIZZAZIONI = "Distretti e organizzazioni";
 	public static final String CAT_INFO_POLITICHE_DEI_DISTRETTI = "Politiche dei distretti";
 	public static final String CAT_INFO_VALUTATORI_AUDIT = "Valutatori \"Audit\"";
@@ -53,7 +53,7 @@ public class CategoryHelper {
 
 	public static final String CAT_EVENT_ALTO_GARDA = "Alto Garda";
 	public static final String CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA = "Estate giovani e famiglia";
-	
+
 	private final static String TAG = "CategoryHelper";
 	// private static final String POI_NONCATEGORIZED = "Other place";
 	// private static final String EVENT_NONCATEGORIZED = "Other event";
@@ -70,24 +70,25 @@ public class CategoryHelper {
 	public static final String CATEGORY_TODAY = "Today";
 	public static final String CATEGORY_MY = "My";
 
-
 	public static CategoryDescriptor[] EVENT_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_estate_map, R.drawable.ic_summer,
 					CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA, R.string.categories_event_summer_family),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_altogarda_map, R.drawable.ic_altogarda, 
-					CAT_EVENT_ALTO_GARDA, R.string.categories_event_alto_garda), };
+			/* 2 */new CategoryDescriptor(R.drawable.ic_altogarda_map, R.drawable.ic_altogarda, CAT_EVENT_ALTO_GARDA,
+					R.string.categories_event_alto_garda), };
 
 	public static CategoryDescriptor[] POI_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_familyaudit_map, R.drawable.family_audit, CAT_POI_FAMILY_AUDIT,
 					R.string.categories_poi_family_audit),
 			/* 2 */new CategoryDescriptor(R.drawable.ic_mare_map, R.drawable.ic_beach, CAT_POI_VACANZE_AL_MARE,
 					R.string.categories_poi_summer_holyday),
-			/* 3 */new CategoryDescriptor(R.drawable.ic_poi, R.drawable.ic_media,
-					CAT_POI_TAVOLO_NUOVI_MEDIA, R.string.categories_poi_new_media),
-			/* 4 */new CategoryDescriptor(R.drawable.ic_allattamento_map, R.drawable.ic_breastfeeding, CAT_POI_PUNTI_ALLATTAMENTO,
-					R.string.categories_poi_breast_point),
+			/* 3 */new CategoryDescriptor(R.drawable.ic_poi, R.drawable.ic_media, CAT_POI_TAVOLO_NUOVI_MEDIA,
+					R.string.categories_poi_new_media),
+			/* 4 */new CategoryDescriptor(R.drawable.ic_allattamento_map, R.drawable.ic_breastfeeding,
+					CAT_POI_PUNTI_ALLATTAMENTO, R.string.categories_poi_breast_point),
 			/* 5 */new CategoryDescriptor(R.drawable.ic_family_tn_map, R.drawable.family_trentino,
-					CAT_POI_FAMILY_IN_TRENTINO, R.string.categories_poi_trentino_family), }; 
+					CAT_POI_FAMILY_IN_TRENTINO, R.string.categories_poi_trentino_family),
+			/* 6 */new CategoryDescriptor(R.drawable.ic_littlehome_map, R.drawable.ic_littlehome,
+					CAT_POI_BABY_LITTLE_HOME, R.string.categories_poi_trentino_family), };
 
 	public static CategoryDescriptor[] INFO_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_provincia,
@@ -106,10 +107,10 @@ public class CategoryHelper {
 	public static CategoryDescriptor[] TRACK_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_bici_map, R.drawable.ic_bici, CAT_TRACK_PISTE_CICLOPEDONALI,
 					R.string.categories_track_pedestrian),
-			/* 2 */new CategoryDescriptor(R.drawable.ic_passeggiata_map, R.drawable.ic_passeggiata, CAT_TRACK_PASSEGGIATE,
-					R.string.categories_track_trekking),
-			/* 3 */new CategoryDescriptor(R.drawable.ic_bici_map, R.drawable.ic_bici,
-					CAT_TRACK_PISTA_CICLABILE, R.string.categories_track_bicycle), };
+			/* 2 */new CategoryDescriptor(R.drawable.ic_passeggiata_map, R.drawable.ic_passeggiata,
+					CAT_TRACK_PASSEGGIATE, R.string.categories_track_trekking),
+			/* 3 */new CategoryDescriptor(R.drawable.ic_bici_map, R.drawable.ic_bici, CAT_TRACK_PISTA_CICLABILE,
+					R.string.categories_track_bicycle), };
 
 	private static Map<String, String> categoryMapping = new HashMap<String, String>();
 
@@ -122,11 +123,11 @@ public class CategoryHelper {
 		for (CategoryDescriptor poi : POI_CATEGORIES) {
 			descriptorMap.put(poi.category, poi);
 		}
-		
+
 		for (CategoryDescriptor info : INFO_CATEGORIES) {
 			descriptorMap.put(info.category, info);
 		}
-		
+
 		for (CategoryDescriptor track : TRACK_CATEGORIES) {
 			descriptorMap.put(track.category, track);
 		}
@@ -136,23 +137,27 @@ public class CategoryHelper {
 		}
 
 	}
-	public static Map<String, Integer> poiSubtypeCertifiedDrawableMap = new HashMap<String, Integer>(){{
-		put("Comuni",R.drawable.familytn_comune);
-		put("Musei",R.drawable.familytn_musei);
-		put("Strutture alberghiere",R.drawable.familytn_strutturealberghiere);
-		put("Pubblici esercizi",R.drawable.familytn_pubblici_esercizi);
-		put("Servizi per bambini e ragazzi",R.drawable.familytn_servizi_bambini);
-		put("Associazioni sportive",R.drawable.familytn_asso_sportive);
-	}};
-	public static Map<String, Integer> poiSubtypeCertifiedDrawableMapHor = new HashMap<String, Integer>(){{
-		put("Comuni",R.drawable.familytn_comune_hor);
-		put("Musei",R.drawable.familytn_musei_hor);
-		put("Strutture alberghiere",R.drawable.familytn_strutturealberghiere_hor);
-		put("Pubblici esercizi",R.drawable.familytn_pubblici_esercizi_hor);
-		put("Servizi per bambini e ragazzi",R.drawable.familytn_servizi_bambini_hor);
-		put("Associazioni sportive",R.drawable.familytn_asso_sportive_hor);
-	}};
-	
+	public static Map<String, Integer> poiSubtypeCertifiedDrawableMap = new HashMap<String, Integer>() {
+		{
+			put("Comuni", R.drawable.familytn_comune);
+			put("Musei", R.drawable.familytn_musei);
+			put("Strutture alberghiere", R.drawable.familytn_strutturealberghiere);
+			put("Pubblici esercizi", R.drawable.familytn_pubblici_esercizi);
+			put("Servizi per bambini e ragazzi", R.drawable.familytn_servizi_bambini);
+			put("Associazioni sportive", R.drawable.familytn_asso_sportive);
+		}
+	};
+	public static Map<String, Integer> poiSubtypeCertifiedDrawableMapHor = new HashMap<String, Integer>() {
+		{
+			put("Comuni", R.drawable.familytn_comune_hor);
+			put("Musei", R.drawable.familytn_musei_hor);
+			put("Strutture alberghiere", R.drawable.familytn_strutturealberghiere_hor);
+			put("Pubblici esercizi", R.drawable.familytn_pubblici_esercizi_hor);
+			put("Servizi per bambini e ragazzi", R.drawable.familytn_servizi_bambini_hor);
+			put("Associazioni sportive", R.drawable.familytn_asso_sportive_hor);
+		}
+	};
+
 	public static String[] getAllCategories(Set<String> set) {
 		List<String> result = new ArrayList<String>();
 		for (String key : categoryMapping.keySet()) {
@@ -212,6 +217,7 @@ public class CategoryHelper {
 	public static CategoryDescriptor[] getInfoCategoryDescriptors() {
 		return INFO_CATEGORIES;
 	}
+
 	public static CategoryDescriptor[] getTrackCategoryDescriptors() {
 		return TRACK_CATEGORIES;
 	}
@@ -239,7 +245,7 @@ public class CategoryHelper {
 		}
 		return res;
 	}
-	
+
 	public static String[] getTrackCategories() {
 		String[] res = new String[TRACK_CATEGORIES.length];
 		for (int i = 0; i < TRACK_CATEGORIES.length; i++) {
@@ -248,7 +254,6 @@ public class CategoryHelper {
 		return res;
 	}
 
-	
 	public static CategoryDescriptor[] getEventCategoryDescriptorsFiltered() {
 		return DTParamsHelper.getInstance().getFilteredArrayByParams(EVENT_CATEGORIES, CATEGORY_TYPE_EVENTS);
 	}
@@ -264,14 +269,15 @@ public class CategoryHelper {
 	public static CategoryDescriptor[] getTrackCategoryDescriptorsFiltered() {
 		return DTParamsHelper.getInstance().getFilteredArrayByParams(TRACK_CATEGORIES, CATEGORY_TYPE_TRACKS);
 	}
+
 	public static CategoryDescriptor getCategoryDescriptorByCategoryFiltered(String type, String cat) {
 		return descriptorMap.get(cat);
-		
+
 	}
-	
-	
+
 	public static boolean hasRatingForm(BaseDTObject obj) {
-		if (CAT_POI_TAVOLO_NUOVI_MEDIA.equals(obj.getType())) return false;
+		if (CAT_POI_TAVOLO_NUOVI_MEDIA.equals(obj.getType()))
+			return false;
 		return !(obj instanceof InfoObject);
 	}
 }
