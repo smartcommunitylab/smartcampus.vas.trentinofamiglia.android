@@ -18,7 +18,7 @@ public class TrackObject extends BaseDTObject implements Serializable{
 	 */
 	private static final long serialVersionUID = -3399886172947825575L;
 
-	private List<LatLng> decodedLine = null;
+	private transient List<LatLng> decodedLine = null;
 	
 	private String track;
 	
