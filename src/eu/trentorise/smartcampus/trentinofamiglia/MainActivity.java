@@ -205,11 +205,16 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		
 	}
 
+	//hack for moving the expandablelistview's arrow from left to right
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 	    super.onWindowFocusChanged(hasFocus);
-	    	mListView.setIndicatorBounds(mListView.getRight()- 40, mListView.getWidth());
-	}
+	    if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+	    	mListView.setIndicatorBounds(mListView.getRight()- (int)getResources().getDimension(R.dimen.navigation_arrow), mListView.getWidth());
+	     } else {
+	    	 mListView.setIndicatorBoundsRelative(mListView.getRight()- (int)getResources().getDimension(R.dimen.navigation_arrow), mListView.getWidth());
+	     }
+ 	}
 	private NavDrawerAdapter buildAdapter() {
 
 		Map<String, List<DrawerItem>> items = new HashMap<String, List<DrawerItem>>();
