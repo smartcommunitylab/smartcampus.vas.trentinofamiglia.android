@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -49,6 +50,7 @@ import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.AbstractAsyncTaskProcessor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper.CategoryDescriptor;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.ViewHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
@@ -237,6 +239,9 @@ public class TrackListingFragment extends AbstractLstingFragment<TrackObject> im
 
 	@Override
 	public void onStart() {
+		// hide keyboard if it is still open
+		Utils.hideKeyboard(getActivity());
+
 		if (reload) {
 			trackAdapter = new TrackAdapter(context, R.layout.tracks_row);
 			setAdapter(trackAdapter);

@@ -7,13 +7,17 @@ import java.util.Locale;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import android.app.Activity;
+import android.content.Context;
 import android.location.Address;
+import android.view.inputmethod.InputMethodManager;
 import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion;
 import eu.trentorise.smartcampus.android.common.tagging.SemanticSuggestion.TYPE;
 import eu.trentorise.smartcampus.social.model.Concept;
 import eu.trentorise.smartcampus.territoryservice.model.BaseDTObject;
 import eu.trentorise.smartcampus.territoryservice.model.EventObject;
 import eu.trentorise.smartcampus.territoryservice.model.POIObject;
+import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
@@ -191,6 +195,14 @@ public class Utils {
 		} else {
 			return null;
 		}
+	}
+	public static void hideKeyboard (Activity activity){
+		// hide keyboard if it is still open
+		InputMethodManager imm = (InputMethodManager) activity
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(
+				activity.findViewById(R.id.frame_content).getWindowToken(),
+				0);
 	}
 
 }

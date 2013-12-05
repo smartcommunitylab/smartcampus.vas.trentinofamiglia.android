@@ -39,6 +39,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -276,6 +277,9 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 	@Override
 	public void onStart() {
+		// hide keyboard if it is still open
+		Utils.hideKeyboard(getActivity());
+		
 		Bundle bundle = this.getArguments();
 
 		if (reload) {
