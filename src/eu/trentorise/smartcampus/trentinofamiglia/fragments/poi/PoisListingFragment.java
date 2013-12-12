@@ -281,6 +281,8 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 		CategoryDescriptor catDescriptor = CategoryHelper.getCategoryDescriptorByCategoryFiltered(CategoryHelper.CATEGORY_TYPE_POIS, category);
 		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description) : null;
 
+		//warning toast if baby little home or hotels
+		warningToast(catDescriptor);
 		// set title
 		TextView title = (TextView) getView().findViewById(R.id.list_title);
 		if (categoryString != null) {
@@ -346,6 +348,13 @@ public class PoisListingFragment extends AbstractLstingFragment<POIObject> imple
 
 //		FeedbackFragmentInflater.inflateHandleButton(getActivity(), getView());
 		super.onStart();
+	}
+
+	private void warningToast(CategoryDescriptor catDescriptor) {
+			if (catDescriptor.category.equals(CategoryHelper.CAT_POI_BABY_LITTLE_HOME))
+				Toast.makeText(getActivity(), R.string.warning_baby, Toast.LENGTH_LONG).show();
+			else if (catDescriptor.category.equals(CategoryHelper.CAT_POI_VACANZE_AL_MARE))
+				Toast.makeText(getActivity(), R.string.warning_hotel, Toast.LENGTH_LONG).show();
 	}
 
 	@Override

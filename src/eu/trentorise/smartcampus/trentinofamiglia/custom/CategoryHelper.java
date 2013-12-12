@@ -88,7 +88,7 @@ public class CategoryHelper {
 			/* 5 */new CategoryDescriptor(R.drawable.ic_family_tn_map, R.drawable.family_trentino,
 					CAT_POI_FAMILY_IN_TRENTINO, R.string.categories_poi_trentino_family),
 			/* 6 */new CategoryDescriptor(R.drawable.ic_littlehome_map, R.drawable.ic_littlehome,
-					CAT_POI_BABY_LITTLE_HOME, R.string.categories_poi_trentino_family), };
+					CAT_POI_BABY_LITTLE_HOME, R.string.categories_poi_baby_little_home), };
 
 	public static CategoryDescriptor[] INFO_CATEGORIES = new CategoryDescriptor[] {
 			/* 1 */new CategoryDescriptor(R.drawable.ic_marker_p_family, R.drawable.ic_provincia,

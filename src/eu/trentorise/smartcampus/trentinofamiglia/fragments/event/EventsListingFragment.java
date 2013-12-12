@@ -45,6 +45,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask.SCAsyncTaskProcessor;
 import eu.trentorise.smartcampus.android.common.listing.AbstractLstingFragment;
@@ -295,6 +296,8 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 				CategoryHelper.CATEGORY_TYPE_EVENTS, category);
 		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description)
 				: null;
+		//load warning toast if summer events
+		warningToast(catDescriptor);
 
 		if (bundle != null && bundle.containsKey(SearchFragment.ARG_QUERY)
 				&& bundle.getString(SearchFragment.ARG_QUERY) != null) {
@@ -356,6 +359,11 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 		super.onStart();
 
+	}
+
+	private void warningToast(CategoryDescriptor catDescriptor) {
+		if (catDescriptor.category.equals(CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA))
+			Toast.makeText(getActivity(), R.string.warning_summer, Toast.LENGTH_LONG).show();
 	}
 
 	private void setStoreEventId(View v, int position) {

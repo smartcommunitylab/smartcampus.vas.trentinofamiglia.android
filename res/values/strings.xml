@@ -16,6 +16,7 @@
     <string name="categories_poi_new_media">Tavolo \"Nuovi Media\"</string>
     <string name="categories_poi_breast_point">Punti allattamento</string>
     <string name="categories_poi_trentino_family">\"Family in Trentino\"</string>
+    <string name="categories_poi_baby_little_home">\"Baby little home\"</string>
     <string name="categories_info_provincial_politics">Politiche provinciali</string>
     <string name="categories_info_certifiers">Consulenti \"Audit\"</string>
     <string name="categories_info_evaluators">Valutatori \"Audit\"</string>
@@ -112,5 +113,8 @@
     <string name="enable_connection">Connessione non disponibile. Verifica le impostazioni dello smartphone e riprova.</string>
     <string name="to_be_updated">Aggiornamento</string>
         <string name="update_application_question">E\' disponibile una nuova versione. Desideri aggiornare l\'applicazione adesso?</string>
-    
+<!--   warning toast -->
+    <string name="warning_summer">Presto saranno disponibili gli eventi per il 2014</string>
+    <string name="warning_hotel">Le convenzioni con gli hotel sono valide fino a fine 2013. Presto saranno disponibili le convenzioni per il 2014</string>
+    <string name="warning_baby">La posizione delle baby little home puo’ essere in alcuni casi approssimata</string>
 </resources>
