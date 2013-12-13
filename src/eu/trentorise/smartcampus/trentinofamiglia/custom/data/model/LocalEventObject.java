@@ -153,6 +153,8 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 
 	public String customDescription(Context ctx) {
 		String d = getDescription();
+		//delete the image url
+		d=d.replaceAll("<img.*src=\"(/|.)[^>]*>", "");
 		if (CategoryHelper.CAT_EVENT_ALTO_GARDA.equals(getType())) {
 			d += "<br/>" + ctx.getString(R.string.event_subcat, getCustomData().get("category"));
 			if ("NO".equals(getCustomData().get("free"))) {

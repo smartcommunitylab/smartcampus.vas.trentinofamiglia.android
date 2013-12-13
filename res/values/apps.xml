@@ -29,7 +29,7 @@
     <string name="smartcampus_url_apk">http://www.smartcampuslab.it/download/VAS/apk/</string>
     
     <string-array name="apk_filename">
-        <item>eu.trentorise.smartcampus.trentinofamiglia.apk</item>        
+        <item>smartcampus.vas.trentinofamiglia.android.apk</item>        
     </string-array>
     
     <string-array name="app_labels">
