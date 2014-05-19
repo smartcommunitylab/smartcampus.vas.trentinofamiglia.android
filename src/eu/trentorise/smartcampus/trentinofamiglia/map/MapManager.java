@@ -52,7 +52,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.DTParamsHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 
 public class MapManager {
@@ -419,7 +419,7 @@ public class MapManager {
 
 	private static int objectCertified(BaseDTObject o) {
 		if (o.getCustomData() != null) {
-			if ((o instanceof LocalEventObject) && ((Boolean) o.getCustomData().get("certified"))) {
+			if ((o instanceof ExplorerObject) && ((Boolean) o.getCustomData().get("certified"))) {
 				/* se ceretificato e evento */
 				return R.drawable.ic_marker_e_family_certified;
 			}

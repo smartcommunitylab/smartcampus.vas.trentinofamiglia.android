@@ -20,7 +20,7 @@ import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 
 public class Utils {
@@ -122,11 +122,11 @@ public class Utils {
 			return false;
 	}
 
-	public static Collection<LocalEventObject> convertToLocalEventFromBean(
+	public static Collection<ExplorerObject> convertToLocalEventFromBean(
 			Collection<EventObjectForBean> searchInGeneral) {
-		Collection<LocalEventObject> returnCollection = new ArrayList<LocalEventObject>();
+		Collection<ExplorerObject> returnCollection = new ArrayList<ExplorerObject>();
 		for (EventObjectForBean event : searchInGeneral) {
-				LocalEventObject localEvent = DTHelper.findEventById(event.getObjectForBean().getId());
+				ExplorerObject localEvent = DTHelper.findEventById(event.getObjectForBean().getId());
 				if (localEvent != null) {
 
 				returnCollection.add(localEvent);
@@ -135,13 +135,13 @@ public class Utils {
 		return returnCollection;
 	}
 
-	public static Collection<LocalEventObject> convertToLocalEvent(Collection<EventObject> events) {
+	public static Collection<ExplorerObject> convertToLocalEvent(Collection<EventObject> events) {
 		Collection<EventObjectForBean> beanEvents = new ArrayList<EventObjectForBean>();
-		Collection<LocalEventObject> returnEvents = new ArrayList<LocalEventObject>();
+		Collection<ExplorerObject> returnEvents = new ArrayList<ExplorerObject>();
 
 		for (EventObject event : events) {
 			EventObjectForBean newObject = new EventObjectForBean();
-			LocalEventObject localObject = new LocalEventObject();
+			ExplorerObject localObject = new ExplorerObject();
 			newObject.setObjectForBean(event);
 			localObject.setEventFromEventObjectForBean(newObject);
 			returnEvents.add(localObject);
@@ -189,7 +189,7 @@ public class Utils {
 	 * @param event
 	 * @return
 	 */
-	public static String getEventShortAddress(LocalEventObject event) {
+	public static String getEventShortAddress(ExplorerObject event) {
 		if (event.getCustomData() != null && event.getCustomData().get("place")!=null) {
 			return event.getCustomData().get("place").toString();
 		} else {

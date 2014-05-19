@@ -88,7 +88,7 @@
 
     
     <string name="audit_person_date">Data conseguimento qualifica: %s</string>
-    <string name="auth_required">Si prega di registrarsi con il suo Google account.</string>
+    <string name="auth_required">È necessario registrarsi con un account Google.</string>
 
     <string name="comment_hint">Commento</string>
     

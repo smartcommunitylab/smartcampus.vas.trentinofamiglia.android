@@ -31,11 +31,11 @@ import android.widget.TextView;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 
 
 // in EventsListingFragment
-public class EventAdapter extends ArrayAdapter<LocalEventObject> {
+public class EventAdapter extends ArrayAdapter<ExplorerObject> {
 
 	private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static final DateFormat extDateFormat = new SimpleDateFormat("EEEEEE dd/MM/yyyy");
@@ -78,11 +78,11 @@ public class EventAdapter extends ArrayAdapter<LocalEventObject> {
 		Drawable drawable = context.getResources().getDrawable(CategoryHelper.getIconByType(e.event.getType()));
 
 		if (CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA.equals(e.event.getType()))
-			drawable = LocalEventObject.getIconsEventCertified(context,e.event);
+			drawable = ExplorerObject.getIconsEventCertified(context,e.event);
 		e.icon.setImageDrawable(drawable);
 		
 		// Choose if show the separator or not
-		LocalEventObject event = getItem(position);
+		ExplorerObject event = getItem(position);
 
 		Calendar previousEvent = null;
 		Calendar currentEvent = Calendar.getInstance();

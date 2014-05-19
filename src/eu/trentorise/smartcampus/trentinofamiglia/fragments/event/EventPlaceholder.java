@@ -19,12 +19,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 
 // contains all info about the event. To be passed to the listing and details fragments.
 public class EventPlaceholder {
 
-	public LocalEventObject event;
+	public ExplorerObject event;
 	public TextView dateSeparator;
 	public int displayChild=0;
 	public TextView title, description, notes, location, hour, tags, source, attendees;

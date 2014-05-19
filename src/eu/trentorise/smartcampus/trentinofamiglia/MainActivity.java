@@ -48,7 +48,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller;
 import eu.trentorise.smartcampus.trentinofamiglia.update.ApkInstaller.ApkDownloaderTask;
 import eu.trentorise.smartcampus.trentinofamiglia.update.ConnectionUtil;
 
-public class MainActivity extends ActionBarActivity implements  OnChildClickListener {
+public class MainActivity extends ActionBarActivity implements OnChildClickListener {
 
 	public static final String TAG_FRAGMENT_MAP = "fragmap";
 	public static final String TAG_FRAGMENT_POI_LIST = "fragpopi";
@@ -66,9 +66,12 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+		if (currentapiVersion >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+			setSupportProgressBarIndeterminateVisibility(false);
+		}
 
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setSupportProgressBarIndeterminateVisibility(false);
 		setContentView(R.layout.activity_main);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,58 +80,61 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		setupProperties();
 		initDataManagement(savedInstanceState);
 
-
-
 	}
+
 	public void navDrawerOutItemClick(View v) {
 		if (v.getId() == R.id.nav_drawer_map_tv) {
-				onChildClick(null, null, -1, -1, -1);
-		} 
+			onChildClick(null, null, -1, -1, -1);
+		}
 		if (v.getId() == R.id.nav_drawer_info) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse(getString(R.string.trentinofamiglia_url_credits)));
-			startActivity(browserIntent);	} 
+			startActivity(browserIntent);
+		}
 
 	}
+
 	// getting the notification intent update the launcher
-		@Override
-		public void onNewIntent(Intent arg0) {
-			super.onNewIntent(arg0);
-			Bundle extras = arg0.getExtras();
+	@Override
+	public void onNewIntent(Intent arg0) {
+		super.onNewIntent(arg0);
+		Bundle extras = arg0.getExtras();
 
-			if (extras != null) {
-				ApkDownloaderTask mDownloaderTask = new ApkDownloaderTask(this, extras.getString("url"));
+		if (extras != null) {
+			ApkDownloaderTask mDownloaderTask = new ApkDownloaderTask(this, extras.getString("url"));
 
-				if (ConnectionUtil.isConnected(ConnectionUtil.getConnectivityManager(this))) {
-					// Checking url
-					if (!TextUtils.isEmpty(extras.getString("url"))) {
-						if (mDownloaderTask != null && !mDownloaderTask.isCancelled()) {
-							mDownloaderTask.cancel(true);
-						}
-						mDownloaderTask = new ApkDownloaderTask(this, extras.getString(ApkInstaller.PARAM_URL));
-						mDownloaderTask.execute();
-					} else {
-						Log.d(MainActivity.class.getName(), "Empty url for download: " + extras.getString(ApkInstaller.PARAM_NAME));
-						Toast.makeText(this, R.string.error_occurs, Toast.LENGTH_SHORT).show();
+			if (ConnectionUtil.isConnected(ConnectionUtil.getConnectivityManager(this))) {
+				// Checking url
+				if (!TextUtils.isEmpty(extras.getString("url"))) {
+					if (mDownloaderTask != null && !mDownloaderTask.isCancelled()) {
+						mDownloaderTask.cancel(true);
 					}
+					mDownloaderTask = new ApkDownloaderTask(this, extras.getString(ApkInstaller.PARAM_URL));
+					mDownloaderTask.execute();
 				} else {
-					Toast.makeText(this, R.string.enable_connection, Toast.LENGTH_SHORT).show();
-					Intent intent = ConnectionUtil.getWifiSettingsIntent();
-					startActivity(intent);
+					Log.d(MainActivity.class.getName(),
+							"Empty url for download: " + extras.getString(ApkInstaller.PARAM_NAME));
+					Toast.makeText(this, R.string.error_occurs, Toast.LENGTH_SHORT).show();
 				}
+			} else {
+				Toast.makeText(this, R.string.enable_connection, Toast.LENGTH_SHORT).show();
+				Intent intent = ConnectionUtil.getWifiSettingsIntent();
+				startActivity(intent);
 			}
-
 		}
+
+	}
+
 	private void initDataManagement(Bundle savedInstanceState) {
 		try {
 			initGlobalConstants();
 
 			try {
-//				if (!SCAccessProvider.getInstance(this).login(this, null)) {
-					DTHelper.init(getApplicationContext());
-					initData(); 
-//				}
-			
+				// if (!SCAccessProvider.getInstance(this).login(this, null)) {
+				DTHelper.init(getApplicationContext());
+				initData();
+				// }
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				Toast.makeText(this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
@@ -174,7 +180,8 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	private boolean initData() {
 		try {
 			// to start with the map.
-			mFragmentManager.beginTransaction().replace(R.id.frame_content, new MapFragment(), TAG_FRAGMENT_MAP).commit();
+			mFragmentManager.beginTransaction().replace(R.id.frame_content, new MapFragment(), TAG_FRAGMENT_MAP)
+					.commit();
 			new SCAsyncTask<Void, Void, BaseDTObject>(this, new LoadDataProcessor(this)).execute();
 		} catch (Exception e1) {
 			Toast.makeText(this, R.string.app_failure_init, Toast.LENGTH_LONG).show();
@@ -196,25 +203,30 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		mListView = (ExpandableListView) findViewById(R.id.drawer_list);
 		navMenuTitles = getResources().getStringArray(R.array.fragments_label_array);
 		NavDrawerAdapter nda = buildAdapter();
-		
+
 		View infoBtn = getLayoutInflater().inflate(R.layout.info_drawer_item, null);
 		mListView.addFooterView(infoBtn);
-		
+
 		mListView.setAdapter(nda);
 		mListView.setOnChildClickListener(this);
-		
+
 	}
 
-	//hack for moving the expandablelistview's arrow from left to right
+	// hack for moving the expandablelistview's arrow from left to right
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-	    super.onWindowFocusChanged(hasFocus);
-	    if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-	    	mListView.setIndicatorBounds(mListView.getRight()- (int)getResources().getDimension(R.dimen.navigation_arrow), mListView.getWidth());
-	     } else {
-	    	 mListView.setIndicatorBoundsRelative(mListView.getRight()- (int)getResources().getDimension(R.dimen.navigation_arrow), mListView.getWidth());
-	     }
- 	}
+		super.onWindowFocusChanged(hasFocus);
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			mListView.setIndicatorBounds(
+					mListView.getRight() - (int) getResources().getDimension(R.dimen.navigation_arrow),
+					mListView.getWidth());
+		} else {
+			mListView.setIndicatorBoundsRelative(
+					mListView.getRight() - (int) getResources().getDimension(R.dimen.navigation_arrow),
+					mListView.getWidth());
+		}
+	}
+
 	private NavDrawerAdapter buildAdapter() {
 
 		Map<String, List<DrawerItem>> items = new HashMap<String, List<DrawerItem>>();
@@ -222,22 +234,14 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 
 		// getting items from the xml
 		// see the method for further infos
-		populateFromXml(items, headers, R.array.drawer_items_events_labels,
-				R.array.drawer_items_events_icons,
-				R.array.drawer_items_freetime_labels,
-				R.array.drawer_items_freetime_icons,
-				R.array.drawer_items_initiatives_labels,
-				R.array.drawer_items_initiatives_icons,
-				R.array.drawer_items_places_labels,
-				R.array.drawer_items_places_icons,
-				R.array.drawer_items_babies_labels,
-				R.array.drawer_items_babies_icons,
-				R.array.drawer_items_family_labels,
-				R.array.drawer_items_family_icons);
+		populateFromXml(items, headers, R.array.drawer_items_events_labels, R.array.drawer_items_events_icons,
+				R.array.drawer_items_freetime_labels, R.array.drawer_items_freetime_icons,
+				R.array.drawer_items_initiatives_labels, R.array.drawer_items_initiatives_icons,
+				R.array.drawer_items_places_labels, R.array.drawer_items_places_icons,
+				R.array.drawer_items_babies_labels, R.array.drawer_items_babies_icons,
+				R.array.drawer_items_family_labels, R.array.drawer_items_family_icons);
 		return new NavDrawerAdapter(this, headers, items);
 	}
-
-
 
 	/**
 	 * ASSUMPTIONS: ids passed should be in this way:
@@ -250,8 +254,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 	 * @param ids
 	 *            array of arrays made in xml
 	 */
-	private void populateFromXml(Map<String, List<DrawerItem>> items,
-			List<String> headers, int... ids) {
+	private void populateFromXml(Map<String, List<DrawerItem>> items, List<String> headers, int... ids) {
 		for (int i = 0; i < ids.length; i += 2) {
 			String[] labels = getResources().getStringArray(ids[i]);
 			TypedArray drawIds = getResources().obtainTypedArray((ids[i + 1]));
@@ -259,9 +262,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			ArrayList<DrawerItem> tmp = new ArrayList<DrawerItem>();
 			for (int j = 1; j < labels.length; j++) {
 				int imgd = drawIds.getResourceId(j - 1, -1);
-				tmp.add(new DrawerItem(
-						labels[j],
-						((imgd != -1) ? getResources().getDrawable(imgd) : null)));
+				tmp.add(new DrawerItem(labels[j], ((imgd != -1) ? getResources().getDrawable(imgd) : null)));
 			}
 			items.put(labels[0], tmp);
 			drawIds.recycle();
@@ -289,10 +290,9 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 
 		return false;
 	}
-	
+
 	@Override
-	public boolean onChildClick(ExpandableListView parent, View v,
-			int groupPosition, int childPosition, long id) {
+	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
 		Object[] objects = getFragmentAndTag(groupPosition, childPosition);
 		// can't replace the current fragment with nothing or with one of the
@@ -300,8 +300,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 		if (objects != null) {
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.anim.enter, R.anim.exit);
-			ft.replace(R.id.frame_content, (Fragment) objects[0],
-					objects[1].toString());
+			ft.replace(R.id.frame_content, (Fragment) objects[0], objects[1].toString());
 			clearStack();
 			ft.addToBackStack(objects[1].toString());
 
@@ -314,11 +313,12 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 
 	private void clearStack() {
 		FragmentManager fm = getSupportFragmentManager();
-		for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {    
-		    fm.popBackStack();
+		for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+			fm.popBackStack();
 		}
-		
+
 	}
+
 	private Object[] getFragmentAndTag(int groupPos, int childPos) {
 		Object[] out = new Object[2];
 		String cat = null;
@@ -358,7 +358,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 			}
 		} else if (groupPos == 1) { // free time and holidays
 			switch (childPos) {
-			case 0:	//piste ciclopedonali
+			case 0: // piste ciclopedonali
 				TrackListingFragment tlf = null;
 				cat = CategoryHelper.CAT_TRACK_PISTE_CICLOPEDONALI;
 				args = new Bundle();
@@ -368,7 +368,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[0] = tlf;
 				out[1] = TAG_FRAGMENT_TRACK_LIST;
 				break;
-			case 1:	//passeggiate
+			case 1: // passeggiate
 				tlf = null;
 				cat = CategoryHelper.CAT_TRACK_PASSEGGIATE;
 				args = new Bundle();
@@ -378,7 +378,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out[0] = tlf;
 				out[1] = TAG_FRAGMENT_TRACK_LIST;
 				break;
-			case 2:	//vacanze al mare
+			case 2: // vacanze al mare
 				PoisListingFragment plf = null;
 				cat = CategoryHelper.CAT_POI_VACANZE_AL_MARE;
 				args = new Bundle();
@@ -434,7 +434,7 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				break;
 
 			}
-		}else if (groupPos == 4) {// babies
+		} else if (groupPos == 4) {// babies
 			PoisListingFragment plf = null;
 			switch (childPos) {
 			case 0:
@@ -501,11 +501,8 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				out = null;
 				break;
 			}
-		}  
-		
-		
-		
-		
+		}
+
 		else {
 			out = null;
 		}
@@ -571,13 +568,11 @@ public class MainActivity extends ActionBarActivity implements  OnChildClickList
 				}).start();
 			} else {
 				setSupportProgressBarIndeterminateVisibility(false);
-//				DTHelper.activateAutoSync();
+				// DTHelper.activateAutoSync();
 			}
 
 		}
 
 	}
-
-	
 
 }

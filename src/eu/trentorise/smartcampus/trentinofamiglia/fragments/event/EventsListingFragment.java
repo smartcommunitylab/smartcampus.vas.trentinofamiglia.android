@@ -61,7 +61,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.ViewHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.SearchFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.WhenForSearch;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.search.WhereForSearch;
@@ -69,7 +69,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.map.MapFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
 // to be used for event listing both in categories and in My Events
-public class EventsListingFragment extends AbstractLstingFragment<LocalEventObject> implements TagProvider {
+public class EventsListingFragment extends AbstractLstingFragment<ExplorerObject> implements TagProvider {
 	private ListView list;
 	private Context context;
 
@@ -92,7 +92,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 	private Integer indexAdapter;
 	private Boolean reload = false;
 	private Integer postitionSelected = -1;
-	private List<LocalEventObject> listEvents = new ArrayList<LocalEventObject>();
+	private List<ExplorerObject> listEvents = new ArrayList<ExplorerObject>();
 	private boolean postProcAndHeader = true;
 
 	@Override
@@ -120,7 +120,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 		super.onResume();
 		if (!idEvent.equals("")) {
 			// get info of the event
-			LocalEventObject event = DTHelper.findEventById(idEvent);
+			ExplorerObject event = DTHelper.findEventById(idEvent);
 			// notify
 			eventsAdapter.notifyDataSetChanged();
 			idEvent = "";
@@ -129,7 +129,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 	}
 
-	private void restoreElement(EventAdapter eventsAdapter2, Integer indexAdapter2, LocalEventObject event) {
+	private void restoreElement(EventAdapter eventsAdapter2, Integer indexAdapter2, ExplorerObject event) {
 		removeEvent(eventsAdapter, indexAdapter);
 		insertEvent(event, indexAdapter);
 
@@ -139,13 +139,13 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 	 * insert in the same adapter the new itemsdo the post proc if they are
 	 * multiday events
 	 */
-	private void insertEvent(LocalEventObject event, Integer indexAdapter2) {
+	private void insertEvent(ExplorerObject event, Integer indexAdapter2) {
 
 		Calendar cal = Calendar.getInstance();
 		calToDate(cal);
 		long biggerFromTime = cal.getTimeInMillis();
 		// add in the right place
-		List<LocalEventObject> returnList = new ArrayList<LocalEventObject>();
+		List<ExplorerObject> returnList = new ArrayList<ExplorerObject>();
 		int i = 0;
 		int j = 0;
 		while (i < eventsAdapter.getCount() + 1) {
@@ -161,7 +161,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 		// post proc for multidays
 		i = 0;
-		List<LocalEventObject> newList = returnList;// postProcForRecurrentEvents(returnList,
+		List<ExplorerObject> newList = returnList;// postProcForRecurrentEvents(returnList,
 													// biggerFromTime, false);
 		while (i < newList.size()) {
 			eventsAdapter.insert(newList.get(i), i);
@@ -171,7 +171,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 	/* clean the adapter from the items modified or erased */
 	private void removeEvent(EventAdapter eventsAdapter, Integer indexAdapter) {
-		LocalEventObject objectToRemove = eventsAdapter.getItem(indexAdapter);
+		ExplorerObject objectToRemove = eventsAdapter.getItem(indexAdapter);
 		int i = 0;
 		while (i < eventsAdapter.getCount()) {
 			if (eventsAdapter.getItem(i).getEntityId() == objectToRemove.getEntityId())
@@ -296,8 +296,8 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 				CategoryHelper.CATEGORY_TYPE_EVENTS, category);
 		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description)
 				: null;
-		//load warning toast if summer events
-		warningToast(catDescriptor);
+//		//load warning toast if summer events
+//		warningToast(catDescriptor);
 
 		if (bundle != null && bundle.containsKey(SearchFragment.ARG_QUERY)
 				&& bundle.getString(SearchFragment.ARG_QUERY) != null) {
@@ -361,13 +361,13 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 	}
 
-	private void warningToast(CategoryDescriptor catDescriptor) {
-		if (catDescriptor.category.equals(CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA))
-			Toast.makeText(getActivity(), R.string.warning_summer, Toast.LENGTH_LONG).show();
-	}
+//	private void warningToast(CategoryDescriptor catDescriptor) {
+//		if (catDescriptor.category.equals(CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA))
+//			Toast.makeText(getActivity(), R.string.warning_summer, Toast.LENGTH_LONG).show();
+//	}
 
 	private void setStoreEventId(View v, int position) {
-		final LocalEventObject event = ((EventPlaceholder) v.getTag()).event;
+		final ExplorerObject event = ((EventPlaceholder) v.getTag()).event;
 		idEvent = event.getId();
 		indexAdapter = position;
 	}
@@ -415,9 +415,9 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 		}
 	}
 
-	private List<LocalEventObject> getEvents(AbstractLstingFragment.ListingRequest... params) {
+	private List<ExplorerObject> getEvents(AbstractLstingFragment.ListingRequest... params) {
 		try {
-			Collection<LocalEventObject> result = null;
+			Collection<ExplorerObject> result = null;
 
 			Bundle bundle = getArguments();
 			boolean my = false;
@@ -462,7 +462,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 				result = DTHelper.searchTodayEvents(params[0].position, params[0].size,
 						bundle.getString(SearchFragment.ARG_QUERY));
 			} else if (bundle.containsKey(SearchFragment.ARG_LIST)) {
-				result = (Collection<LocalEventObject>) bundle.get(SearchFragment.ARG_LIST);
+				result = (Collection<ExplorerObject>) bundle.get(SearchFragment.ARG_LIST);
 			} else {
 				return Collections.emptyList();
 			}
@@ -470,7 +470,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 			/* conversion to LocalObject */
 			listEvents.addAll(result);
 
-			List<LocalEventObject> sorted = new ArrayList<LocalEventObject>(listEvents);
+			List<ExplorerObject> sorted = new ArrayList<ExplorerObject>(listEvents);
 			if (!postProcAndHeader) {
 				return sorted;
 			} else {
@@ -512,7 +512,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 	}
 
 	private class EventLoader extends
-			AbstractAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<LocalEventObject>> {
+			AbstractAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<ExplorerObject>> {
 
 		public EventLoader(Activity activity) {
 			super(activity);
@@ -520,22 +520,22 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 		// fetches the events
 		@Override
-		public List<LocalEventObject> performAction(AbstractLstingFragment.ListingRequest... params)
+		public List<ExplorerObject> performAction(AbstractLstingFragment.ListingRequest... params)
 				throws SecurityException, Exception {
 			return getEvents(params);
 		}
 
 		// populates the listview with the events
 		@Override
-		public void handleResult(List<LocalEventObject> result) {
+		public void handleResult(List<ExplorerObject> result) {
 			eventsAdapter.clear();
 			updateList(result == null || result.isEmpty());
 		}
 	}
 
-	private List<LocalEventObject> postProcForRecurrentEvents(List<LocalEventObject> result, long lessFromTime,
+	private List<ExplorerObject> postProcForRecurrentEvents(List<ExplorerObject> result, long lessFromTime,
 			boolean endReached) {
-		List<LocalEventObject> returnList = new ArrayList<LocalEventObject>();
+		List<ExplorerObject> returnList = new ArrayList<ExplorerObject>();
 		EventComparator r = new EventComparator();
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(result.get(result.size() - 1).getFromTime());
@@ -543,7 +543,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 		long biggerFromTime = cal.getTimeInMillis();
 		if (biggerFromTime < lessFromTime)
 			biggerFromTime = lessFromTime;
-		for (LocalEventObject event : result) {
+		for (ExplorerObject event : result) {
 			if (event.getToTime() == null || event.getToTime() == 0) {
 				event.setToTime(event.getFromTime());
 			}
@@ -584,7 +584,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 					long dayTmpTime = dayFromTime;
 
 					while (dayTmpTime <= dayToTime) {
-						LocalEventObject newEvent = event.copy();
+						ExplorerObject newEvent = event.copy();
 						newEvent.setFromTime(dayTmpTime);
 						newEvent.setToTime(dayTmpTime);
 						Calendar caltmp = Calendar.getInstance();
@@ -609,8 +609,8 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 
 	}
 
-	private static class EventComparator implements Comparator<LocalEventObject> {
-		public int compare(LocalEventObject c1, LocalEventObject c2) {
+	private static class EventComparator implements Comparator<ExplorerObject> {
+		public int compare(ExplorerObject c1, ExplorerObject c2) {
 			if (c1.getFromTime() == c2.getFromTime())
 				return 0;
 			if (c1.getFromTime() < c2.getFromTime())
@@ -622,7 +622,7 @@ public class EventsListingFragment extends AbstractLstingFragment<LocalEventObje
 	}
 
 	@Override
-	protected SCAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<LocalEventObject>> getLoader() {
+	protected SCAsyncTaskProcessor<AbstractLstingFragment.ListingRequest, List<ExplorerObject>> getLoader() {
 		return new EventLoader(getActivity());
 	}
 

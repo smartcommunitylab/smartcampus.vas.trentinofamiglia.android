@@ -42,7 +42,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 

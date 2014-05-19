@@ -158,10 +158,10 @@ public class PoiSelectFragment extends DialogFragment implements
 		for (String cat: mCategories){
 			if (cat.equals(CategoryHelper.CAT_POI_BABY_LITTLE_HOME))
 				Toast.makeText(getActivity(), R.string.warning_baby, Toast.LENGTH_LONG).show();
-			else if (cat.equals(CategoryHelper.CAT_POI_VACANZE_AL_MARE))
-				Toast.makeText(getActivity(), R.string.warning_hotel, Toast.LENGTH_LONG).show();
-			else if (cat.equals(CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA))
-				Toast.makeText(getActivity(), R.string.warning_summer, Toast.LENGTH_LONG).show();
+//			else if (cat.equals(CategoryHelper.CAT_POI_VACANZE_AL_MARE))
+//				Toast.makeText(getActivity(), R.string.warning_hotel, Toast.LENGTH_LONG).show();
+//			else if (cat.equals(CategoryHelper.CAT_EVENT_ESTATE_GIOVANI_E_FAMIGLIA))
+//				Toast.makeText(getActivity(), R.string.warning_summer, Toast.LENGTH_LONG).show();
 		}
 			
 	}

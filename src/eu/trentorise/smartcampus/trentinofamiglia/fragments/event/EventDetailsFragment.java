@@ -44,14 +44,14 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CommentsHandler;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.map.MapManager;
 
 public class EventDetailsFragment extends Fragment {
 	public static final String ARG_EVENT_ID = "event_id";
 
 
-	private LocalEventObject mEvent = null;
+	private ExplorerObject mEvent = null;
 	private String mEventId;
 
 	private Fragment mFragment = this;
@@ -81,7 +81,7 @@ public class EventDetailsFragment extends Fragment {
 //		return mPoi;
 //	}
 
-	private LocalEventObject getEvent() {
+	private ExplorerObject getEvent() {
 		if (mEventId == null) {
 			mEventId = getArguments().getString(ARG_EVENT_ID);
 		}
@@ -110,7 +110,7 @@ public class EventDetailsFragment extends Fragment {
 				bannerCertifiedIcon.setVisibility(View.VISIBLE);
 //
 			}
-			certifiedIcon.setImageDrawable(LocalEventObject.getIconsEventCertified(getActivity(), mEvent));
+			certifiedIcon.setImageDrawable(ExplorerObject.getIconsEventCertified(getActivity(), mEvent));
 			// title
 			TextView tv = (TextView) this.getView().findViewById(R.id.event_details_title);
 			tv.setText(mEvent.getTitle());
@@ -225,7 +225,7 @@ public class EventDetailsFragment extends Fragment {
 	}
 
 
-	private boolean isCertified(LocalEventObject event) {
+	private boolean isCertified(ExplorerObject event) {
 		if (event.getCustomData() != null && (Boolean) event.getCustomData().get("certified"))
 			return true;
 		else
@@ -287,7 +287,7 @@ public class EventDetailsFragment extends Fragment {
 		super.onResume();
 	}
 
-	private void bringMeThere(LocalEventObject eventObject) {
+	private void bringMeThere(ExplorerObject eventObject) {
 		AlertDialog.Builder builder;
 
 		builder = new AlertDialog.Builder(getActivity());

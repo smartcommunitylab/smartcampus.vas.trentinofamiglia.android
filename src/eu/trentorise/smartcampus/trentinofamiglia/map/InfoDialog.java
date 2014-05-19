@@ -32,7 +32,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.Utils;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.DTHelper;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.event.EventDetailsFragment;
 import eu.trentorise.smartcampus.trentinofamiglia.fragments.poi.PoiDetailsFragment;
@@ -53,7 +53,7 @@ public class InfoDialog extends DialogFragment {
 		}
 		if (data instanceof POIObject) {
 			getDialog().setTitle(getString(R.string.info_dialog_title_poi));
-		} else if (data instanceof LocalEventObject) {
+		} else if (data instanceof ExplorerObject) {
 			getDialog().setTitle(R.string.info_dialog_title_event);
 		} else if (data instanceof TrackObject) {
 			getDialog().setTitle(R.string.info_dialog_title_track);
@@ -69,8 +69,8 @@ public class InfoDialog extends DialogFragment {
 		if (data instanceof POIObject) {
 			msg.setText(Html.fromHtml("<h2>" + ((POIObject) data).getTitle() + "</h2><br/><p>"
 					+ Utils.getPOIshortAddress(((POIObject) data)) + "</p>"));
-		} else if (data instanceof LocalEventObject) {
-			LocalEventObject event = (LocalEventObject) data;
+		} else if (data instanceof ExplorerObject) {
+			ExplorerObject event = (ExplorerObject) data;
 			POIObject poi = DTHelper.findPOIById(event.getPoiId());
 			String msgText = "";
 			msgText += "<h2>";
@@ -124,7 +124,7 @@ public class InfoDialog extends DialogFragment {
 					fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 					fragmentTransaction.replace(R.id.frame_content, fragment, "me");
 					fragmentTransaction.addToBackStack(fragment.getTag());
-				} else if (data instanceof LocalEventObject) {
+				} else if (data instanceof ExplorerObject) {
 					EventDetailsFragment fragment = new EventDetailsFragment();
 					args.putString(EventDetailsFragment.ARG_EVENT_ID, (data.getId()));
 					fragment.setArguments(args);

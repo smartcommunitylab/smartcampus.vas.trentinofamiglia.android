@@ -53,7 +53,7 @@
     <string name="trentinofamiglia_url_credits">http://www.smartcampuslab.it/trentinofamigliaabout</string>
     <string name="nav_drawer_info">INFO</string>
     <string name="coming_soon">Presto disponibile!</string>
-    
+
     <!-- <string name="smartcampus_auth_url"> https://vas-dev.smartcampuslab.it/accesstoken-provider/ac</string> -->
     <!-- <string name="smartcampus_app_url">https://vas.smartcampuslab.it</string> -->
     <string name="smartcampus_app_url">https://tn.smartcampuslab.it</string>
@@ -96,7 +96,7 @@
     <string name="event_price">Price: %s </string>
     <string name="event_price_free">Price: free</string>
     <string name="audit_person_date">Qualification achievement date: %s</string>
-    <string name="auth_required">Please sign in with your Google account. </string>
+    <string name="auth_required">It is necessary to sign in with a Google account. </string>
     <string name="comment_hint">Comment</string>
     <string name="select_poi_title">Cosa vuoi vedere?</string>
 
@@ -109,12 +109,15 @@
     <string name="update_address">/download/VAS/update-trentinofamiglia.conf</string>
     <string name="update_host">http://www.smartcampuslab.it</string>
     <string name="error_occurs">OOPS! Questa app non è ancora disponibile.</string>
-    <string name="not_secure_app">Not secure app!</string> <!-- ?! -->
+    <string name="not_secure_app">Not secure app!</string>
+ <!-- ?! -->
     <string name="enable_connection">Connessione non disponibile. Verifica le impostazioni dello smartphone e riprova.</string>
     <string name="to_be_updated">Aggiornamento</string>
-        <string name="update_application_question">E\' disponibile una nuova versione. Desideri aggiornare l\'applicazione adesso?</string>
-<!--   warning toast -->
-    <string name="warning_summer">Presto saranno disponibili gli eventi per il 2014</string>
-    <string name="warning_hotel">Le convenzioni con gli hotel sono valide fino a fine 2013. Presto saranno disponibili le convenzioni per il 2014</string>
+    <string name="update_application_question">E\' disponibile una nuova versione. Desideri aggiornare l\'applicazione adesso?</string>
+    <!-- warning toast -->
+    <!-- <string name="warning_summer">Presto saranno disponibili gli eventi per il 2014</string> -->
+    <!-- <string name="warning_hotel">Le convenzioni con gli hotel sono valide fino a fine 2013. Presto saranno disponibili le convenzioni per il 2014</string> -->
+    <string name="warning_politiche_distretti">Presto saranno disponibili i programmi aggiornati per l\'anno 2014</string>
     <string name="warning_baby">La posizione delle baby little home puo’ essere in alcuni casi approssimata</string>
+
 </resources>

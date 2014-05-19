@@ -40,6 +40,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import eu.trentorise.smartcampus.android.common.SCAsyncTask.SCAsyncTaskProcessor;
 import eu.trentorise.smartcampus.android.common.listing.AbstractLstingFragment;
@@ -175,6 +176,12 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 		}
 	}
 
+	
+	private void warningToast(CategoryDescriptor catDescriptor) {
+		if (catDescriptor.category.equals(CategoryHelper.CAT_INFO_POLITICHE_DEI_DISTRETTI))
+			Toast.makeText(getActivity(), R.string.warning_politiche_distretti, Toast.LENGTH_LONG).show();
+
+}
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		/*
@@ -251,6 +258,7 @@ public class InfoListingFragment extends AbstractLstingFragment<InfoObject> {
 				CategoryHelper.CATEGORY_TYPE_INFOS, category);
 		String categoryString = (catDescriptor != null) ? context.getResources().getString(catDescriptor.description)
 				: null;
+		warningToast(catDescriptor);
 
 		// set title
 		TextView title = (TextView) getView().findViewById(R.id.list_title);

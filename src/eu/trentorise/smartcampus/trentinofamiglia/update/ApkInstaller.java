@@ -43,6 +43,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -386,7 +387,7 @@ public class ApkInstaller {
 			}
 
 			result.remove(i);
-			activity.invalidateOptionsMenu();
+			((ActionBarActivity) activity).supportInvalidateOptionsMenu();
 
 			if (forced)
 				forced = false;

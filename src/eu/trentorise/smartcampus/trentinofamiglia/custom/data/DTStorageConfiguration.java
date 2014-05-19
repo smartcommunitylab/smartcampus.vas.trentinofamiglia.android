@@ -24,7 +24,7 @@ import eu.trentorise.smartcampus.territoryservice.model.StoryObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObjectForBean;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.TrackObjectForBean;
@@ -33,7 +33,7 @@ public class DTStorageConfiguration implements StorageConfiguration {
 	private static final long serialVersionUID = 906503482979452854L;
 
 	@SuppressWarnings("unchecked")
-	private static Class<? extends BasicObject>[] classes = (Class<? extends BasicObject>[])new Class<?>[]{POIObject.class, LocalEventObject.class,InfoObject.class, TrackObject.class};												
+	private static Class<? extends BasicObject>[] classes = (Class<? extends BasicObject>[])new Class<?>[]{POIObject.class, ExplorerObject.class,InfoObject.class, TrackObject.class};												
 	private static BeanStorageHelper<PoiObjectForBean> poiHelper = new POIStorageHelper();
 	private static BeanStorageHelper<EventObjectForBean> eventHelper = new EventStorageHelper();
 	private static BeanStorageHelper<TrackObjectForBean> trackHelper = new TrackStorageHelper();
@@ -48,7 +48,7 @@ public class DTStorageConfiguration implements StorageConfiguration {
 		if (cls.equals(PoiObjectForBean.class)||cls.equals(POIObject.class)) {
 			return "pois";
 		}
-		if (cls.equals(EventObjectForBean.class)||cls.equals(LocalEventObject.class)) {
+		if (cls.equals(EventObjectForBean.class)||cls.equals(ExplorerObject.class)) {
 			return "events";
 		}
 		if (cls.equals(TrackObjectForBean.class)||cls.equals(TrackObject.class)) {
@@ -66,7 +66,7 @@ public class DTStorageConfiguration implements StorageConfiguration {
 		if (cls.equals(POIObject.class)||(cls.equals(PoiObjectForBean.class))) {
 			return (BeanStorageHelper<T>) poiHelper;
 		}
-		if (cls.equals(LocalEventObject.class)||(cls.equals(EventObjectForBean.class))) {
+		if (cls.equals(ExplorerObject.class)||(cls.equals(EventObjectForBean.class))) {
 			return (BeanStorageHelper<T>) eventHelper;
 		}
 		if (cls.equals(TrackObject.class)||(cls.equals(TrackObjectForBean.class))) {

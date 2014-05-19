@@ -2,19 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical" >
-    
+
     <TextView
         android:id="@+id/select_poi_header"
+        style="@style/textandligthgreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="6dp"
         android:gravity="center"
-        android:padding="6dp"
-        style="@style/textandligthgreen"
-        android:layout_alignParentTop="true" />
+        android:padding="6dp" />
 
     <ListView
         android:id="@+id/select_poi_listview"
@@ -24,7 +25,6 @@
         android:layout_below="@+id/select_poi_header"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin" >
-
     </ListView>
 
     <LinearLayout
@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:background="@color/highlight_green"
+            android:minHeight="32dp"
             android:text="@string/map_view"
             android:textColor="@android:color/black" />
 
@@ -54,10 +55,9 @@
             android:layout_marginLeft="6dp"
             android:layout_weight="0.5"
             android:background="@color/silver"
+            android:minHeight="32dp"
             android:text="@android:string/cancel"
             android:textColor="@android:color/white" />
     </LinearLayout>
-
-    
 
 </RelativeLayout>

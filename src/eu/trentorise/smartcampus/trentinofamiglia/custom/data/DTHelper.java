@@ -59,6 +59,7 @@ import eu.trentorise.smartcampus.android.common.tagging.SuggestionHelper;
 import eu.trentorise.smartcampus.network.JsonUtils;
 import eu.trentorise.smartcampus.network.RemoteConnector;
 import eu.trentorise.smartcampus.network.RemoteConnector.CLIENT_TYPE;
+import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.ConnectionException;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.ProtocolException;
 import eu.trentorise.smartcampus.protocolcarrier.exceptions.SecurityException;
@@ -81,7 +82,7 @@ import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.EventObjectF
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.GenericObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.InfoObjectForBean;
-import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.LocalEventObject;
+import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ExplorerObject;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.PoiObjectForBean;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.Review;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.data.model.ReviewObject;
@@ -133,7 +134,7 @@ public class DTHelper {
 
 	private boolean syncInProgress = false;
 	private FragmentActivity rootActivity = null;
-//	static BasicProfile bp = null;
+	static BasicProfile bp = null;
 
 	// private String myToken = null;
 	// private UserProfile userProfile = null;
@@ -830,10 +831,10 @@ public class DTHelper {
 //		}
 //	}
 
-	public static Collection<LocalEventObject> getEventsByCategories(int position, int size, String... inCategories)
+	public static Collection<ExplorerObject> getEventsByCategories(int position, int size, String... inCategories)
 			throws DataException, StorageConfigurationException, ConnectionException, ProtocolException,
 			SecurityException, TerritoryServiceException, AACException {
-		ArrayList<LocalEventObject> returnlist = new ArrayList<LocalEventObject>();
+		ArrayList<ExplorerObject> returnlist = new ArrayList<ExplorerObject>();
 
 		if (inCategories == null || inCategories.length == 0)
 			return Collections.emptyList();
@@ -861,7 +862,7 @@ public class DTHelper {
 			Collection<EventObjectForBean> events = getInstance().storage.query(EventObjectForBean.class, where,
 					nonNullCategories.toArray(new String[nonNullCategories.size()]), position, size, "fromTime ASC");
 			for (EventObjectForBean eventBean : events) {
-				LocalEventObject event = new LocalEventObject();
+				ExplorerObject event = new ExplorerObject();
 				event.setEventFromEventObjectForBean(eventBean);
 				returnlist.add(event);
 			}
@@ -881,10 +882,10 @@ public class DTHelper {
 		}
 	}
 
-	public static Collection<LocalEventObject> searchTodayEvents(int position, int size, String text)
+	public static Collection<ExplorerObject> searchTodayEvents(int position, int size, String text)
 			throws DataException, StorageConfigurationException, ConnectionException, ProtocolException,
 			SecurityException, TerritoryServiceException, AACException {
-		ArrayList<LocalEventObject> returnlist = new ArrayList<LocalEventObject>();
+		ArrayList<ExplorerObject> returnlist = new ArrayList<ExplorerObject>();
 
 		// Date now = new Date();
 		Calendar cal = Calendar.getInstance();
@@ -903,7 +904,7 @@ public class DTHelper {
 					position, size, "fromTime ASC");
 			/* convert from eventobj to localeventobj */
 			for (EventObjectForBean eventBean : events) {
-				LocalEventObject event = new LocalEventObject();
+				ExplorerObject event = new ExplorerObject();
 				event.setEventFromEventObjectForBean(eventBean);
 				returnlist.add(event);
 			}
@@ -1075,10 +1076,10 @@ public class DTHelper {
 		synchronize();
 	}
 
-	public static LocalEventObject attend(BaseDTObject event) throws ConnectionException, ProtocolException,
+	public static ExplorerObject attend(BaseDTObject event) throws ConnectionException, ProtocolException,
 			SecurityException, DataException, RemoteException, StorageConfigurationException,
 			TerritoryServiceException, AACException {
-		LocalEventObject returnEvent = new LocalEventObject();
+		ExplorerObject returnEvent = new ExplorerObject();
 		EventObject newEvent = tService.myEvent(event.getId(), true, getAuthToken());
 		EventObjectForBean newEventBean = new EventObjectForBean();
 		newEventBean.setObjectForBean(newEvent);
@@ -1087,10 +1088,10 @@ public class DTHelper {
 		return returnEvent;
 	}
 
-	public static LocalEventObject notAttend(BaseDTObject event) throws ConnectionException, ProtocolException,
+	public static ExplorerObject notAttend(BaseDTObject event) throws ConnectionException, ProtocolException,
 			SecurityException, DataException, RemoteException, StorageConfigurationException,
 			TerritoryServiceException, AACException {
-		LocalEventObject returnEvent = new LocalEventObject();
+		ExplorerObject returnEvent = new ExplorerObject();
 		EventObject newEvent = tService.myEvent(event.getId(), false, getAuthToken());
 		EventObjectForBean newEventBean = new EventObjectForBean();
 		newEventBean.setObjectForBean(newEvent);
@@ -1623,8 +1624,8 @@ public class DTHelper {
 		}
 	}
 
-	public static LocalEventObject findEventById(String eventId) {
-		LocalEventObject returnEvent = new LocalEventObject();
+	public static ExplorerObject findEventById(String eventId) {
+		ExplorerObject returnEvent = new ExplorerObject();
 		try {
 			EventObjectForBean event = getInstance().storage.getObjectById(eventId, EventObjectForBean.class);
 			returnEvent.setEventFromEventObjectForBean(event);

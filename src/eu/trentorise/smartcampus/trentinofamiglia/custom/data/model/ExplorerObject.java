@@ -10,7 +10,7 @@ import eu.trentorise.smartcampus.territoryservice.model.POIObject;
 import eu.trentorise.smartcampus.trentinofamiglia.R;
 import eu.trentorise.smartcampus.trentinofamiglia.custom.CategoryHelper;
 
-public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice.model.EventObject {
+public class ExplorerObject extends eu.trentorise.smartcampus.territoryservice.model.EventObject {
 	private static final long serialVersionUID = 388550207183035548L;
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -28,7 +28,7 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 		this.poiIdUserDefined = poiIdUserDefined;
 	}
 	
-	public LocalEventObject() {
+	public ExplorerObject() {
 		super();
 	}
 
@@ -73,7 +73,7 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 				return true;
 		return false;
 	}
-	public  static Drawable getIconsEventCertified(Context context, LocalEventObject o) {
+	public  static Drawable getIconsEventCertified(Context context, ExplorerObject o) {
 		
 		if (o.isCertified()) {
 			/* se ceretificato e evento */
@@ -111,8 +111,8 @@ public class LocalEventObject extends eu.trentorise.smartcampus.territoryservice
 		setVersion(event.getObjectForBean().getVersion());
 //		assignPoi(DTHelper.findPOIById(event.getObjectForBean().getPoiId()));
 	}
-	public LocalEventObject copy() {
-		LocalEventObject o = new LocalEventObject();
+	public ExplorerObject copy() {
+		ExplorerObject o = new ExplorerObject();
 		o.setAttendees(getAttendees());
 		o.setAttending(getAttending());
 		o.setCommunityData(getCommunityData());
